@@ -1,0 +1,6 @@
+{
+    "require": {
+        "phpoffice/phpspreadsheet": "^1.9",
+        "shuchkin/simplexlsx": "^0.8.9"
+    }
+}

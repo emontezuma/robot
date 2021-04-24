@@ -1,0 +1,1526 @@
+
+<div id="todo" class="mat-typography">
+    <div class="pantallaError"   *ngIf="pantalla==1">
+        <div class="cabeceraMensaje" >{{ errorTitulo }}</div>
+        <div class="mensaje" [innerHTML]="errorMensaje"></div>
+    </div>
+    <div class="catalogos">
+        <div class="cabecera">
+            <div class="botonera1">
+                <!-- <button class="boton regreso" mat-button (mouseover)="licSel=true;" (mouseout)="licSel=false;" [ngClass]="{botHover: licSel}" (click)="licenciar()" *ngIf="!licenciado">
+                    <mat-icon class="iconoBarras iconPB_2" svgIcon="i_licencia"></mat-icon>
+                    <div class="texto">{{ this.servicio.rTraduccion()[343] }}</div> 
+                </button>-->
+                <button class="boton regreso" mat-button (mouseover)="licTem=true;" (mouseout)="licTem=false;" [ngClass]="{botHover: licTem}" (click)="colores()" *ngIf="eProgramador">
+                    <mat-icon class="iconoBarras iconPB_2" svgIcon="i_paleta"></mat-icon>
+                    <div class="texto">{{ this.servicio.rTraduccion()[3189] }}</div> 
+                </button>
+                <button class="boton regreso" mat-button (mouseover)="licRei=true;" (mouseout)="licRei=false;" [ngClass]="{botHover: licRei}" (click)="reiniciar()" *ngIf="eProgramador">
+                    <mat-icon class="iconoBarras iconPB_2" svgIcon="i_eliminar"></mat-icon>
+                    <div class="texto">{{ this.servicio.rTraduccion()[3483] }}</div> 
+                </button>
+                <!-- <button class="boton regreso" mat-button (mouseover)="mapaSel=true;" (mouseout)="mapaSel=false;" [ngClass]="{botHover: mapaSel}" (click)="actualizarMapa()" *ngIf="verCambioMapa">
+                    <mat-icon class="iconoBarras iconPB_2" svgIcon="i_mapa"></mat-icon>
+                    <div class="texto">{{ this.servicio.rTraduccion()[3190] }}</div> 
+                </button> -->
+                <button class="boton regreso" mat-button (mouseover)="lineaSel=true;" (mouseout)="lineaSel=false;" [ngClass]="{botHover: lineaSel}" (click)="guardar()" [disabled]="!boton01">
+                    <mat-icon class="iconoBarras iconPB_2" svgIcon="i_guardar"></mat-icon>
+                    <div class="texto">{{ this.servicio.rTraduccion()[145] }}</div> 
+                </button>
+                <button class="boton regreso" mat-button (mouseover)="bot4Sel=true;" (mouseout)="bot4Sel=false;" [ngClass]="{botHover: bot4Sel}" (click)="cancelar()" [disabled]="!boton02">
+                    <mat-icon class="iconoBarras iconPB_2" svgIcon="i_cancelar" ></mat-icon>
+                    <div class="texto">{{ this.servicio.rTraduccion()[77] }}</div>
+                </button>
+                <button class="boton regreso" mat-button (mouseover)="bot5Sel=true;" (mouseout)="bot5Sel=false;" [ngClass]="{botHover: bot5Sel}" (click)="inicializar()" *ngIf="!verCambioMapa" [disabled]="licencias.length==0">
+                    <mat-icon class="iconoBarras iconPB_2" svgIcon="i_eliminar" ></mat-icon>
+                    <div class="texto">{{ this.servicio.rTraduccion()[553] }}</div>
+                </button>
+            </div>
+        </div>
+
+        <div class="contenedorScroll" cdkScrollable [style.overflowY]="verBarra">
+
+        <div class="tabla" @esquema (@esquema.done)="salidaEfecto($event)" *ngIf="modelo==2">
+            <div class="registroGeneral">
+                <div class="grupoTitulo">{{ this.servicio.rTraduccion()[3066] }}</div>
+                <div class="grupoCampos">
+                    <div class="registroCampo">
+                        <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3068] }}</div>
+                        <mat-form-field class="texto">
+                            <mat-select [(value)]="tipo" name="tipo" (selectionChange)="generarClave(); cambiando($event)">
+                                <mat-option value="B">{{ this.servicio.rTraduccion()[2936] }}</mat-option>
+                                <mat-option value="R">{{ this.servicio.rTraduccion()[3049] }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2952] }}</span>
+                    </div> 
+                    <div class="registroCampo" >
+                        <div class="registroTitulo">{{ this.servicio.rTraduccion()[3069] }}</div>
+                        <mat-form-field class="cajaTexto_2">
+                            <input matInput #txtT1 [(ngModel)]="local" maxlength="50" autocomplete="off" name="local"  #local1 ="ngModel" (input)="generarClave(); cambiando($event) " >
+                            <button mat-button *ngIf="local" matSuffix mat-icon-button aria-label="Clear" (click)="local = '';cambiando();error01=true;">
+                                <mat-icon class="iconPB" svgIcon="in_cerrar"></mat-icon>
+                            </button>
+                            <mat-hint class="pista" align="end">{{ local1.value?.length || 0 }} / 50</mat-hint>
+                            <mat-hint [ngClass]="{ pista: !error01, pistaError: error01 }" align="start">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+                        </mat-form-field>                            
+                        <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2949] }}</span>
+                    </div>
+                    <div class="registroCampo" >
+                        <div class="registroTitulo">{{ this.servicio.rTraduccion()[3071] }}</div>
+                        <div class="registroTituloST">{{ clavePublica ? clavePublica : this.servicio.rTraduccion()[3252] }}</div>    
+                        <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2939] }}</span>
+                    </div>
+                    <div class="registroCampo" >
+                        <div class="registroTitulo">{{ this.servicio.rTraduccion()[3074] }}</div>
+                        <mat-form-field class="cajaTexto_2">
+                            <input matInput #txtT2 [(ngModel)]="licencia" maxlength="50" autocomplete="off" name="licencia"  #licencia1 ="ngModel" (input)="cambiando($event);error01=false; " >
+                            <button mat-button *ngIf="licencia" matSuffix mat-icon-button aria-label="Clear" (click)="licencia = '';cambiando();error02=true;">
+                                <mat-icon class="iconPB" svgIcon="in_cerrar"></mat-icon>
+                            </button>
+                            <mat-hint class="pista" align="end">{{ licencia1.value?.length || 0 }} / 50</mat-hint>
+                            <mat-hint [ngClass]="{ pista: !error02, pistaError: error02 }" align="start" *ngIf="error02">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+                            <mat-hint [ngClass]="{ pista: !error03, pistaError: error03 }" align="start" *ngIf="error03">{{ this.servicio.rTraduccion()[3191] }}</mat-hint>
+                        </mat-form-field>                            
+                        <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3017] }}</span>
+                    </div>
+                </div>
+                
+                <div class="grupoTitulo">{{ this.servicio.rTraduccion()[3125] }}</div>
+                <div class="cabecera_2" @esquema>
+                    <div class="tablaCab_2">
+                        <div class="col00"></div>
+                        <div class="col01">{{ this.servicio.rTraduccion()[568] }}</div>
+                        <div class="col02"> {{ this.servicio.rTraduccion()[3187] }} </div>
+                        <div class="col02"> {{ this.servicio.rTraduccion()[3074] }} </div>
+                        <div class="col03"> {{ this.servicio.rTraduccion()[1299] }} </div>
+                    </div>
+                </div>
+
+                <div class="tabla">
+                    <div class="ayudaCampo" *ngIf="licencias.length==0"> {{ this.servicio.rTraduccion()[3186] }} </div>
+                    <div class="tablaItems_b">    
+                        <button class="boton_2 regreso" mat-button *ngFor="let licencia of licencias; let i = index"  (mouseover)="licencia.seleccionado=true;" (mouseout)="licencia.seleccionado=false;" [ngClass]="{botHover: licencia.seleccionado }">
+                            <div class="tablaDet_2">
+                                <div class="col00">
+                                    <mat-icon class="iconPB_6" [svgIcon]="iconoGeneral"></mat-icon>
+                                </div>
+                                <div class="col01">{{ licencia.tipo == 'R' ? this.servicio.rTraduccion()[3049] : this.servicio.rTraduccion()[2936] }}</div>
+                                <div class="col02">{{ licencia.mmcall }}</div>
+                                <div class="col02">{{ licencia.cronos }}</div>
+                                <div class="col03">{{ licencia.licenciado | date:this.servicio.rIdioma().fecha_01 }}</div>
+                            </div>
+                        </button>                
+                    </div>                
+                </div>                       
+            </div>
+        </div>
+        <div class="tabla" @esquema (@esquema.done)="salidaEfecto($event)" *ngIf="modelo==1">
+                <div class="registroCaja" >
+                <div class="alertaCaja" *ngIf="faltaMensaje" >
+                    <mat-icon class="iconPB_4" svgIcon="i_alerta"></mat-icon>
+                    <span class="alertaMensaje" [innerHTML]="faltaMensaje"></span>
+                </div>
+                <div class="registroGeneral">
+                    <div class="grupoTitulo">{{ this.servicio.rTraduccion()[3065] }}</div>
+                    <div class="grupoCampos">
+                        <div class="registroCampo" >
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3067] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT1 [(ngModel)]="detalle.planta" maxlength="100" autocomplete="off" name="detalle.planta"  #planta ="ngModel" (input)="cambiando($event);error01=false; " >
+                                <button mat-button *ngIf="detalle.planta" matSuffix mat-icon-button aria-label="Clear" (click)="detalle.planta = '';cambiando();error01=true;">
+                                    <mat-icon class="iconPB" svgIcon="in_cerrar"></mat-icon>
+                                </button>
+                                <mat-hint class="pista" align="end">{{ planta.value?.length || 0 }} / 100</mat-hint>
+                                <mat-hint [ngClass]="{ pista: !error01, pistaError: error01 }" align="start">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+                            </mat-form-field>                            
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3038] }}</span>
+                        </div>
+
+                        <div class="registroCampo" >
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3070] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT2 [(ngModel)]="detalle.rfc" maxlength="30" autocomplete="off" name="detalle.rfc"  #rfc ="ngModel" (input)="cambiando($event);error02=false; " >
+                                <button mat-button *ngIf="detalle.rfc" matSuffix mat-icon-button aria-label="Clear" (click)="detalle.rfc = '';cambiando();error02=true;">
+                                    <mat-icon class="iconPB" svgIcon="in_cerrar"></mat-icon>
+                                </button>
+                                <mat-hint class="pista" align="end">{{ rfc.value?.length || 0 }} / 30</mat-hint>
+                                <mat-hint [ngClass]="{ pista: !error02, pistaError: error02 }" align="start">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+                            </mat-form-field>                            
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2961] }}</span>
+                        </div>
+
+                        <!-- <div class="registroCampo_r">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3072] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT3 [(ngModel)]="detalle.licencia" maxlength="50" autocomplete="off" name="detalle.licencia"  #licencia ="ngModel" (input)="cambiando($event);error03=false; " >
+                                <button mat-button *ngIf="detalle.licencia" matSuffix mat-icon-button aria-label="Clear" (click)="detalle.licencia = '';cambiando();error03=true;">
+                                    <mat-icon class="iconPB" svgIcon="in_cerrar"></mat-icon>
+                                </button>
+                                <mat-hint class="pista" align="end">{{ licencia.value?.length || 0 }} / 100</mat-hint>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+                            </mat-form-field>                            
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2976] }}</span>
+                            <button class="boton regreso3" mat-button (mouseover)="licenciaSel=true;" (mouseout)="licenciaSel=false;" [ngClass]="{botHover: licenciaSel}" (click)="verLicencia()">
+                                <div class="registroconImagen">
+                                    <mat-icon class="iconoBarras iconPB_4" svgIcon="i_licencia"></mat-icon>
+                                    <div class="texto">{{ this.servicio.rTraduccion()[3188] }}</div>
+                                </div> 
+                            </button>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3073] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.ver_ayuda" name="detalle.ver_ayuda" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2934] }}</span>
+                        </div>  -->
+                        
+                    </div>
+
+                    <!-- <div class="grupoTitulo">{{ this.servicio.rTraduccion()[3124] }}</div>
+                    <div class="grupoCampos">
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3126] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" #txtNotas [(ngModel)]="detalle.url_mmcall" maxlength="1000" autocomplete="off" name="detalle.url_mmcall" #url_mmcall="ngModel" (input)="cambiando($event)"></textarea>
+                                <button mat-button *ngIf="detalle.url_mmcall" matSuffix mat-icon-button aria-label="Clear" (click)="detalle.url_mmcall = '';cambiando();">
+                                    <mat-icon class="iconPB" svgIcon="in_cerrar"></mat-icon>
+                                </button>
+                                <mat-hint class="pista" align="end">{{ url_mmcall.value?.length || 0 }} / 1000</mat-hint>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[358] }}</mat-hint>
+                            </mat-form-field>                            
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2986] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3127] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.accion_mmcall" name="detalle.accion_mmcall" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[2932] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[3064] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3001] }}</span>
+                        </div> 
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3128] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput  [(ngModel)]="detalle.ip_localhost" maxlength="100" autocomplete="off" name="detalle.ip_localhost" #ip_localhost="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="end">{{ ip_localhost.value?.length || 0 }} / 100</mat-hint>
+                            </mat-form-field>   
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2973] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3129] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.confirmar_mensaje_mantto" name="detalle.confirmar_mensaje_mantto" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="I">{{ this.servicio.rTraduccion()[3032] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3054] }}</span>
+                        </div> 
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3130] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.mostrar_numero" name="detalle.mostrar_numero" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="I">{{ this.servicio.rTraduccion()[3034] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3053] }}</span>
+                        </div>
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3131] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.tiempo_andon" maxlength="5" min="0" max="86400" autocomplete="off" name="detalle.tiempo_andon" #tiempo_andon="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[3248] }} </mat-hint>
+                                <mat-hint class="pista" align="end">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2963] }}</span>
+                        </div> 
+
+                        
+                    </div> -->
+                    <div class="grupoTitulo">{{ this.servicio.rTraduccion()[3132] }}</div>
+                        <div class="grupoCampos">
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3133] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.limitar_respuestas" maxlength="4" autocomplete="off" name="detalle.limitar_respuestas" #limitar_respuestas="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[3245] }} </mat-hint>
+                                <mat-hint class="pista" align="end">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2970] }}</span>
+                        </div> 
+
+                        <!-- <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3134] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.limitar_inicio" maxlength="4" autocomplete="off" name="detalle.limitar_inicio" #limitar_inicio="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[3245] }} </mat-hint>
+                                <mat-hint class="pista" align="end">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2969] }}</span>
+                        </div> 
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3135] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.tiempo_reporte" maxlength="12" autocomplete="off" name="detalle.tiempo_reporte" #tiempo_reporte="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[3245] }} </mat-hint>
+                                <mat-hint class="pista" align="end">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2972] }}</span>
+                        </div>
+                        
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3136] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.confirmar_reparacion" name="detalle.confirmar_reparacion" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[798] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3137] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.recuperar_sesion" name="detalle.recuperar_sesion" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[2946] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[2933] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3005] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3138] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.ver_reportes_final" name="detalle.ver_reportes_final" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3018] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3139] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.permitir_multiples_reportes" name="detalle.permitir_multiples_reportes" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3019] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3140] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.permitir_afectacion" name="detalle.permitir_afectacion" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3046] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3481] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.atencion_llamada" name="detalle.atencion_llamada" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3482] }}</span>
+                        </div> --> 
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3141] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.finalizar_sesion" maxlength="4" min="0" max="9999" autocomplete="off" name="detalle.finalizar_sesion" #finalizar_sesion="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[3249] }} </mat-hint>
+                                <mat-hint class="pista" align="end">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2966] }}</span>
+                        </div> 
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3151] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.be_envio_reportes" name="detalle.be_envio_reportes" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2931] }}</span>
+                        </div>
+
+                    </div>
+                    <div class="grupoTitulo">{{ this.servicio.rTraduccion()[3142] }}</div>
+                        <div class="grupoCampos">
+                        
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3143] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT1 [(ngModel)]="detalle.correo_cuenta" maxlength="100" autocomplete="off" name="detalle.correo_cuenta"  #correo_cuenta ="ngModel" (input)="cambiando($event); " >
+                                <button mat-button *ngIf="detalle.correo_cuenta" matSuffix mat-icon-button aria-label="Clear" (click)="detalle.correo_cuenta = '';cambiando()">
+                                    <mat-icon class="iconPB" svgIcon="in_cerrar"></mat-icon>
+                                </button>
+                                <mat-hint class="pista" align="end">{{ correo_cuenta.value?.length || 0 }} / 100</mat-hint>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[358] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2956] }}</span>
+                        </div> 
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[445] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT1 [(ngModel)]="detalle.correo_clave" maxlength="100" autocomplete="off" name="detalle.correo_clave"  #correo_clave ="ngModel" (input)="cambiando($event); " >
+                                <button mat-button *ngIf="detalle.correo_clave" matSuffix mat-icon-button aria-label="Clear" (click)="detalle.correo_clave = '';cambiando()">
+                                    <mat-icon class="iconPB" svgIcon="in_cerrar"></mat-icon>
+                                </button>
+                                <mat-hint class="pista" align="end">{{ correo_clave.value?.length || 0 }} / 100</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2974] }}</span>
+                        </div> 
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3144] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT1 [(ngModel)]="detalle.correo_host" maxlength="100" autocomplete="off" name="detalle.correo_host"  #correo_host ="ngModel" (input)="cambiando($event); " >
+                                <button mat-button *ngIf="detalle.correo_host" matSuffix mat-icon-button aria-label="Clear" (click)="detalle.correo_host = '';cambiando()">
+                                    <mat-icon class="iconPB" svgIcon="in_cerrar"></mat-icon>
+                                </button>
+                                <mat-hint class="pista" align="end">{{ correo_host.value?.length || 0 }} / 100</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2953] }}</span>
+                        </div> 
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3145] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT1 [(ngModel)]="detalle.correo_puerto" maxlength="100" autocomplete="off" name="detalle.correo_puerto"  #correo_puerto ="ngModel" (input)="cambiando($event); " >
+                                <button mat-button *ngIf="detalle.correo_puerto" matSuffix mat-icon-button aria-label="Clear" (click)="detalle.correo_puerto = '';cambiando()">
+                                    <mat-icon class="iconPB" svgIcon="in_cerrar"></mat-icon>
+                                </button>
+                                <mat-hint class="pista" align="end">{{ correo_puerto.value?.length || 0 }} / 100</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2960] }}</span>
+                        </div> 
+
+                        <div class="registroCampo_r">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3146] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.correo_ssl" name="detalle.correo_ssl" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2992] }}</span>
+                            <button class="boton regreso3" mat-button (mouseover)="licenciaSel=true;" (mouseout)="licenciaSel=false;" [ngClass]="{botHover: licenciaSel}" (click)="testMail()" [disabled]="veces_mail<20">
+                                <div class="registroconImagen">
+                                    <mat-icon class="iconoBarras iconPB_4" svgIcon="i_correos"></mat-icon>
+                                    <div class="texto">{{ this.servicio.rTraduccion()[3454] }}</div>
+                                </div> 
+                            </button>
+                            <span class="ayudaCampo_2">{{ respuesta_mail ? respuesta_mail : this.servicio.rTraduccion()[3455] }}</span>
+                        </div>  
+
+                    </div>
+
+                    <!--<div class="grupoTitulo">{{ this.servicio.rTraduccion()[3147] }}</div>
+                        <div class="grupoCampos">
+                            
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3148] }}</div>
+
+                            <div class="cajaLista">
+                                <mat-selection-list #listaListad class="lista2" [(ngModel)]="detalle.listado" name="detalle.listado" (click)="cambiando($event)">
+                                    <mat-list-option value="0" [selected]="detalle.be_alarmas_correos == 'S'" checkboxPosition="before">
+                                        <div class="columnaLista">
+                                            <div>{{ this.servicio.rTraduccion()[3444] }}</div>
+                                        </div>
+                                    </mat-list-option>
+                                    <mat-list-option value="1" [selected]="detalle.be_alarmas_mmcall == 'S'" checkboxPosition="before">
+                                        <div class="columnaLista">
+                                            <div>{{ this.servicio.rTraduccion()[3445] }}</div>
+                                        </div>
+                                    </mat-list-option>
+                                    <mat-list-option value="2" [selected]="detalle.be_alarmas_llamadas == 'S'" checkboxPosition="before">
+                                        <div class="columnaLista">
+                                            <div>{{ this.servicio.rTraduccion()[3446] }}</div>
+                                        </div>
+                                    </mat-list-option>
+                                    <mat-list-option value="3" [selected]="detalle.be_alarmas_sms == 'S'" checkboxPosition="before">
+                                        <div class="columnaLista">
+                                            <div>{{ this.servicio.rTraduccion()[3447] }}</div>
+                                        </div>
+                                    </mat-list-option>
+                                    
+                                </mat-selection-list>
+                            </div>
+                            
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[771] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3149] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.be_revision_correos" maxlength="6" autocomplete="off" name="detalle.be_revision_correos" #be_revision_correos="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2967] }}</span>
+                        </div> 
+                        
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3150] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.be_revision_mmcall" maxlength="6" autocomplete="off" name="detalle.be_revision_mmcall" #be_revision_mmcall="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2968] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3151] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.be_envio_reportes" name="detalle.be_envio_reportes" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2931] }}</span>
+                        </div>
+
+                        <div class="registroCampo" *ngFor="let evento of eventos; let i = index">
+                            <div class="registroTitulo" >{{ evento.nombre }}</div>    
+                            <div class="columnas" >
+                                <mat-form-field class="texto66">
+                                    <mat-select [(value)]="evento.monitor" name="evento.monitor" (selectionChange)=cambiando($event)>
+                                        <mat-option value="S">{{ this.servicio.rTraduccion()[386] }}</mat-option>
+                                        <mat-option value="N">{{ this.servicio.rTraduccion()[387] }}</mat-option>
+                                    </mat-select>
+                                    <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[3450] }}</mat-hint>
+                                </mat-form-field>
+                                <mat-form-field class="texto33">
+                                    <input matInput type="number" [(ngModel)]="evento.revision" maxlength="6" autocomplete="off" name="evento.revision" #revision="ngModel" (input)="cambiando($event)">
+                                    <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[3451] }}</mat-hint>
+                                </mat-form-field>  
+                            </div>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3055] }}</span>
+                        </div>
+                        
+                    </div>
+
+                   <div class="grupoTitulo">{{ this.servicio.rTraduccion()[3152] }}</div>
+                    <div class="grupoCampos">
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3153] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.optimizar_llamada" name="detalle.optimizar_llamada" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3040] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3154] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.optimizar_sms" name="detalle.optimizar_sms" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3042] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3155] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.optimizar_correo" name="detalle.optimizar_correo" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3041] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3156] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.optimizar_mmcall" name="detalle.optimizar_mmcall" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3043] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3157] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.mantener_prioridad" name="detalle.mantener_prioridad" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3027] }}</span>
+                        </div>
+                        
+                    </div> -->
+
+                    <!-- <div class="grupoTitulo">{{ this.servicio.rTraduccion()[3158] }}</div>
+                    <div class="grupoCampos">
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3159] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.utilizar_arduino" name="detalle.utilizar_arduino" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3013] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3162] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput  [(ngModel)]="detalle.puerto_comm1" maxlength="10" autocomplete="off" name="detalle.puerto_comm1" #puerto_comm1="ngModel" (input)="cambiando($event)">
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2954] }}</span>
+                        </div>
+                        
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3163] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput  [(ngModel)]="detalle.puerto_comm1_par" maxlength="100" autocomplete="off" name="detalle.puerto_comm1_par" #puerto_comm1_par="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[3452] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2982] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3164] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput  [(ngModel)]="detalle.puerto_comm2" maxlength="10" autocomplete="off" name="detalle.puerto_comm2" #puerto_comm2="ngModel" (input)="cambiando($event)">
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2955] }}</span>
+                        </div> 
+                        
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3165] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput  [(ngModel)]="detalle.puerto_comm2_par" maxlength="100" autocomplete="off" name="detalle.puerto_comm2_par" #puerto_comm2_par="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[3452] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2955] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3166] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput  [(ngModel)]="detalle.ruta_sms" maxlength="500" autocomplete="off" name="detalle.ruta_sms" #ruta_sms="ngModel" (input)="cambiando($event)">
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2979] }}</span>
+                        </div>
+                        
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3167] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput  [(ngModel)]="detalle.ruta_audios" maxlength="500" autocomplete="off" name="detalle.ruta_audios" #ruta_audios="ngModel" (input)="cambiando($event)">
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2979] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3168] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput  [(ngModel)]="detalle.voz_predeterminada" maxlength="255" autocomplete="off" name="detalle.voz_predeterminada" #ruta_audios="ngModel" (input)="cambiando($event)">
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2957] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3169] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.veces_reproducir" maxlength="2" autocomplete="off" name="detalle.veces_reproducir" #veces_reproducir="ngModel" (input)="cambiando($event)">
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3039] }}</span>
+                        </div> 
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3160] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.timeout_llamadas" maxlength="4" autocomplete="off" name="detalle.timeout_llamadas" #timeout_llamadas="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2941] }}</span>
+                        </div> 
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3161] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.timeout_sms" maxlength="4" autocomplete="off" name="detalle.timeout_sms" #timeout_sms="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2940] }}</span>
+                        </div> 
+                
+                    </div>    --> 
+
+                    <!-- <div class="grupoTitulo">{{ this.servicio.rTraduccion()[3170] }}</div>
+                    <div class="grupoCampos">
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3171] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.escape_llamadas" maxlength="1" autocomplete="off" name="detalle.escape_llamadas" #escape_llamadas="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[358] }}</mat-hint>
+                                <mat-hint class="pista" align="end">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3026] }}</span>
+                        </div> 
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3172] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.traducir" name="detalle.traducir" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2942] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3173] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.escape_accion" name="detalle.escape_accion" (selectionChange)=cambiando($event)>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[3033] }}</mat-option>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[2948] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2999] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[958] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" #txtNotas [(ngModel)]="detalle.escape_mensaje" maxlength="200" autocomplete="off" name="detalle.escape_mensaje" #escape_mensaje="ngModel" (input)="cambiando($event)"></textarea>
+                                <button mat-button *ngIf="detalle.escape_mensaje" matSuffix mat-icon-button aria-label="Clear" (click)="detalle.escape_mensaje = '';cambiando();">
+                                    <mat-icon class="iconPB" svgIcon="in_cerrar"></mat-icon>
+                                </button>
+                                <mat-hint class="pista" align="end">{{ escape_mensaje.value?.length || 0 }} / 200</mat-hint>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[358] }}</mat-hint>
+                            </mat-form-field>                            
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2984] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[645] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <mat-select #lstC15 [(ngModel)]="detalle.escape_lista" name="detalle.escape_lista" (selectionChange)=cambiando($event)>
+                                    <mat-option *ngFor="let lista of listas; let i = index" [value]="lista.id">{{ lista.nombre }}</mat-option>
+                                </mat-select>
+                                <mat-hint *ngIf="error35" class="pistaError" align="start">{{ this.servicio.rTraduccion()[3192] }}</mat-hint>
+                            </mat-form-field>                            
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2997] }}</span>
+                        </div>
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3174] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.escape_mensaje_propio" name="detalle.escape_mensaje_propio" (selectionChange)=cambiando($event)>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[827] }}</span>
+                        </div>
+
+
+                    </div> -->
+
+                    <!-- <div class="grupoTitulo">{{ this.servicio.rTraduccion()[3397] + ' ' + detalle.mapa_ultimo ? this.servicio.rTraduccion()[3398] + (detalle.mapa_ultimo | date:this.servicio.rIdioma().fecha_02) + ')' : '' }}</div>    
+                    <div class="grupoCampos">
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3175] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput  [(ngModel)]="detalle.ruta_programa_mapa" maxlength="1000" autocomplete="off" name="detalle.ruta_programa_mapa" #ruta_programa_mapa="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[3398] + (!detalle.mapa_ultimo ? this.servicio.rTraduccion()[449] : detalle.mapa_ultimo | date:this.servicio.rIdioma().fecha_02) }}</mat-hint>
+                                <mat-hint class="pista" align="end">{{ ruta_programa_mapa.value?.length || 0 }} / 1000</mat-hint>
+                            </mat-form-field>   
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3006] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3176] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.mapa_rotacion" name="detalle.mapa_rotacion" (selectionChange)=cambiando($event)>
+                                    <mat-option value="0">{{ this.servicio.rTraduccion()[3030] }}</mat-option>
+                                    <mat-option value="1">{{ this.servicio.rTraduccion()[3031] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2950] }}</span>
+                        </div>        
+                        
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3177] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.ver_nombre_planta" name="detalle.ver_nombre_planta" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2945] }}</span>
+                        </div>   
+                        
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3178] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT1 type="number" [(ngModel)]="detalle.mapa_delay" maxlength="6"  max="3600" autocomplete="off" name="detalle.mapa_delay" #mapa_delay="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                                <mat-hint class="pista" align="end">30-3600</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3059] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3179] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.mapa_alineacion" name="detalle.mapa_alineacion" (selectionChange)=cambiando($event)>
+                                    <mat-option value="L">{{ this.servicio.rTraduccion()[3022] }}</mat-option>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[2987] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3020] }}</span>
+                        </div> 
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3180] }}</div>
+                            <dx-color-box class="colores" [(value)]="detalle.mapa_fondo" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando($event)" (input)="cambiando($event)"></dx-color-box>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2944] }}</span>
+                        </div>
+                    </div> -->
+
+                    <div class="grupoTitulo">{{ this.servicio.rTraduccion()[3080] }}</div>
+                    <div class="grupoCampos">
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3081] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <mat-select #lstC15 [(ngModel)]="detalle.tema_principal" name="detalle.tema_principal" (selectionChange)=cambiando($event)>
+                                    <mat-option *ngFor="let tema of temas; let i = index" [value]="tema.id">{{ tema.nombre }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>                            
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2998] }}</span>
+                        </div>
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3082] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.tema_permitir_cambio" name="detalle.tema_permitir_cambio" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3008] }}</span>
+                        </div> 
+                        <!--<div class="registroCampo" >
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3083] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.tema_permitir_crear" name="detalle.tema_permitir_crear" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2"></span>
+                        </div>-->
+                    </div>
+
+                    <!-- <div class="grupoTitulo">{{ this.servicio.rTraduccion()[960] }}</div>
+                    <div class="grupoCampos">
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[686] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT1 type="number" [(ngModel)]="disponibilidad.lunes" maxlength="6"  max="86400" autocomplete="off" name="disponibilidad.lunes" #lunes="ngModel" (input)="cambiando($event)">
+                                <span class="gris" matSuffix>{{ calcularHR(disponibilidad.lunes) }}</span>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                                <mat-hint class="pista" align="end"> {{ this.servicio.rTraduccion()[927] }} </mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[830] }}</span>
+                        </div>
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[687] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT1 type="number" [(ngModel)]="disponibilidad.martes" maxlength="6"  max="86400" autocomplete="off" name="disponibilidad.martes" #martes="ngModel" (input)="cambiando($event)">
+                                <span class="gris" matSuffix>{{ calcularHR(disponibilidad.martes) }}</span>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                                <mat-hint class="pista" align="end"> {{ this.servicio.rTraduccion()[927] }} </mat-hint>
+                                
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[831] }}</span>
+                        </div>
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[688] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT1 type="number" [(ngModel)]="disponibilidad.miercoles" maxlength="6"  max="86400" autocomplete="off" name="disponibilidad.miercoles" #miercoles="ngModel" (input)="cambiando($event)">
+                                <span class="gris" matSuffix>{{ calcularHR(disponibilidad.miercoles) }}</span>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                                <mat-hint class="pista" align="end"> {{ this.servicio.rTraduccion()[927] }} </mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[832] }}</span>
+                        </div>
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[689] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT1 type="number" [(ngModel)]="disponibilidad.jueves" maxlength="6"  max="86400" autocomplete="off" name="disponibilidad.jueves" #jueves="ngModel" (input)="cambiando($event)">
+                                <span class="gris" matSuffix>{{ calcularHR(disponibilidad.jueves) }}</span>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                                <mat-hint class="pista" align="end"> {{ this.servicio.rTraduccion()[927] }} </mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[833] }}</span>
+                        </div>
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[690] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT1 type="number" [(ngModel)]="disponibilidad.viernes" maxlength="6"  max="86400" autocomplete="off" name="disponibilidad.viernes" #viernes="ngModel" (input)="cambiando($event)">
+                                <span class="gris" matSuffix>{{ calcularHR(disponibilidad.viernes) }}</span>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                                <mat-hint class="pista" align="end"> {{ this.servicio.rTraduccion()[927] }} </mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[834] }}</span>
+                        </div>
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[691] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT1 type="number" [(ngModel)]="disponibilidad.sabado" maxlength="6"  max="86400" autocomplete="off" name="disponibilidad.sabado" #sabado="ngModel" (input)="cambiando($event)">
+                                <span class="gris" matSuffix>{{ calcularHR(disponibilidad.sabado) }}</span>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                                <mat-hint class="pista" align="end"> {{ this.servicio.rTraduccion()[927] }} </mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[835] }}</span>
+                        </div>
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[692] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT1 type="number" [(ngModel)]="disponibilidad.domingo" maxlength="6"  max="86400" autocomplete="off" name="disponibilidad.domingo" #domingo="ngModel" (input)="cambiando($event)">
+                                <span class="gris" matSuffix>{{ calcularHR(disponibilidad.domingo) }}</span>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                                <mat-hint class="pista" align="end"> {{ this.servicio.rTraduccion()[927] }} </mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[836] }}</span>
+                        </div>
+                    </div>
+
+                    <div class="grupoTitulo">{{ this.servicio.rTraduccion()[3084] }}</div>
+                    <div class="grupoCampos">
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3085] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.audios_activar" name="detalle.audios_activar" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3025] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3090] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" [(ngModel)]="detalle.mensaje" maxlength="300" autocomplete="off" name="detalle.mensaje" #mensaje="ngModel" (input)="cambiando($event)"></textarea>
+                                <button mat-button *ngIf="detalle.mensaje" matSuffix mat-icon-button aria-label="Clear" (click)="detalle.mensaje = '';cambiando();">
+                                    <mat-icon class="iconPB" svgIcon="in_cerrar"></mat-icon>
+                                </button>
+                                <mat-hint class="pista" align="end">{{ mensaje.value?.length || 0 }} / 300</mat-hint>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[358] }}</mat-hint>
+                            </mat-form-field>    
+                                                    
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2985] }}</span>
+                            <span class="ayudaCampo_3" [matTooltip] = "mensajeMacro" matTooltipClass = "toolTip" matTooltipShowDelay = "100">{{ this.servicio.rTraduccion()[3251] }} </span>       
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3091] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.audios_escalamiento" name="detalle.audios_escalamiento" (selectionChange)=cambiando($event)>
+                                    <mat-option value="0">{{ this.servicio.rTraduccion()[3036] }}</mat-option>
+                                    <mat-option value="1">{{ this.servicio.rTraduccion()[3051] }}</mat-option>
+                                    <mat-option value="2">{{ this.servicio.rTraduccion()[3050] }}</mat-option>
+                                    <mat-option value="3">{{ this.servicio.rTraduccion()[3052] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3024] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[725] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" [(ngModel)]="detalle.audios_resolucion" maxlength="150" autocomplete="off" name="detalle.audios_resolucion" #audios_resolucion="ngModel" (input)="cambiando($event)"></textarea>
+                                <button mat-button *ngIf="detalle.audios_resolucion" matSuffix mat-icon-button aria-label="Clear" (click)="detalle.audios_resolucion = '';cambiando();">
+                                    <mat-icon class="iconPB" svgIcon="in_cerrar"></mat-icon>
+                                </button>
+                                <mat-hint class="pista" align="end">{{ audios_resolucion.value?.length || 0 }} / 150</mat-hint>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[3448] }}</mat-hint>
+                            </mat-form-field>    
+                                                    
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3021] }}</span>
+                            <span class="ayudaCampo_3" [matTooltip] = "mensajeMacro" matTooltipClass = "toolTip" matTooltipShowDelay = "100">{{ this.servicio.rTraduccion()[3251] }} </span>       
+                        </div>
+                        
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3092] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput  [(ngModel)]="detalle.audios_ruta" maxlength="1000" autocomplete="off" name="detalle.audios_ruta" #audios_ruta="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="end">{{ audios_ruta.value?.length || 0 }} / 1000</mat-hint>
+                            </mat-form-field>   
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[828] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3093] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput  [(ngModel)]="detalle.audios_prefijo" maxlength="1000" autocomplete="off" name="detalle.audios_prefijo" #audios_prefijo="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="end">{{ audios_prefijo.value?.length || 0 }} / 1000</mat-hint>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[358] }}</mat-hint>
+                            </mat-form-field>   
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2977] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3094] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.audios_repeticiones" name="detalle.audios_repeticiones" (selectionChange)=cambiando($event)>
+                                    <mat-option value="1">{{ this.servicio.rTraduccion()[3062] }}</mat-option>
+                                    <mat-option value="2">{{ this.servicio.rTraduccion()[2943] }}</mat-option>
+                                    <mat-option value="3">{{ this.servicio.rTraduccion()[3061] }}</mat-option>
+                                    <mat-option value="5">{{ this.servicio.rTraduccion()[2938] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2996] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3095] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.tiempo_audios" maxlength="5" min="0" max="9999" autocomplete="off" name="detalle.tiempo_audios" #tiempo_audios="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[3248] }} </mat-hint>
+                                <mat-hint class="pista" align="end">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2964] }}</span>
+                        </div> 
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3096] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.audio_rate" maxlength="2" min="-10" max="10" autocomplete="off" name="detalle.audio_rate" #audio_rate="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[3246] }} </mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2980] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3086] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.audios_externos" name="detalle.audios_externos" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="2">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3015] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3087] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput  [(ngModel)]="detalle.audios_externos_carpeta" maxlength="500" autocomplete="off" name="detalle.audios_externos_carpeta" #audios_externos_carpeta="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="end">{{ audios_externos_carpeta.value?.length || 0 }} / 500</mat-hint>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[358] }}</mat-hint>
+                            </mat-form-field>   
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2978] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3088] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.audios_externos_modo" name="detalle.audios_externos_modo" (selectionChange)=cambiando($event)>
+                                    <mat-option value="1">{{ this.servicio.rTraduccion()[3029] }}</mat-option>
+                                    <mat-option value="2">{{ this.servicio.rTraduccion()[2935] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2996] }}</span>
+                        </div>
+                        
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3089] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.audios_externos_pausa" maxlength="4" min="0" max="9999" autocomplete="off" name="detalle.audios_externos_pausa" #audios_externos_pausa="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[3247] }} </mat-hint>
+                                <mat-hint class="pista" align="end">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2965] }}</span>
+                        </div> 
+
+                    </div>
+
+                    <div class="grupoTitulo" *ngIf="servicio.rVersion().modulos[5] == 1">{{ this.servicio.rTraduccion()[3097] }}</div>
+                    <div class="grupoCampos" *ngIf="servicio.rVersion().modulos[5] == 1">
+
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3098] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.carrusel_oee" name="detalle.carrusel_oee" (selectionChange)=cambiando($event)>
+                                    <mat-option value="0">{{ this.servicio.rTraduccion()[3060] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[3056] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2991] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3099] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT1 type="number" [(ngModel)]="detalle.carrusel_tiempo" maxlength="6"  max="999999" autocomplete="off" name="detalle.carrusel_tiempo" #carrusel_tiempo="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                                <mat-hint class="pista" align="end">10-999999</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3000] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3100] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.andon_prorrateado" name="detalle.andon_prorrateado" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="I">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3014] }}</span>
+                        </div> 
+
+                        <div class="registroCampo" *ngIf="servicio.rVersion().modulos[10] == 1">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3741] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.verhoraxhoraenoee" name="detalle.verhoraxhoraenoee" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="I">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3742] }}</span>
+                        </div> 
+
+                        <div class="registroCampoLista">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3101] }}</div>
+                            <div class="lista3">
+                                <div class="columnaLista2">
+                                    <mat-form-field class="cajaTexto_ind">
+                                        <input matInput [(ngModel)]="detalle.bajo_hasta" type="number" [placeholder]="this.servicio.rTraduccion()[3420]" maxlength="3" min="0" max="99" autocomplete="off" name="detalle.bajo_hasta"  #bajo_hasta ="ngModel" (input)="cambiando($event)">
+                                    </mat-form-field>
+                                    <mat-form-field class="cajaTexto_ind2">
+                                        <input matInput [(ngModel)]="detalle.bajo_etiqueta" [placeholder]="this.servicio.rTraduccion()[3421]" maxlength="20" min="0" max="99" autocomplete="off" name="detalle.bajo_etiqueta"  #bajo_etiqueta ="ngModel" (input)="cambiando($event)">
+                                    </mat-form-field>
+                                    <dx-color-box class="colores_ind" [(value)]="detalle.bajo_color" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando($event)" (input)="cambiando($event)"></dx-color-box>
+                                </div>
+                                <div class="columnaLista2">
+                                    <mat-form-field class="cajaTexto_ind">
+                                        <input matInput [(ngModel)]="detalle.medio_hasta" type="number" [placeholder]="this.servicio.rTraduccion()[3420]" maxlength="3" min="0" max="99" autocomplete="off" name="detalle.medio_hasta"  #medio_hasta ="ngModel" (input)="cambiando($event)">
+                                    </mat-form-field>
+                                    <mat-form-field class="cajaTexto_ind2">
+                                        <input matInput [(ngModel)]="detalle.medio_etiqueta" [placeholder]="this.servicio.rTraduccion()[3421]" maxlength="20" min="0" max="99" autocomplete="off" name="detalle.medio_etiqueta"  #medio_etiqueta ="ngModel" (input)="cambiando($event)">
+                                    </mat-form-field>
+                                    <dx-color-box class="colores_ind" [(value)]="detalle.medio_color" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando($event)" (input)="cambiando($event)"></dx-color-box>
+                                </div>
+                                <div class="columnaLista2">
+                                    <mat-form-field class="cajaTexto_ind">
+                                        <input matInput [(ngModel)]="detalle.cien" value="100" type="number" [placeholder]="this.servicio.rTraduccion()[3420]" maxlength="3" min="0" max="99" autocomplete="off" name="detalle.bajo_hasta"  #bajo_hasta ="ngModel" (input)="cambiando($event)" disabled>
+                                    </mat-form-field>
+                                    <mat-form-field class="cajaTexto_ind2">
+                                        <input matInput [(ngModel)]="detalle.alto_etiqueta" [placeholder]="this.servicio.rTraduccion()[3421]" maxlength="20" min="0" max="99" autocomplete="off" name="detalle.alto_etiqueta"  #alto_etiqueta ="ngModel" (input)="cambiando($event)">
+                                    </mat-form-field>
+                                    <dx-color-box class="colores_ind" [(value)]="detalle.alto_color" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando($event)" (input)="cambiando($event)"></dx-color-box>
+                                </div>
+                            </div>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3007] }}</span>
+                        </div>
+                    </div>
+
+                    <div class="grupoTitulo" *ngIf="servicio.rVersion().modulos[4] == 1">{{ this.servicio.rTraduccion()[3102] }}</div>
+                    <div class="grupoCampos" *ngIf="servicio.rVersion().modulos[4] == 1">
+
+                        
+                        <div class="registroCampo" >
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3103] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(ngModel)]="detalle.reverso_permitir" name="reverso_permitir" (selectionChange)="cambiando($event)" >
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[3045] }}</mat-option>
+                                    <mat-option value="C">{{ this.servicio.rTraduccion()[3044] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[3035] }}</mat-option>
+                                </mat-select>
+                                <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3004] }}</span>
+                            </mat-form-field>
+                        </div>
+                        
+                        
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3107] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtMeses [(ngModel)]="detalle.reverso_referencia" maxlength="20" autocomplete="off" name="reverso_referencia" #reverso_referenciaN="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{reverso_referenciaN.value?.length || 0}} /  20</mat-hint>
+                            </mat-form-field>                            
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2951] }}</span>
+                        </div>
+        
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3108] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(ngModel)]="detalle.lote_inspeccion_clave" name="lote_inspeccion_clave" (selectionChange)="cambiando($event)" >
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                                <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3009] }}</span>
+                            </mat-form-field>
+                        </div>
+                            
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3109] }}</div>
+                            <div class="registroValor">
+                                <mat-form-field class="cajaTexto_2">
+                                    <input matInput type="number" [(ngModel)]="detalle.tiempo_escaner" maxlength="4" autocomplete="off" name="tiempo_escaner" #tiempo_escanerN="ngModel" (input)="cambiando($event)">
+                                    <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[3449] }}</mat-hint>
+                                    <mat-hint class="pista" align="end">10-9999</mat-hint>
+                                </mat-form-field>   
+                                <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2958] }}</span>
+                            </div>    
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3110] }}</div>
+                            <div class="registroValor">
+                                <mat-form-field class="cajaTexto_2">
+                                    <input matInput type="number" [(ngModel)]="detalle.tiempo_entre_lecturas" maxlength="4" autocomplete="off" name="tiempo_entre_lecturas" #tiempo_entre_lecturasN="ngModel" (input)="cambiando($event)">
+                                    <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                                    <mat-hint class="pista" align="end">10-9999</mat-hint>
+                                </mat-form-field>   
+                                <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2959] }}</span>
+                            </div>    
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3111] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(ngModel)]="detalle.tipo_flujo" name="tipo_flujo" (selectionChange)="cambiando($event)" >
+                                    <mat-option value="E">{{ this.servicio.rTraduccion()[2947] }}</mat-option>
+                                    <mat-option value="J">{{ this.servicio.rTraduccion()[2989] }}</mat-option>
+                                    <mat-option value="C">{{ this.servicio.rTraduccion()[2988] }}</mat-option>
+                                </mat-select>                                    
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2990] }}</span>
+                        </div>
+                    
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3112] }}</div>
+                            <div class="registroValor">
+                                <mat-form-field class="cajaTexto_2">
+                                    <input matInput type="number" [(ngModel)]="detalle.holgura_reprogramar" maxlength="5" autocomplete="off" name="holgura_reprogramar" #holgura_reprogramarN="ngModel" (input)="cambiando($event)">
+                                    <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                                    <mat-hint class="pista" align="end">10-99999</mat-hint>
+                                </mat-form-field>   
+                                <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2971] }}</span>
+                            </div>    
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3113] }}</div>
+                            <div class="registroValor">
+                                <mat-form-field class="cajaTexto_2">
+                                    <input matInput type="number" [(ngModel)]="detalle.avisar_segundos" maxlength="4" autocomplete="off" name="avisar_segundos" #avisar_segundosN="ngModel" (input)="cambiando($event)">
+                                    <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                                    <mat-hint class="pista" align="end">10-9999</mat-hint>
+                                </mat-form-field>   
+                                <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2962] }}</span>
+                            </div>    
+                        </div>
+
+                        
+                        <div class="registroCampo" *ngIf="">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3114] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(ngModel)]="detalle.wip_salto_adelante" name="wip_salto_adelante" (selectionChange)="cambiando($event)" >
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[3048] }}</mat-option>
+                                    <mat-option value="C">{{ this.servicio.rTraduccion()[3047] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[1754] }}</mat-option>
+                                </mat-select>
+                                <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3002] }}</span>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3104] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(ngModel)]="detalle.wip_salto_detras" name="wip_salto_detras" (selectionChange)="cambiando($event)" >
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[3048] }}</mat-option>
+                                    <mat-option value="C">{{ this.servicio.rTraduccion()[3047] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[1754] }}</mat-option>
+                                </mat-select>
+                                <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3003] }}</span>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3105] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <mat-select #lstC15 [(ngModel)]="detalle.area_change" name="detalle.area_change" (selectionChange)=cambiando($event)>
+                                    <mat-option *ngFor="let area of areas; let i = index" [value]="area.id">{{ area.nombre }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>                            
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2993] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3106] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <mat-select #lstC15 [(ngModel)]="detalle.tipo_change" name="detalle.tipo_change" (selectionChange)=cambiando($event)>
+                                    <mat-option *ngFor="let tipo of tipos; let i = index" [value]="tipo.id">{{ tipo.nombre }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>                            
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2994] }}</span>
+                        </div>
+
+
+                    </div>
+
+                    <div class="grupoTitulo">{{ this.servicio.rTraduccion()[3115] }}</div>
+                    <div class="grupoCampos">
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3116] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.hibrido_mostrar_reparacion" name="detalle.hibrido_mostrar_reparacion" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[3034] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3010] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3117] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.hibrido_alarmar_ubicacion" name="detalle.hibrido_alarmar_ubicacion" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[3037] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3011] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3118] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.hibrido_alarmar_reparacion" name="detalle.hibrido_alarmar_reparacion" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[3037] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3012] }}</span>
+                        </div>
+
+                    </div>
+ -->
+                    <div class="grupoTitulo">{{ this.servicio.rTraduccion()[3119] }}</div>
+                    <div class="grupoCampos">
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3400] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <mat-select #lstC15 [(ngModel)]="detalle.idioma_defecto" name="detalle.idioma_defecto" (selectionChange)=cambiando($event)>
+                                    <mat-option *ngFor="let idioma of idiomas; let i = index" [value]="idioma.id">{{ idioma.nombre }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>   
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3401] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3120] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.gestion_meses" maxlength="4" autocomplete="off" name="detalle.gestion_meses" #gestion_meses="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[358] }}</mat-hint>
+                                <mat-hint class="pista" align="end">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3063] }}</span>
+                        </div>
+                        
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3121] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput  [(ngModel)]="detalle.ruta_archivos_enviar" maxlength="500" autocomplete="off" name="detalle.ruta_archivos_enviar" #ruta_archivos_enviar="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="end">{{ ruta_archivos_enviar.value?.length || 0 }} / 500</mat-hint>
+                            </mat-form-field>   
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2983] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3122] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.turno_modo" name="detalle.turno_modo" (selectionChange)=cambiando($event)>
+                                    <mat-option value="0">{{ this.servicio.rTraduccion()[3028] }}</mat-option>
+                                    <mat-option value="1">{{ this.servicio.rTraduccion()[3058] }}</mat-option>
+                                    <mat-option value="2">{{ this.servicio.rTraduccion()[3057] }}</mat-option>
+                                    <mat-option value="3">{{ this.servicio.rTraduccion()[2937] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2995] }}</span>
+                        </div>
+
+                        <!-- <div class="registroCampo">
+                            <div class="registroTitulo" >{{ this.servicio.rTraduccion()[3123] }}</div>
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalle.usar_clave_falla" name="detalle.usar_clave_falla" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="1">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3016] }}</span>
+                        </div> -->
+
+                    </div>
+
+
+                    <div class="grupoTitulo" *ngIf="eProgramador">{{ this.servicio.rTraduccion()[3181] }}</div>
+                    <div class="grupoCampos" *ngIf="eProgramador">
+
+                        <!--<div class="registroCampo" *ngIf="servicio.rVersion().modulos[5] == 1 && servicio.rVersion().modulos[0] == 1">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3496] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <mat-select [(value)]="detalle.pantalla_mix" name="detalle.pantalla_mix" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>  
+                        </div>-->
+
+                        <!-- <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3182] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <mat-select [(value)]="detalle.pagers_val" name="detalle.pagers_val" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>  
+                        </div> -->
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3075] }}</div>
+                            <div class="registroconImagen">
+                                <mat-form-field class="cajaTexto_3">
+                                    <input matInput #txtImagen [(ngModel)]="detalle.logo_ruta" maxlength="500" autocomplete="off" name="detalle.logo_ruta" #logo_ruta="ngModel" (input)="cambiando($event)">
+                                    <button mat-button *ngIf="detalle.logo_ruta" matSuffix mat-icon-button aria-label="Clear" (click)="detalle.logo_ruta = '';cambiando($event)">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                    <mat-hint class="pista" align="end">{{ logo_ruta.value?.length || 0 }} / 500</mat-hint>
+                                    <mat-hint class="pista" align="start">{{ mensajeImagen }}</mat-hint>
+                                </mat-form-field>  
+                                <input type="file" style="display: none" (change)="onFileSelected($event)" accept=".png;.jpg;.svg;.bmp" #fileInput> 
+                                <button class="boton regreso2" mat-button (mouseover)="imagenSel=true;" (mouseout)="imagenSel=false;" [matTooltip] = "ayuda01" matTooltipClass = "toolTip" matTooltipShowDelay = "100" [ngClass]="{botHover: imagenSel}" (click)="fileInput.click()">
+                                    <mat-icon class="iconPB_3" svgIcon="i_ok"></mat-icon>
+                                </button>
+                            </div>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3023] }}</span>
+                        </div>
+
+                        <div class="registroCampo" >
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3076] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.logo_izquierda" maxlength="6" autocomplete="off" name="detalle.logo_izquierda"  #logo_izquierda ="ngModel" (input)="cambiando($event);error03=false; " >
+                                <mat-hint class="pista" align="start"> {{ this.servicio.rTraduccion()[2650] }} </mat-hint>
+                            </mat-form-field>                            
+                        </div>
+                        <div class="registroCampo" >
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3077] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.logo_arriba" maxlength="6" autocomplete="off" name="detalle.logo_arriba"  #logo_arriba ="ngModel" (input)="cambiando($event);error03=false; " >
+                                <mat-hint class="pista" align="start"> {{ this.servicio.rTraduccion()[2650] }} </mat-hint>
+                            </mat-form-field>                            
+                        </div>
+
+                        <div class="registroCampo" >
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3078] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.logo_ancho" maxlength="6" autocomplete="off" name="detalle.logo_ancho"  #logo_ancho ="ngModel" (input)="cambiando($event);error03=false; " >
+                                <mat-hint class="pista" align="start"> {{ this.servicio.rTraduccion()[2650] }} </mat-hint>
+                            </mat-form-field>                            
+                        </div>
+                        <div class="registroCampo" >
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3079] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalle.logo_alto" maxlength="6" autocomplete="off" name="detalle.logo_alto"  #logo_alto ="ngModel" (input)="cambiando($event);error03=false; " >
+                                <mat-hint class="pista" align="start"> {{ this.servicio.rTraduccion()[2650] }} </mat-hint>
+                            </mat-form-field>                            
+                        </div>
+
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3183] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <mat-select [(value)]="detalle.ver_logo_cronos" name="detalle.ver_logo_cronos" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>  
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3184] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput  [(ngModel)]="detalle.url_cronos" maxlength="100" autocomplete="off" name="detalle.url_cronos" #url_cronos="ngModel" (input)="cambiando($event)">
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2975] }}</span>
+                        </div>
+
+                        <div class="registroCampo" *ngIf="!servicio.rPerpetua()">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3185] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput  [(ngModel)]="detalle.mail_vencimiento" maxlength="200" autocomplete="off" name="detalle.mail_vencimiento" #mail_vencimiento="ngModel" (input)="cambiando($event)">
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[2981] }}</span>
+                        </div>
+
+                        <!-- <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[3636] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <mat-select [(value)]="detalle.fallas_plc" name="detalle.fallas_plc" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3637] }}</span>
+                        </div> -->
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+        <div class="subir" *ngIf="verIrArriba" @arriba>
+            <button class="subirBoton" mat-flat-button (click)="irArriba()" [matTooltip]="irArribaTT" matTooltipClass = "toolTip">
+                <mat-icon class="subirIcono">keyboard_arrow_up</mat-icon>
+            </button>
+        </div>
+    </div>
+</div> 

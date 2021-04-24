@@ -1,0 +1,302 @@
+<div class="contenido" class="mat-typography">
+    
+    <div class="cabecera" mat-dialog-title>
+        <mat-icon class="iconoBarras iconPB_2" svgIcon="i_situaciones"></mat-icon>
+        <span class="titulo">{{ this.servicio.rTraduccion()[3406] }}</span>
+    </div>
+    <div class="registroCampo">     
+        <div class="registroTitulo">{{ this.servicio.rTraduccion()[384] }}</div>    
+        <div class="registroValor">
+            <mat-form-field class="texto">
+                <input matInput #txtT1 [(ngModel)]="reporte" maxlength="50" autocomplete="off" name="reporte"  #reporte1 ="ngModel" (keydown.enter)="buscarColores()" (input)="iniReporte()">
+                <button mat-button *ngIf="reporte" matSuffix mat-icon-button aria-label="Clear" (click)="reporte = '';iniReporte()">
+                    <mat-icon class="iconPB" svgIcon="in_cerrar"></mat-icon>
+                </button>
+            </mat-form-field>     
+        </div>    
+    </div>
+    <div class="cajaLista">
+        <div mat-dialog-conten class ="lista">
+            <div class="grupoCampos">
+                <div class="registroCampo">
+                    <div class="registroTitulo">{{ this.servicio.rTraduccion()[389] }}</div>
+                    <dx-color-box class="colores" [(value)]="detalle.fondo_total" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()"></dx-color-box>
+                    </div>
+                    
+                <div class="registroCampo">
+                    <div class="registroTitulo">{{ this.servicio.rTraduccion()[390] }}</div>
+                    <dx-color-box class="colores" [(value)]="detalle.fondo_aplicacion" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()"></dx-color-box>
+                </div>
+                    
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[391] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.fondo_barra_superior" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[392] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.texto_barra_superior" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[393] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.fondo_barra_inferior" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[394] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.texto_barra_inferior" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[395] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.fondo_seleccion" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[396] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.texto_seleccion" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[397] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.fondo_boton" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[398] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.texto_boton" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[399] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.fondo_boton_inactivo" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[400] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.texto_boton_inactivo" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[401] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.fondo_boton_positivo" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[402] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.texto_boton_positivo" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[403] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.fondo_boton_negativo" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[404] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.texto_boton_negativo" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[405] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.fondo_boton_barra" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[406] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.texto_boton_barra" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[407] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.fondo_tarjeta" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[408] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.texto_tarjeta" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[409] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.texto_tarjeta_resalte" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[410] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.fondo_tiptool" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[411] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.texto_tiptool" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[412] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.fondo_snack_normal" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[413] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.texto_snack_normal" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[414] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.fondo_snack_error" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[415] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.texto_snack_error" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[414] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.fondo_snack_error" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[415] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.texto_snack_error" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[418] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.borde_total" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[419] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.borde_seleccion" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[420] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.borde_hover" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[421] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.borde_boton" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[422] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.borde_boton_inactivo" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[423] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.borde_tarjeta" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[424] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.borde_tiptool" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[425] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.color_par" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[426] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.color_impar" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[427] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.fondo_slider" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[428] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.texto_solo_texto" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+					
+					<div class="registroCampo">
+						<div class="registroTitulo">{{ this.servicio.rTraduccion()[429] }}</div>
+						<dx-color-box class="colores" [(value)]="detalle.fondo_logo" applyButtonText="Aceptar" cancelButtonText="Cancelar" (click)="cambiando()" (input)="cambiando()">
+						</dx-color-box>
+					</div>
+
+                <div [ngClass]="{ registroCampo: detalle.estatus == 'A', registroCampo_i: detalle.estatus == 'I'}" [ngStyle]="{'color': detalle.eliminable == 'S' ? 'var(--texto_boton)' : 'var(--texto_boton_inactivo)', 'border-color': detalle.eliminable == 'S' ? 'var(--borde_tarjeta)' : 'var(--texto_boton_inactivo)' }">
+                    <div class="registroTitulo" >{{ this.servicio.rTraduccion()[385] }}</div>    
+                    <mat-form-field class="cajaTexto_2">
+                        <mat-select [(value)]="detalle.estatus" name="detalle.estatus" (selectionChange)=cambiando() [disabled]="detalle.eliminable=='N'">
+                            <mat-option value="A">{{ this.servicio.rTraduccion()[386] }}</mat-option>
+                            <mat-option value="I">{{ this.servicio.rTraduccion()[387] }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div> 
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="pie" mat-dialog-actions>
+        <button class="positivo indice" mat-button (mouseover)="validar01=true;" (mouseout)="validar01=false;" [ngClass]="{ botHover: validar01 }" (click)="validar(1)" [disabled]="!bot1"  [ngStyle]="{ 'font-size': movil ? '11px' : '17px' }">
+            <mat-icon [ngClass]="{ iconPB_3: bot1, iconPB_3_disabled: !bot1 }" svgIcon="in_seleccionado"></mat-icon>
+            <span class="botTexto">{{ this.servicio.rTraduccion()[145] }}</span>
+        </button>
+
+        <button class="boton indice" mat-button (mouseover)="validar02=true;" (mouseout)="validar02=false;" [ngClass]="{ botHover: validar02 }" (click)="validar(3)" [disabled]="!bot1" [ngStyle]="{ 'font-size': movil ? '11px' : '17px' }">
+            <mat-icon [ngClass]="{ iconPB_33: bot1, iconPB_3_disabled: !bot1 }" svgIcon="i_cancelar"></mat-icon>
+            <span class="botTexto">{{ this.servicio.rTraduccion()[77] }}</span>
+        </button>
+        <button class="boton indice" mat-button (mouseover)="validar03=true;" (mouseout)="validar03=false;" [ngClass]="{ botHover: validar03 }" (click)="eliminar()"  [ngStyle]="{ 'font-size': movil ? '11px' : '17px' }" [disabled]="!encontrado || detalle.eliminable=='N'">
+            <mat-icon [ngClass]="{ iconPB_33: encontrado && detalle.eliminable=='S', iconPB_3_disabled: !encontrado || detalle.eliminable=='N' }" svgIcon="i_eliminar"></mat-icon>
+            <span class="botTexto">{{ this.servicio.rTraduccion()[388] }}</span>
+        </button>
+        <button class="boton indice" mat-button (mouseover)="validar04=true;" (mouseout)="validar04=false;" [ngClass]="{ botHover: validar04 }" (click)="validar(2)"  [ngStyle]="{ 'font-size': movil ? '11px' : '17px' }">
+            <mat-icon class="iconPB" svgIcon="i_salir"></mat-icon>
+            <span class="botTexto">{{ this.servicio.rTraduccion()[177] }}</span>
+        </button>
+    </div>
+</div>
+    

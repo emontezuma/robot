@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="addmask" version="1.1" x="0px" y="0px" width="32" height="32" viewBox="0 0 32 32" enable-background="new 0 0 32 32" xml:space="preserve" style="fill: rgb(0, 0, 0);" viewbox="0 0 32 32">
+<g class="addon_content" transform="translate(-6,-6) scale(1.2000000000000002,1.2000000000000002)">
+	<g>
+		<defs>
+			<path class="mask_container" id="59_warning_mask" d="M-23.5-23v96h96v-96H-23.5z M30.37,30.03c-0.16,0.29-0.47,0.47-0.8,0.47H19.43c-0.33,0-0.64-0.19-0.8-0.47    c-0.16-0.29-0.16-0.65,0-0.94l5.07-9.12c0.16-0.279,0.47-0.47,0.8-0.47s0.64,0.18,0.81,0.48l5.061,9.109    C30.53,29.38,30.53,29.74,30.37,30.03z" transform="translate(-6,-6) scale(1.2000000000000002,1.2000000000000002)" style="fill: rgb(0, 0, 0);"></path>
+		</defs>
+		<clipPath id="59_warning_mask_1_">
+			<use xlink:href="#59_warning_mask" overflow="visible"></use>
+		</clipPath>
+		
+	</g>
+	<g id="59_warning_addon_18_">
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M30.806,28.849l-5.069-9.123C25.482,19.277,25.009,19,24.5,19   c-0.512,0-0.986,0.279-1.237,0.728l-5.069,9.122c-0.246,0.438-0.246,0.983,0,1.421C18.444,30.721,18.919,31,19.431,31h10.139   c0.511,0,0.984-0.279,1.238-0.73C31.052,29.831,31.052,29.288,30.806,28.849z M29.958,29.807C29.891,29.927,29.766,30,29.632,30   H19.384c-0.134,0-0.259-0.073-0.325-0.193c-0.067-0.119-0.067-0.267,0-0.386l5.124-9.228C24.249,20.073,24.374,20,24.508,20   s0.259,0.074,0.326,0.193l5.124,9.228C30.024,29.539,30.024,29.688,29.958,29.807z M24,27h1v-4h-1V27z M24,29h1v-1h-1V29z" style="fill: rgb(0, 0, 0);"></path>
+	</g>
+</g>
+<g id="59_warning_icon_placeholder" clip-path="url(#59_warning_mask_1_)">
+	<g class="icnplhld"><!--?xml version="1.0" encoding="utf-8"?-->
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<g xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="32px" height="32px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve" preserveAspectRatio="none" class="svgmask">
+<path d="M9.67,29.237L11.939,17H7.806l4.334-13H23.35l-5,9h5.238L9.67,29.237z M9.194,16h3.947l-1.81,9.763L21.414,14H16.65l5-9  h-8.789L9.194,16z" style="fill: rgb(0, 0, 0);"></path>
+</g></g>
+</g>
+</svg>

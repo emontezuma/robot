@@ -1,0 +1,243 @@
+.cdk-global-scrollblock 
+{
+    overflow-y: hidden !important;
+}
+
+
+.iconoBarras
+{
+    color: var(--texto_boton_barras) !important;
+}
+
+.indice
+{
+    max-height: 43px !important;
+    height: 43px !important;
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+    
+
+.boton, .botHover, .positivo
+{
+    color: var(--texto_boton);
+    background-color: var(--fondo_boton);
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 3px;    
+    border-color: var(--borde_boton);
+    box-shadow: 0px 0px 1px 2px none;
+    margin-left: 10px;
+}
+
+.positivo
+{
+    background-color: var(--fondo_boton_positivo) !important;
+    color: var(--texto_boton_positivo) !important;
+}
+
+.botHover
+{
+    box-shadow: 0px 0px 1px 2px var(--texto_tarjeta_resalte);    
+    border-color: var(--borde_boton);
+    color: var(--texto_tarjeta_resalte);
+}
+
+.contenido 
+{
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+}
+
+.cabecera 
+{
+    margin-top: -10px !important;
+    height: 28px !important; 
+    padding: 4px;
+    font-size: 24px !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-width: 1px;
+    border-color: var(--texto_barra_superior);
+    border-radius: 3px;
+    border-style: solid;
+    background-color: var(--fondo_barra_superior) !important;
+    color: var(--texto_barra_superior) !important;
+}
+
+.boton:disabled
+{
+    border-color: var(--borde_boton_inactivo);
+    background-color: var(--fondo_boton_inactivo);
+    color: var(--texto_boton_inactivo);
+    cursor: url("../../assets/icons/cur_cancelar.png"), not-allowed;
+}
+
+
+.titulo
+{
+    font-size: 20px !important;
+    margin-left: 10px;
+}
+
+.positivo:disabled
+{
+    border-color: var(--borde_boton_inactivo);
+    background-color: var(--fondo_boton_inactivo);
+    color: var(--texto_boton_inactivo);
+    cursor: url("../../assets/icons/cur_cancelar.png"), not-allowed;
+}
+
+
+
+.cajaLista 
+   {
+        max-height: 310px;
+       overflow: hidden; 
+       border-style: solid;
+       border-width: 1px;
+       border-color: var(--borde_boton);
+       border-radius: 3px;
+       font-size: 20px;
+       padding: 5px;
+     }
+
+    
+.lista {
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+    max-height: 300px;
+    padding: 10px;
+    text-align: left;
+    font-size: 17px;
+    margin-right: 0px;
+    margin-left: 0px !important;
+    overflow-wrap: break-word !important;
+
+ }
+ 
+ 
+ .pista {
+    font-size: 14px  !important;
+    margin-top: 3px;
+}
+
+
+.pie
+{
+    margin-top: 5px !important;
+    margin-right: 3px !important;
+    display: flex;
+    align-items: center;
+    height: 46px !important;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.iconPB
+{
+    width: 24px;
+    height: 24px;
+    margin-top: -5px;
+    margin-left: -10px;
+}
+
+.iconPB_2
+{
+    width: 28px;
+    height: 28px;
+}
+
+.iconPB_3
+{
+    width: 24px;
+    height: 24px;
+    background-color: var(--fondo_boton_positivo) !important;
+    color: var(--texto_boton_positivo) !important;
+}
+
+.cajaTexto_2
+{
+    flex: 1;
+    min-height: 80px !important;
+    margin-top: -10px;
+    font-size: 17px !important;
+    color: var(--texto_tarjeta_resalte) !important;    
+    width: 100%;
+}
+
+.registroTitulo
+{
+    font-size: 17px;
+    height: 22px;
+    text-align: left;
+    padding: 2px;
+    font-weight: 550;
+    margin-bottom: 5px;;
+}
+
+
+.registroCampo
+{
+    text-align: left;
+    padding: 10px;
+    padding-left: 5px;
+    line-height: 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 300px !important;
+    margin: 5px !important;
+    border-width: 1.5px;
+    border-radius: 3px;
+    border-style: solid;
+    border-color: var(--borde_tarjeta);
+}
+
+.ayudaCampo, .ayudaCampo_2
+{
+    font-size: 17px;
+    margin-top: 12px;
+    text-align: left;
+}
+
+
+.ayudaCampo
+{
+    padding: 3px;
+    color: var(--texto_boton_negativo);
+    background-color: var(--fondo_boton_negativo);
+    border-width: 0px;
+    border-radius: 3px;
+    border-style: solid;
+    
+}
+
+
+.divisorP
+{
+    width: 100% !important;
+    border-top-color: var(--borde_boton) !important;
+    border-top-width: 1.5px  !important;
+    border-top-style: solid !important;
+    margin-bottom: 10px !important; 
+    margin-top: 5px !important; 
+}
+
+.botTextoPeq
+{
+    font-size: 14px;
+}
+
+.botTexto
+{
+    font-size: 17px;
+}

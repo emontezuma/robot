@@ -1,0 +1,11 @@
+<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32" height="32" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve" preserveAspectRatio="none" viewbox="0 0 32 32">
+<style type="text/css">
+
+	.st0{fill-rule:evenodd;clip-rule:evenodd;}
+
+</style>
+<path class="st0" d="M25.99,16C25.73,10.6,21.4,6.27,16,6.01V4h-1v2.01C9.6,6.27,5.27,10.6,5.01,16H3v1h2.01
+	c0.26,5.4,4.59,9.73,9.99,9.99V29h1v-2.01c5.4-0.26,9.73-4.59,9.99-9.99H28v-1H25.99z M24.99,17c-0.25,4.84-4.15,8.74-8.99,8.99V24
+	h-1v1.99c-4.84-0.25-8.74-4.15-8.99-8.99H8v-1H6.01c0.25-4.84,4.15-8.74,8.99-8.99V9h1V7.01c4.84,0.25,8.74,4.15,8.99,8.99H23v1
+	H24.99z M16,16h2v1h-2v2h-1v-2h-2v-1h2v-2h1V16z"></path>
+</svg>

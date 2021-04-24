@@ -1,0 +1,107 @@
+<div class="contenido" class="mat-typography">
+    <div class="cabecera" mat-dialog-title>
+        <mat-icon class="iconoBarras iconPB_2" [svgIcon]="datos.icono0"></mat-icon>
+        <span class="titulo">{{ datos.titulo }}</span>
+    </div>
+    
+    
+    <div class="cajaLista" *ngIf="datos.mensaje.length>0">
+        <div mat-dialog-conten class ="lista" [innerHTML]="datos.mensaje" [ngStyle]="{ 'font-size': movil ? '11px' : '17px' }"></div>
+    </div>
+    <div class="registroCampo" *ngIf="datos.turno">
+        <div class="registroTitulo">{{ tActual }}</div>    
+        <div class="registroTitulo">{{ this.servicio.rTraduccion()[178] }}</div>    
+        <mat-form-field class="cajaTexto_2">
+            <mat-select [(ngModel)]="datos.idTurno" name="datos.idTurno">
+                <mat-option *ngFor="let turno of turnos; let i = index" [value]="turno.id">{{ turno.nombre }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <span [ngClass]="{ ayudaCampo_2: datos.id!=-1, ayudaCampo: datos.id==-1 }">{{ mensajeTurno }}</span>                                
+    </div>
+    <div class="registroCampo" *ngIf="datos.replanear > 0">
+        <div class="registroTitulo">{{ this.servicio.rTraduccion()[3686] }}</div>
+        <div class="columnas">
+            <mat-form-field class="cajaTexto_2" [style.width.%]="55">
+                <input #txtT1 matInput [(ngModel)]="datos.fechaIni" [matDatepicker]="picker1" name="datos.fechaIni" autocomplete="off" #fechaIni="ngModel">
+                <mat-datepicker-toggle matSuffix [for]="picker1">
+                </mat-datepicker-toggle> 
+                <mat-datepicker #picker1></mat-datepicker>   
+                <mat-hint *ngIf="error01" class="pistaError" align="start">{{ this.servicio.rTraduccion()[3678] }}</mat-hint>
+                <mat-hint *ngIf="error02" class="pistaError" align="start">{{ this.servicio.rTraduccion()[3687] }}</mat-hint>
+            </mat-form-field>
+            <mat-form-field class="cajaTexto_2" [style.marginLeft.%]="2"  [style.width.%]="43">
+                <mat-select [(value)]="datos.horaIni" name="datos.horaIni">
+                    <mat-option value="0">{{ this.servicio.rTraduccion()[1113] }}</mat-option>
+                    <mat-option value="1">{{ this.servicio.rTraduccion()[1091] }}</mat-option>
+                    <mat-option value="2">{{ this.servicio.rTraduccion()[1097] }}</mat-option>
+                    <mat-option value="3">{{ this.servicio.rTraduccion()[1099] }}</mat-option>
+                    <mat-option value="4">{{ this.servicio.rTraduccion()[1101] }}</mat-option>
+                    <mat-option value="5">{{ this.servicio.rTraduccion()[1103] }}</mat-option>
+                    <mat-option value="6">{{ this.servicio.rTraduccion()[1105] }}</mat-option>
+                    <mat-option value="7">{{ this.servicio.rTraduccion()[1107] }}</mat-option>
+                    <mat-option value="8">{{ this.servicio.rTraduccion()[1109] }}</mat-option>
+                    <mat-option value="9">{{ this.servicio.rTraduccion()[1111] }}</mat-option>
+                    <mat-option value="10">{{ this.servicio.rTraduccion()[1093] }}</mat-option>
+                    <mat-option value="11">{{ this.servicio.rTraduccion()[1095] }}</mat-option>
+                    <mat-option value="12">{{ this.servicio.rTraduccion()[1141] }}</mat-option>
+                    <mat-option value="13">{{ this.servicio.rTraduccion()[1092] }}</mat-option>
+                    <mat-option value="14">{{ this.servicio.rTraduccion()[1098] }}</mat-option>
+                    <mat-option value="15">{{ this.servicio.rTraduccion()[1100] }}</mat-option>
+                    <mat-option value="16">{{ this.servicio.rTraduccion()[1102] }}</mat-option>
+                    <mat-option value="17">{{ this.servicio.rTraduccion()[1104] }}</mat-option>
+                    <mat-option value="18">{{ this.servicio.rTraduccion()[1106] }}</mat-option>
+                    <mat-option value="19">{{ this.servicio.rTraduccion()[1108] }}</mat-option>
+                    <mat-option value="20">{{ this.servicio.rTraduccion()[1110] }}</mat-option>
+                    <mat-option value="21">{{ this.servicio.rTraduccion()[1112] }}</mat-option>
+                    <mat-option value="22">{{ this.servicio.rTraduccion()[1094] }}</mat-option>
+                    <mat-option value="23">{{ this.servicio.rTraduccion()[1096] }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>                                
+    </div>
+    <div class="registroCampo" *ngIf="datos.agregarValor>0">
+        <div class="registroTitulo">{{ this.servicio.rTraduccion()[179] }}</div>  
+        <div class="camposVarios">  
+            <mat-form-field class="cajaTexto_80">
+                <input matInput #txtNombre [(ngModel)]="datos.valorVariable" maxlength="50" autocomplete="off" name="datos.valorVariable"  #valorVariable ="ngModel">
+                <button mat-button *ngIf="datos.valorVariable" matSuffix mat-icon-button aria-label="Clear" (click)="datos.valorVariable = '';">
+                    <mat-icon class="iconPB" svgIcon="in_cerrar"></mat-icon>
+                </button>
+                <mat-hint class="pista" align="end">{{ valorVariable.value?.length || 0 }} / 50</mat-hint>
+                <mat-hint class="pista">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+            </mat-form-field>
+            <mat-form-field class="cajaTexto_20">
+                <mat-select [(value)]="datos.orden" name="datos.orden">
+                    <mat-option *ngFor="let orden of ordenValor; let i = index" [value]="i">{{ orden }}</mat-option>
+                </mat-select>
+                <mat-hint class="pista">{{ this.servicio.rTraduccion()[181] }}</mat-hint>
+            </mat-form-field>
+        </div>
+        <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[182] }}</span>                                
+    </div>
+    <div class="registroCampo" *ngIf="datos.modificarVan">
+        <div class="registroTitulo">{{ this.servicio.rTraduccion()[183] }}</div>  
+        <div class="camposVarios">  
+            <mat-form-field class="cajaTexto_2">
+                <input matInput #txtT1 type="number" [(ngModel)]="datos.valorVariable" maxlength="25" autocomplete="off" name="datos.valorVariable" #valorVariable="ngModel">
+                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[184] }}</mat-hint>
+            </mat-form-field>
+        </div>
+        <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[185] }}</span>                                
+    </div>
+    <div class="pie" mat-dialog-actions>
+        <button class="positivo indice" mat-button (mouseover)="validar01=true;" (mouseout)="validar01=false;" [ngClass]="{ botHover: validar01 }" (click)="validar(1)" [ngStyle]="{ 'font-size': movil ? '13px' : '17px' }" [disabled]="(!datos.valorVariable && datos.agregarValor)">
+            <mat-icon class="iconPB_3" [svgIcon]="datos.icono1"></mat-icon>
+            <span class="botTexto">{{ datos.boton1STR }}</span>
+        </button>
+        <button class="boton indice" mat-button (mouseover)="validar02=true;" (mouseout)="validar02=false;" *ngIf="datos.botones>1 && mostrarCancelar" [ngClass]="{ botHover: validar02 }" (click)="validar(2)" [ngStyle]="{ 'font-size': movil ? '11px' : '17px' }">
+            <mat-icon class="iconPB" [svgIcon]="datos.icono2"></mat-icon>
+            <span class="botTexto">{{ datos.boton2STR }}</span>
+        </button>
+        <button class="boton indice" mat-button (mouseover)="validar03=true;" (mouseout)="validar03=false;" *ngIf="datos.botones>2" [ngClass]="{ botHover: validar03 }" (click)="validar(3)" [ngStyle]="{ 'font-size': movil ? '11px' : '17px' }">
+            <mat-icon class="iconPB" [svgIcon]="datos.icono3"></mat-icon>
+            <span class="botTexto">{{ datos.boton3STR }}</span>
+        </button>
+    </div>
+</div>
+    

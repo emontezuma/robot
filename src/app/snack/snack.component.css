@@ -1,0 +1,66 @@
+    
+::ng-deep snack-bar-container.snack-normal {
+    font-size: 22px;
+    text-align: center;
+    justify-content: center;
+    white-space: normal;
+    overflow-wrap: break-word !important;
+    line-height: 22px !important;
+    margin-top: -100px !important;
+    background-color: var(--fondo_snack_normal);
+    color: var(--texto_snack_normal);
+    border-radius: 3px;
+    border-color: var(--texto_snack_normal);;
+    border-width: 2px;
+    border-style: solid;
+    box-shadow: 0px 0px 1px 1px var(--texto_tarjeta_resalte);
+  }
+  
+  ::ng-deep .snack-normal .mat-simple-snackbar {
+    font-size: 22px;
+    text-align: center;
+    justify-content: center;
+    white-space: normal;
+    overflow-wrap: break-word !important;
+    line-height: 22px !important;
+    color: var(--texto_snack_normal);
+  }
+
+  ::ng-deep .snack-normal .mat-simple-snackbar.container {
+    margin-top: -100px !important;
+    overflow-wrap: break-word !important;
+  }
+
+  ::ng-deep snack-bar-container.snack-error {
+    font-size: 22px;
+    text-align: center;
+    justify-content: center;
+    white-space: normal;
+    overflow-wrap: break-word !important;
+    line-height: 22px !important;
+    margin-top: -100px !important;
+    background-color: var(--fondo_snack_error);
+    color: var(--texto_snack_error);
+    border-radius: 3px;
+    border-color: var(--texto_snack_error);;
+    border-width: 2px;
+    border-style: solid;
+    box-shadow: 0px 0px 1px 1px var(--texto_tarjeta_resalte);
+  }
+  
+  ::ng-deep .snack-error .mat-simple-snackbar {
+    font-size: 22px;
+    text-align: center;
+    justify-content: center;
+    white-space: normal;
+    overflow-wrap: break-word !important;
+    line-height: 22px !important;
+    color: var(--texto_snack_error);
+  }
+
+  ::ng-deep .snack-error .mat-simple-snackbar.container {
+    margin-top: -100px !important;
+    overflow-wrap: break-word !important;
+  }
+
+

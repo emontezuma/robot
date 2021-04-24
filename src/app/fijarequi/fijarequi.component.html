@@ -1,0 +1,40 @@
+<div class="contenido" class="mat-typography">
+    
+    <div class="cabecera" mat-dialog-title>
+        <mat-icon class="iconoBarras iconPB_2" svgIcon="i_maquina"></mat-icon>
+        <span class="titulo">{{ this.servicio.rTraduccion()[288] }}</span>
+    </div>
+    <div class="registroCampo"> 
+        <div class="registroTitulo">{{ this.servicio.rTraduccion()[287] }}</div>    
+        <mat-form-field class="cajaTexto">
+            <mat-select [(ngModel)]="datos.maquina" name="datos.maquina" (selectionChange)="seleccion($event)">
+                <mat-option *ngFor="let maquina of maquinas; let i = index" [value]="maquina.id">
+                    <div class="columnas">
+                        <div class="icono">
+                            <mat-icon class="iconPB_2" [svgIcon]="maquina.icono"></mat-icon>
+                        </div>
+                        <div class="iconoTexto">
+                            {{ maquina.nombre }}
+                        </div>
+                        
+                    </div>
+                   
+                </mat-option>
+            </mat-select>
+            <mat-hint class="pista" align="start">{{ tipoResumen }}</mat-hint>
+        </mat-form-field>                            
+        <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[289] }}</span>       
+    </div>
+    <div class="pie" mat-dialog-actions>
+        <button class="positivo indice" mat-button (mouseover)="validar01=true;" (mouseout)="validar01=false;" [ngClass]="{ botHover: validar01 }" (click)="validar(1)" [disabled]="datos.maquina==0"  [ngStyle]="{ 'font-size': movil ? '11px' : '17px' }">
+            <mat-icon [ngClass]="{ iconPB_3: datos.maquina > 0, iconPB_3_disabled: datos.maquina==0 }" svgIcon="in_seleccionado"></mat-icon>
+            <span class="botTexto">{{ this.servicio.rTraduccion()[290] }}</span>
+        </button>
+
+        <button class="boton indice" mat-button (mouseover)="validar02=true;" (mouseout)="validar02=false;" [ngClass]="{ botHover: validar02 }" (click)="validar(2)"  [ngStyle]="{ 'font-size': movil ? '11px' : '17px' }">
+            <mat-icon class="iconPB" svgIcon="i_cancelar"></mat-icon>
+            <span class="botTexto">{{ this.servicio.rTraduccion()[77] }}</span>
+        </button>
+    </div>
+</div>
+    
