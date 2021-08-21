@@ -1,0 +1,55 @@
+<div class="contenido" class="mat-typography">
+    <div class="cabecera" mat-dialog-title>
+        <mat-icon class="iconoBarras iconPB_2" [svgIcon]="datos.icono0"></mat-icon>
+        <span class="titulo">{{ datos.titulo }}</span>
+    </div>
+    <div class="registroCampo" *ngIf="datos.clave >= 1">        
+        <div class="registroTitulo"  *ngIf="datos.clave == 1 && datos.causaC==0">{{ this.servicio.rTraduccion()[195] }}</div>    
+        <div class="registroTitulo"  *ngIf="datos.clave == 4">{{ this.servicio.rTraduccion()[196] }}</div>    
+        <div class="registroTitulo"  *ngIf="datos.clave == 1 && datos.causaC==-1">{{ this.servicio.rTraduccion()[197] }}</div>    
+        <div class="registroValorPrimero" *ngIf="datos.clave == 1 || datos.clave == 4">{{ datos.causaD }}</div>
+        <div class="registroTitulo"  *ngIf="datos.clave > 1 && datos.clave < 4">{{ this.servicio.rTraduccion()[198] }}</div>    
+        <mat-form-field class="texto" *ngIf="datos.clave == 2 || datos.clave == 3">
+            <mat-select [(ngModel)]="datos.causa" name="causa">
+                <mat-option *ngFor="let causa of causas; let i = index" [value]="i">{{ causa.nombre }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        
+        <div class="registroTituloSegundo" >{{ this.servicio.rTraduccion()[199] }}</div>    
+        <div class="registroValor">
+            <mat-form-field class="cajaTexto_2">
+                <input matInput type="text" [(ngModel)]="datos.usuario" maxlength="50" autocomplete="off" name="usuario" required #usuarioN="ngModel">
+                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+            </mat-form-field>     
+        </div>    
+        <div class="registroTitulo" >{{ this.servicio.rTraduccion()[200] }}</div>    
+        <div class="registroValor">
+            <mat-form-field class="cajaTexto_2">
+                <input matInput [type]="visibilidad" [(ngModel)]="datos.claves" maxlength="50" autocomplete="off" name="claves" required #clavesN="ngModel">
+                <button mat-button matSuffix mat-icon-button (click)="visibilidad = (visibilidad == 'password' ? 'text' : 'password');">
+                    <mat-icon *ngIf="visibilidad == 'password'">visibility</mat-icon>
+                    <mat-icon *ngIf="visibilidad != 'password'">visibility_off</mat-icon>
+                </button>
+                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+            </mat-form-field>     
+        </div>    
+    </div>
+        
+    <div class="cajaLista" *ngIf="datos.mensaje.length>0">
+        <div mat-dialog-conten class ="lista" [innerHTML]="datos.mensaje" *ngIf="datos.mensaje.length>0" [ngStyle]="{ 'font-size': movil ? '11px' : '17px' }"></div>
+    </div>
+    <div class="pie" mat-dialog-actions>
+        <button class="positivo indice" mat-button (mouseover)="validar01=true;" (mouseout)="validar01=false;" [ngClass]="{ botHover: validar01 }" (click)="validar(1)" [ngStyle]="{ 'font-size': movil ? '13px' : '17px' }" [disabled]="(datos.clave >= 1 && (datos.claves.length==0 || datos.usuario.length==0)) || (datos.clave > 1  && datos.clave < 4 && datos.causa==-1)">
+            <mat-icon class="iconPB_3" [svgIcon]="datos.icono1"></mat-icon>
+            <span class="botTexto">{{ datos.boton1STR }}</span>
+        </button>
+        <button class="boton indice" mat-button (mouseover)="validar02=true;" (mouseout)="validar02=false;" *ngIf="datos.botones>1 && mostrarCancelar" [ngClass]="{ botHover: validar02 }" (click)="validar(2)" [ngStyle]="{ 'font-size': movil ? '11px' : '17px' }">
+            <mat-icon class="iconPB" [svgIcon]="datos.icono2"></mat-icon>
+            <span class="botTexto">{{ datos.boton2STR }}</span>
+        </button>
+        <button class="boton indice" mat-button (mouseover)="validar03=true;" (mouseout)="validar03=false;" *ngIf="datos.botones>2" [ngClass]="{ botHover: validar03 }" (click)="validar(3)" [ngStyle]="{ 'font-size': movil ? '11px' : '17px' }">
+            <mat-icon class="iconPB" [svgIcon]="datos.icono3"></mat-icon>
+            <span class="botTexto">{{ datos.boton3STR }}</span>
+        </button>
+    </div>
+</div>

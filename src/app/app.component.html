@@ -1,0 +1,268 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div id="todo" ng-app="app" ng-controller="AppCtrl" >
+  <mat-toolbar id="barraNavegacion" *ngIf="verMenuSuperior">
+    
+    <button mat-flat-button class="botonCircular botonBarras" [matTooltip] = "menuHamburguesaTT" matTooltipClass = "toolTip" matTooltipShowDelay = "100" (click) = "menuIzquierdo()" [ngClass]="{bMenu: iconoHamburguesa=='i_menu', bMenuPres: iconoHamburguesa!='i_menu' }">
+        <mat-icon class="iconoBarras iconBarra" [svgIcon]="iconoHamburguesa" [@iconoMenu]="direccion"></mat-icon>
+    </button>  
+    <button mat-flat-button class="botonBarras botonCircular_2" [@iconoPin]="pinEfecto" [matTooltip] = "ayuda03" matTooltipClass = "toolTip" matTooltipShowDelay = "100" [ngClass]="{bPin: iconoPin=='place', bPinPres: iconoPin!='place' }" 
+    (click) = "aplicarSN()" *ngIf="verPin">
+        <mat-icon class="iconoBarras iconBarra_3" svgIcon="i_pin"  [ngClass]="{iconoPin: iconoPin=='place', iconoPinPresionado: iconoPin!='place' }"></mat-icon>
+    </button>  
+
+    <div><img @efecto class="logoCompania" [src]="logo_ruta" (error)="imagenError()" [style.width.px]="logo_ancho" [style.height.px]="logo_alto" [style.marginTop.px]="logo_arriba" [style.marginLeft.px]="logo_izquierda"></div>
+    <div class="medioBarra" *ngIf="!isHandset">{{ ayudaSuperior }}</div>
+    <button mat-flat-button class="botonBarras botonCircular" *ngIf="botonMenu" [style.marginRight.px]="5" [matTooltip] = "ayuda07" (click)="verMenu()" matTooltipClass = "toolTip" matTooltipShowDelay = "100" [ngStyle]="{'margin-left': isHandset ? 'auto' : '0px' }">
+        <mat-icon class="iconoBarras" svgIcon="i_verMenu" [@iconoMenu]="posMenu" [style.marginTop.px]="(posMenu == 'cerrado' ? -4 : -7)" [style.marginLeft.px]="(posMenu == 'cerrado' ? -13 : -11)"></mat-icon>
+    </button>
+    <!--<button mat-flat-button class="botonBarras botonCircular" [style.marginRight.px]="5" [matTooltip] = "ayuda06" [matMenuTriggerFor]="menuColores" matTooltipClass = "toolTip" matTooltipShowDelay = "100" [ngStyle]="{'margin-left': isHandset ? 'auto' : '0px' }" *ngIf="cambiarTema && autenticado">
+        <mat-icon class="iconoBarras iconBarra_5" svgIcon="i_paleta" [style.marginTop.px]="-20"></mat-icon>
+    </button>-->
+    <button mat-flat-button class="botonBarras botonCircular" [style.marginRight.px]="5" [matTooltip] = "ayuda09" [matMenuTriggerFor]="menuIdiomas" matTooltipClass = "toolTip" matTooltipShowDelay = "100" [ngStyle]="{'margin-left': isHandset ? 'auto' : '0px' }" *ngIf="autenticado">
+
+      <img class="bandera" [src]="banderaActual">
+
+      
+  </button>
+    <button mat-flat-button class="botonBarras botonCircular" [style.marginRight.px]="5" [matTooltip] = "ayuda08" (click)="sugerirTurno(-1)" matTooltipClass = "toolTip" matTooltipShowDelay = "100" [disabled]="!autenticado || !cambiarTurno">
+        <mat-icon class="iconoBarras iconBarra_5" svgIcon="i_turnos" [style.marginTop.px]="-20"></mat-icon>
+        
+    </button>
+    <div class="turno" *ngIf="!isHandset && ayudaTurno && autenticado">{{ ayudaTurno }}</div>
+    <button mat-flat-button class="botonBarras botonCircular" [matTooltip] = "ayuda02" [matMenuTriggerFor]="menuUsuario" matTooltipClass = "toolTip" matTooltipShowDelay = "100" [disabled]="!autenticado">
+        <mat-icon class="iconoBarras iconBarra_5" svgIcon="i_user" [style.marginTop.px]="-15"></mat-icon>
+    </button>  
+    <div class="saludo" *ngIf="primerNombre.length > 0 && !isHandset">{{ mBienvenido }}</div>
+      <mat-menu #menuColores="matMenu">
+        <div class="mUsuario">
+          <button mat-menu-item class="menuOpcion" *ngFor="let tema of temasUsuario; let i = index" (click)="temas(tema.id)" [ngClass]="{ menuTomado: temaActual == tema.id } ">
+            <mat-icon class="iconoBarras iconBarra_m" svgIcon="i_paleta" [style.marginTop.px]="-25"></mat-icon>
+            <div class="titulo">{{ tema.nombre }}</div>
+          </button>
+        </div>
+      </mat-menu>
+
+      <mat-menu #menuIdiomas="matMenu">
+        <div class="mUsuario">
+          <button mat-menu-item class="menuOpcion" *ngFor="let idioma of idiomas; let i = index" (click)="bTraductor(idioma.id)" [ngClass]="{ menuTomado: idiomaActual == idioma.id } ">
+            <img class="banderaMenu" [src]="idioma.icono">
+            <div class="titulo">{{ idioma.nombre }}</div>
+          </button>
+        </div>
+      </mat-menu>
+
+      <mat-menu #menuUsuario="matMenu">
+          <div class="mUsuario">
+            <button mat-menu-item class="menuOpcion" (click)="cambiarClave(0)">
+              <mat-icon class="iconoBarras iconBarra_m" svgIcon="i_cambio" [style.marginTop.px]="-25"></mat-icon>
+              <div class="titulo">{{ this.servicio.rTraduccion()[485] }}</div>
+            </button>
+            <div class="divisorP"></div>
+            <button mat-menu-item class="menuOpcion" (click)="finalizar()">
+              <mat-icon class="iconoBarras iconBarra_m" svgIcon="i_salir" [style.marginTop.px]="-25"></mat-icon>
+              <div class="titulo">{{ this.servicio.rTraduccion()[486] }}</div>
+            </button>
+          </div>
+        </mat-menu>
+  </mat-toolbar>
+
+  <mat-sidenav-container id="contenedor" resizable r-directions="['right']" fullscreen>
+    <mat-sidenav [opened]="abiertoSN" (opened)="cambioSN()" (closed)="cambioSN()" (onClose)="cambioSN()" id="menuIzquierdo" #barraIzquierda [mode]="modoSN">
+      <div class="contenido" [style.height.px]="alto_opciones">
+        <mat-accordion class="acordeon" [multi]="true">
+            <mat-expansion-panel class="otroPanel" hideToggle expanded="true">
+                <mat-expansion-panel-header class="acordionCabecera">
+                  <mat-panel-title class="acordion">{{ this.servicio.rTraduccion()[487] }}</mat-panel-title>
+                  <mat-icon class="iconoCabecera" svgIcon="i_operaciones"></mat-icon>
+                </mat-expansion-panel-header>
+                
+                <button class="boton itemBoton" mat-stroked-button (click)="accion(13)" (mouseover)="hoverp[21]=true;" (mouseout)="hoverp[21]=false;" [ngClass]="{botTomado: seleccion==13, botHover: hoverp[21]}">
+                    <mat-icon class="iconPB" svgIcon="i_oee" ></mat-icon>
+                    <span class="opcionDetalle">{{ this.servicio.rTraduccion()[492] }}</span>
+                </button>
+                
+            </mat-expansion-panel>  
+            <mat-expansion-panel class="otroPanel" hideToggle [expanded]="false" >
+                <mat-expansion-panel-header class="acordionCabecera">
+                  <mat-panel-title class="acordion" >{{ this.servicio.rTraduccion()[498] }}</mat-panel-title>
+                  <mat-icon class="iconoCabecera" svgIcon="i_catalogo"></mat-icon>
+                </mat-expansion-panel-header>
+                
+                <button class="boton itemBoton" mat-stroked-button (click)="accion(31)" (mouseover)="hoverp[5]=true;" (mouseout)="hoverp[5]=false;"  [ngClass]="{botTomado: seleccion==31, botHover: hoverp[5]}">
+                  <mat-icon class="iconPB" svgIcon="i_maquina"></mat-icon>
+                  <span class="opcionDetalle">{{ this.servicio.rTraduccion()[500] }}</span>
+                </button>
+                
+                <button class="boton itemBoton" mat-stroked-button (click)="accion(54)" (mouseover)="hoverp[45]=true;" (mouseout)="hoverp[45]=false;"  [ngClass]="{botTomado: seleccion==54, botHover: hoverp[45]}">
+                  <mat-icon class="iconPB" svgIcon="i_partes"></mat-icon>
+                  <span class="opcionDetalle">{{ this.servicio.rTraduccion()[505] }}</span>
+                </button>
+                <button class="boton itemBoton" mat-stroked-button (click)="accion(2007)" (mouseover)="hoverp[33]=true;" (mouseout)="hoverp[33]=false;"  [ngClass]="{botTomado: seleccion==2007, botHover: hoverp[33]}">
+                  <mat-icon class="iconPB" svgIcon="i_horarios"></mat-icon>
+                  <span class="opcionDetalle">{{ this.servicio.rTraduccion()[506] }}</span>
+                </button>
+                <button class="boton itemBoton" mat-stroked-button (click)="accion(47)" (mouseover)="hoverp[23]=true;" (mouseout)="hoverp[23]=false;"  [ngClass]="{botTomado: seleccion==47, botHover: hoverp[23]}">
+                  <mat-icon class="iconPB" svgIcon="i_objetivos"></mat-icon>
+                  <span class="opcionDetalle">{{ this.servicio.rTraduccion()[514] }}</span>
+                </button>
+                
+                <!-- <button class="boton itemBoton" mat-stroked-button (click)="accion(48)" (mouseover)="hoverp[24]=true;" (mouseout)="hoverp[24]=false;"  [ngClass]="{botTomado: seleccion==48, botHover: hoverp[24]}" *ngIf="servicio.rVersion().modulos[5] == 1">
+                  <mat-icon class="iconPB" svgIcon="i_estimados"></mat-icon>
+                  <span class="opcionDetalle">{{ this.servicio.rTraduccion()[515] }}</span>
+                </button>
+ -->
+                <div class="divisorP"></div>
+                <button class="boton itemBoton" mat-stroked-button (click)="accion(38)" (mouseover)="hoverp[16]=true;" (mouseout)="hoverp[16]=false;"  [ngClass]="{botTomado: seleccion==38, botHover: hoverp[16]}">
+                  <mat-icon class="iconPB" svgIcon="i_turnos"></mat-icon>
+                  <span class="opcionDetalle">{{ this.servicio.rTraduccion()[519] }}</span>
+                </button>
+                <!-- <button class="boton itemBoton" mat-stroked-button (click)="accion(39)" (mouseover)="hoverp[17]=true;" (mouseout)="hoverp[17]=false;"  [ngClass]="{botTomado: seleccion==39, botHover: hoverp[17]}">
+                  <mat-icon class="iconPB" svgIcon="i_traductor"></mat-icon>
+                  <span class="opcionDetalle">{{ this.servicio.rTraduccion()[520] }}</span>
+                </button> -->
+                <div class="divisorP"></div>
+                <button class="boton itemBoton" mat-stroked-button (click)="accion(36)" (mouseover)="hoverp[10]=true;" (mouseout)="hoverp[10]=false;"  [ngClass]="{botTomado: seleccion==36, botHover: hoverp[10]}">
+                  <mat-icon class="iconPB" svgIcon="i_correos"></mat-icon>
+                  <span class="opcionDetalle">{{ this.servicio.rTraduccion()[521] }}</span>
+                </button>
+               <!--  <button class="boton itemBoton" mat-stroked-button (click)="accion(35)" (mouseover)="hoverp[9]=true;" (mouseout)="hoverp[9]=false;"  [ngClass]="{botTomado: seleccion==35, botHover: hoverp[9]}">
+                  <mat-icon class="iconPB" svgIcon="i_recipiente"></mat-icon>
+                  <span class="opcionDetalle">{{ this.servicio.rTraduccion()[522] }}</span>
+                </button> -->
+                
+              </mat-expansion-panel>
+              <mat-expansion-panel class="otroPanel" hideToggle [expanded]="false" >
+                <mat-expansion-panel-header class="acordionCabecera">
+                  <mat-panel-title class="acordion" >{{ this.servicio.rTraduccion()[524] }}</mat-panel-title>
+                  <mat-icon class="iconoCabecera" svgIcon="i_configuracion"></mat-icon>
+                </mat-expansion-panel-header>
+                  <button class="boton itemBoton" mat-stroked-button (click)="accion(42)" (mouseover)="hoverp[14]=true;" (mouseout)="hoverp[14]=false;"  [ngClass]="{botTomado: seleccion==42, botHover: hoverp[14]}">
+                    <mat-icon class="iconPB" svgIcon="i_parametros"></mat-icon>
+                    <span class="opcionDetalle">{{ this.servicio.rTraduccion()[525] }}</span>
+                  </button>
+                   <button class="boton itemBoton" mat-stroked-button (click)="accion(49)" (mouseover)="hoverp[25]=true;" (mouseout)="hoverp[25]=false;"  [ngClass]="{botTomado: seleccion==49, botHover: hoverp[25]}">
+                    <mat-icon class="iconPB" svgIcon="i_sensor"></mat-icon>
+                    <span class="opcionDetalle">{{ this.servicio.rTraduccion()[527] }}</span>
+                  </button>
+                  <div class="divisorP"></div>
+                  <button class="boton itemBoton" mat-stroked-button (click)="accion(41)" (mouseover)="hoverp[13]=true;" (mouseout)="hoverp[13]=false;"  [ngClass]="{botTomado: seleccion==41, botHover: hoverp[13]}">
+                    <mat-icon class="iconPB" svgIcon="i_grupos"></mat-icon>
+                    <span class="opcionDetalle">{{ this.servicio.rTraduccion()[528] }}</span>
+                  </button>
+                  <button class="boton itemBoton" mat-stroked-button (click)="accion(43)" (mouseover)="hoverp[18]=true;" (mouseout)="hoverp[18]=false;"  [ngClass]="{botTomado: seleccion==43, botHover: hoverp[18]}">
+                    <mat-icon class="iconPB" svgIcon="i_politicas"></mat-icon>
+                    <span class="opcionDetalle">{{ this.servicio.rTraduccion()[529] }}</span>
+                  </button>
+                  
+              </mat-expansion-panel>
+              <mat-expansion-panel class="otroPanel" hideToggle expanded="false">
+                <mat-expansion-panel-header class="acordionCabecera">
+                  <mat-panel-title class="acordion">{{ this.servicio.rTraduccion()[532] }}</mat-panel-title>
+                  <mat-icon class="iconoCabecera" svgIcon="i_grafica"></mat-icon>
+                </mat-expansion-panel-header>
+                <button class="boton itemBoton" mat-stroked-button (click)="accion(1010)" (mouseover)="hoverp[29]=true;" (mouseout)="hoverp[29]=false;"  [ngClass]="{botTomado: seleccion==1010, botHover: hoverp[29]}">
+                  <mat-icon class="iconPB" svgIcon="i_tiemporeparacion"></mat-icon>
+                  <span class="opcionDetalle">{{ this.servicio.rTraduccion()[533] }}</span>
+                </button>
+                <button class="boton itemBoton" mat-stroked-button (click)="accion(1020)" (mouseover)="hoverp[30]=true;" (mouseout)="hoverp[30]=false;" [ngClass]="{botTomado: seleccion==1020, botHover: hoverp[30]}">
+                  <mat-icon class="iconPB" svgIcon="i_tiempofallas"></mat-icon>
+                  <span class="opcionDetalle">{{ this.servicio.rTraduccion()[534] }}</span>
+                </button>
+               <!--  <button class="boton itemBoton" mat-stroked-button (click)="accion(1030)" (mouseover)="hoverp[31]=true;" (mouseout)="hoverp[31]=false;" [ngClass]="{botTomado: seleccion==1030, botHover: hoverp[31]}">
+                  <mat-icon class="iconPB" svgIcon="i_pareto"></mat-icon>
+                  <span class="opcionDetalle">{{ this.servicio.rTraduccion()[535] }}</span>
+                </button> -->
+                
+              </mat-expansion-panel>
+              <mat-expansion-panel class="otroPanel" hideToggle expanded="false">
+                <mat-expansion-panel-header class="acordionCabecera">
+                  <mat-panel-title class="acordion">{{ this.servicio.rTraduccion()[539] }}</mat-panel-title>
+                  <mat-icon class="iconoCabecera" svgIcon="i_reportes"></mat-icon>
+                </mat-expansion-panel-header>
+                
+                <div class="divisorP"></div>
+                <button class="boton itemBoton" mat-stroked-button (click)="accion(22)" (mouseover)="hoverp[11]=true;" (mouseout)="hoverp[11]=false;" [ngClass]="{botTomado: seleccion==22, botHover: hoverp[11]}">
+                  <mat-icon class="iconPB" svgIcon="i_excel"></mat-icon>
+                  <span class="opcionDetalle">{{ this.servicio.rTraduccion()[544] }}</span>
+                </button>
+              </mat-expansion-panel>
+          </mat-accordion>
+      </div>
+      <div class="aplicacion">
+        <img class="logo" [src]="logoAplicacion">
+        <div class="detalle">
+          <div class="marca">
+            {{ version }}
+          </div>
+          <div class="fabricante">
+            <a class="vinculo" href="http://www.mmcallmexico.mx/" target="_blank">{{ this.servicio.rTraduccion()[3357] }}</a>
+          </div> 
+        </div>
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="contenidoPagina" [@efecto]="estado" [style.height.px]="alto_resto" >
+        <router-outlet #o="outlet"></router-outlet>
+      </div>
+      <div *ngIf="verProceso" class="marcoProceso">
+          <div class="barraProceso">
+            <mat-progress-spinner class="proceso" diameter="80"
+              mode="indeterminate">
+            </mat-progress-spinner>
+          </div>
+      </div>
+        
+    </mat-sidenav-content>
+    <mat-sidenav position="end" [opened]="abiertoSND" (opened)="cambioSND()" (closed)="cambioSND()" (onClose)="cambioSND()" id="menuDerecho" #barraDerecha mode="side" [style.visibility]="mostrarANDONlbl" *ngIf="mostrarANDON">
+      <div class="contenido" >
+        <mat-accordion class="acordeon" [multi]="true">
+            <mat-expansion-panel class="otroPanel" hideToggle expanded="true">
+                <mat-expansion-panel-header class="acordionCabecera" *ngIf="miSeleccion==3">
+                  <mat-panel-title class="acordion">{{ this.servicio.rTraduccion()[3497] }}</mat-panel-title>
+                  <mat-icon class="iconoCabecera" svgIcon="i_responsable"></mat-icon>
+                </mat-expansion-panel-header>
+                <mat-expansion-panel-header class="acordionCabecera" *ngIf="miSeleccion==4">
+                  <mat-panel-title class="acordion">{{ this.laSeleccion[6] }}</mat-panel-title>
+                  <mat-icon class="iconoCabecera" svgIcon="i_falla"></mat-icon>
+                </mat-expansion-panel-header>
+                <button class="boton itemBoton positivo" mat-stroked-button (click)="rRegistros(3)" (mouseover)="hoverp[54]=true;" (mouseout)="hoverp[54]=false;" [ngClass]="{botHover: hoverp[54]}" *ngIf="miSeleccion==4">
+                  <mat-icon class="iconPB_3" svgIcon="i_regresar"></mat-icon>
+                  <span class="opcionDetalle">{{ this.servicio.rTraduccion()[140] }}</span>
+                </button>  
+                <button class="boton itemBoton_2" *ngFor="let registro of registros; let i = index" mat-stroked-button (mouseover)="registro.seleccionado=true;" (mouseout)="registro.seleccionado=false;" [ngClass]="{botTomado: registro.id == laSeleccion[miSeleccion - 1], botHover: registro.seleccionado, botRojo: registro.conFalla == 'S' }" (click)="seleccionar(i)">
+                  <div class="imagen" *ngIf="registro.mostrarImagen != 'N' && visualizarImagen"><img class="imaReg" [src]="registro.imagen" (error)="imagenError(i)"></div>
+                  <mat-icon *ngIf="registro.mostrarImagen == 'N' || !visualizarImagen" class="iconGrande" [svgIcon]="iconoGeneral"></mat-icon>
+                  <div class="nombreValor">{{ registro.nombre }}</div>
+                </button>                
+            </mat-expansion-panel>  
+          </mat-accordion>
+      </div>
+      
+    </mat-sidenav>
+  </mat-sidenav-container>
+
+  <mat-toolbar id="pie" *ngIf="verPie">
+    <mat-icon class="iconoBarras iconBarra_4" svgIcon="i_info" *ngIf="!procesando"></mat-icon>
+    <div *ngIf="procesando" class="barraProcesito">
+      <mat-progress-spinner diameter="20"
+        mode="indeterminate">
+      </mat-progress-spinner>
+    </div>
+    <div id="mensajeInferior" [innerHTML]="ayudaInferior"></div>
+    <div class="errorCaja" *ngIf="sinConexion"><mat-icon class="iconoError" [matTooltip] = "ayuda04" matTooltipClass = "toolTip" matTooltipShowDelay = "100" >sync_problem</mat-icon></div>
+    <div class="errorCaja" *ngIf="conEscaner"><mat-icon class="escaneando" [matTooltip] = "ayuda05" matTooltipClass = "toolTip" matTooltipShowDelay = "100" >usb</mat-icon>{{ cadenaEscaneadaPrint }}</div>
+    
+    <div [ngClass]="{ fecha: verLogo, fechaDer: !verLogo }" *ngIf="!isHandset">
+        <mat-icon class="iconoBarras iconBarra_2" svgIcon="i_reloj" ></mat-icon>
+        <span class="reloj">{{ hora | date:this.servicio.rIdioma().fecha_02}}</span>
+        <div *ngIf="cadenaVcto" class="reloj2"><div class="vence">{{ cadenaVcto}}</div></div>
+        
+    </div>
+    <button class="cajaSkew" *ngIf="!isHandset && verLogo" [matTooltip] = "mostrarANDONlbl" matTooltipClass = "toolTip" mat-flat-button (click) = "iraCronos()">
+      <div><img class="logoCronos" [src]="iconoCronos"></div>
+    </button>
+  </mat-toolbar>
+
+</div>
+
+

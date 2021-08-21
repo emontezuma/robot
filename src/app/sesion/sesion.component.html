@@ -1,0 +1,135 @@
+<div class="contenido" class="mat-typography">
+    
+    <div class="cabecera" mat-dialog-title>
+        <mat-icon class="iconoBarras iconPB_2" [svgIcon]="datos.icono0"></mat-icon>
+        <span class="titulo">{{ datos.titulo }}</span>
+    </div>
+    <div class="registroCampo" *ngIf="datos.sesion == 1">        
+        <div class="registroTituloSegundo" >{{ this.servicio.rTraduccion()[199] }}</div>    
+        <div class="registroValor">
+            <mat-form-field class="texto">
+                <input #txtUsuario matInput type="text" (keydown.enter)="validar(1)" [(ngModel)]="datos.usuario" maxlength="50" autocomplete="off" name="usuario" required #usuarioN="ngModel">
+                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+            </mat-form-field>     
+        </div>    
+        <div class="registroTitulo" >{{ this.servicio.rTraduccion()[445] }}</div>    
+        <div class="registroValor">
+            <mat-form-field class="texto">
+                <input matInput [type]="visibilidad" (keydown.enter)="validar(1)" [(ngModel)]="datos.clave" maxlength="50" autocomplete="off" name="clave" required #claveN="ngModel">
+                <button mat-button matSuffix mat-icon-button (click)="visibilidad = (visibilidad == 'password' ? 'text' : 'password');">
+                    <mat-icon *ngIf="visibilidad == 'password'">visibility</mat-icon>
+                    <mat-icon *ngIf="visibilidad != 'password'">visibility_off</mat-icon>
+                </button>
+                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+            </mat-form-field>     
+        </div>    
+    </div>
+    <div class="registroCampo"  *ngIf="datos.sesion == 2">        
+        <div class="registroTituloSegundo" >{{ this.servicio.rTraduccion()[446] }}</div>    
+        <div class="registroValor">
+            <mat-form-field class="texto">
+                <input #txtNvaClave matInput [type]="visibilidad2" [(ngModel)]="datos.nuevaClave" maxlength="50" autocomplete="off" name="nuevaClave" required #claveNva="ngModel">
+                <button mat-button matSuffix mat-icon-button (click)="visibilidad2 = (visibilidad2 == 'password' ? 'text' : 'password');">
+                    <mat-icon *ngIf="visibilidad2 == 'password'">visibility</mat-icon>
+                    <mat-icon *ngIf="visibilidad2 != 'password'">visibility_off</mat-icon>
+                </button>
+                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+            </mat-form-field>     
+        </div>    
+        <div class="registroTitulo" >{{ this.servicio.rTraduccion()[447] }}</div>    
+        <div class="registroValor">
+            <mat-form-field class="texto">
+                <input matInput [type]="visibilidad3" [(ngModel)]="datos.nuevaClaveCon" maxlength="50" autocomplete="off" name="nuevaClaveCon" required #claveNvaCon="ngModel" (keydown.enter)="validar(1)">
+                <button mat-button matSuffix mat-icon-button (click)="visibilidad3 = (visibilidad3 == 'password' ? 'text' : 'password');">
+                    <mat-icon *ngIf="visibilidad3 == 'password'">visibility</mat-icon>
+                    <mat-icon *ngIf="visibilidad3 != 'password'">visibility_off</mat-icon>
+                    
+                </button>
+                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+                <mat-hint class="pistaError" align="end" *ngIf="datos.nuevaClaveCon != datos.nuevaClave">{{ this.servicio.rTraduccion()[452] }}</mat-hint>
+                <mat-hint class="pistaError" align="end" *ngIf="datos.nuevaClaveCon == datos.nuevaClave && error01">{{ this.servicio.rTraduccion()[453] }}</mat-hint>
+                <mat-hint class="pistaError" align="end" *ngIf="claveUsada>-1">{{ claveUsada == 0 ? this.servicio.rTraduccion()[454] : claveUsada == 1 ? this.servicio.rTraduccion()[455] : (this.servicio.rTraduccion()[456] + claveUsada) }} </mat-hint>
+            </mat-form-field>     
+        </div>  
+        <div class="politicas" [innerHTML]="politicas">
+
+        </div>  
+    </div>
+        
+    <div class="registroCampo"  *ngIf="datos.sesion == 3">        
+        <div class="registroTituloSegundo"> {{ this.servicio.rTraduccion()[448] + (!uCambio ? this.servicio.rTraduccion()[449] : uCambio | date:this.servicio.rIdioma().fecha_01) + ')' }}</div>    
+            <div class="registroValor">
+                <mat-form-field class="texto">
+                    <input #txtclaveActual matInput [disabled]="claveInicializada" [type]="visibilidad1" [(ngModel)]="datos.claveActual" maxlength="50" autocomplete="off" name="claveActual" required #claveNva="ngModel">
+                    <button mat-button matSuffix mat-icon-button *ngIf="!claveInicializada" (click)="visibilidad1 = (visibilidad1 == 'password' ? 'text' : 'password');">
+                        <mat-icon *ngIf="visibilidad1 == 'password'">visibility</mat-icon>
+                        <mat-icon *ngIf="visibilidad1 != 'password'">visibility_off</mat-icon>
+                    </button>
+                    <mat-hint class="pista" align="start" *ngIf="!claveInicializada">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+                    <mat-hint class="pista" align="start" *ngIf="claveInicializada">{{ this.servicio.rTraduccion()[450] }}</mat-hint>
+                    <mat-hint class="pistaError" align="end" *ngIf="!claveInicializada && claveIncorrecta">{{ this.servicio.rTraduccion()[451] }}</mat-hint>
+                    
+                </mat-form-field>     
+            </div>    
+        <div class="registroTituloSegundo" >{{ this.servicio.rTraduccion()[446] }}</div>    
+            <div class="registroValor">
+                <mat-form-field class="texto">
+                    <input #txtNvaClave matInput [type]="visibilidad2" [(ngModel)]="datos.nuevaClave" maxlength="50" autocomplete="off" name="nuevaClave" required #claveNva="ngModel" (input)="valNuevaClave()">
+                    <button mat-button matSuffix mat-icon-button (click)="visibilidad2 = (visibilidad2 == 'password' ? 'text' : 'password');">
+                        <mat-icon *ngIf="visibilidad2 == 'password'">visibility</mat-icon>
+                        <mat-icon *ngIf="visibilidad2 != 'password'">visibility_off</mat-icon>
+                    </button>
+                    <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+                    <mat-hint class="pistaError" align="end" *ngIf="datos.nuevaClaveCon != datos.nuevaClave">{{ this.servicio.rTraduccion()[452] }}</mat-hint>
+                    <mat-hint class="pistaError" align="end" *ngIf="datos.nuevaClaveCon == datos.nuevaClave && error01">{{ this.servicio.rTraduccion()[453] }}</mat-hint>
+                    <mat-hint class="pistaError" align="end" *ngIf="claveUsada>-1">{{ claveUsada == 0 ? this.servicio.rTraduccion()[454] : claveUsada == 1 ? this.servicio.rTraduccion()[455] : (this.servicio.rTraduccion()[456] + claveUsada) }} </mat-hint>
+                </mat-form-field>     
+            </div>    
+            <div class="registroTitulo">{{ this.servicio.rTraduccion()[447] }}</div>    
+            <div class="registroValor">
+                <mat-form-field class="texto">
+                    <input matInput [type]="visibilidad3" [(ngModel)]="datos.nuevaClaveCon" maxlength="50" autocomplete="off" name="nuevaClaveCon" required #claveNvaCon="ngModel" (keydown.enter)="validar(1)">
+                    <button mat-button matSuffix mat-icon-button (click)="visibilidad3 = (visibilidad3 == 'password' ? 'text' : 'password');">
+                        <mat-icon *ngIf="visibilidad3 == 'password'">visibility</mat-icon>
+                        <mat-icon *ngIf="visibilidad3 != 'password'">visibility_off</mat-icon>
+                        
+                    </button>
+                    <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+                </mat-form-field>     
+            </div>   
+            <div class="politicas" [innerHTML]="politicas">
+
+            </div>
+
+        </div>
+
+        
+    
+        <div class="pie" mat-dialog-actions>
+            <button class="positivo indice" mat-button (mouseover)="validar01=true;" (mouseout)="validar01=false;" [ngClass]="{ botHover: validar01 }" (click)="validar(1)" *ngIf="datos.sesion == 1" [disabled]="datos.usuario.length==0"  [ngStyle]="{ 'font-size': movil ? '11px' : '17px' }">
+                <mat-icon [ngClass]="{ iconPB_3: datos.usuario.length!=0, iconPB_3_disabled: datos.usuario.length==0 }" [svgIcon]="datos.icono1"></mat-icon>
+                <span class="botTexto">{{ datos.boton1STR }}</span>
+            </button>
+            
+
+            <button class="boton indice" mat-button (click)="validar(1)" (mouseover)="validar03=true;" (mouseout)="validar03=false;" *ngIf="datos.sesion == 2" [ngClass]="{ botHover: validar03 }" [disabled]="datos.nuevaClave.length==0 || datos.nuevaClaveCon.length==0"  [ngStyle]="{ 'font-size': movil ? '11px' : '17px' }">
+                <mat-icon class="iconPB" [svgIcon]="datos.icono1"></mat-icon>
+                <span class="indiceTexto">{{ this.servicio.rTraduccion()[457] }}</span>
+            </button>
+            <button class="boton indice"  mat-button (click)="validar(1)" (mouseover)="validar04=true;" (mouseout)="validar04=false;" *ngIf="datos.sesion == 3" [ngClass]="{ botHover: validar04 }"  [ngStyle]="{ 'font-size': movil ? '11px' : '17px' }">
+                <mat-icon class="iconPB" [svgIcon]="datos.icono1"></mat-icon>
+                <span class="indiceTexto">{{ this.servicio.rTraduccion()[458] }}</span>
+            </button>
+
+            <button class="boton indice" mat-button (mouseover)="validar02=true;" (mouseout)="validar02=false;" [ngClass]="{ botHover: validar02 }" *ngIf="datos.botones>1" (click)="validar(2)"  [ngStyle]="{ 'font-size': movil ? '11px' : '17px' }">
+                <mat-icon class="iconPB" [svgIcon]="datos.icono2"></mat-icon>
+                <span class="botTexto">{{ datos.boton2STR }}</span>
+            </button>
+            
+            <button class="boton indice" (mouseover)="validar05=true;" (mouseout)="validar05=false;" [ngClass]="{ botHover: validar05 }" mat-button *ngIf="datos.botones>2" (click)="validar(3)"  [ngStyle]="{ 'font-size': movil ? '11px' : '17px' }">
+                <mat-icon class="iconPB" [svgIcon]="datos.icono1"></mat-icon>
+                <span class="indiceTexto">{{ datos.boton3STR }}</span>
+            </button>
+        </div>
+    </div>
+    

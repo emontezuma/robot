@@ -1,0 +1,910 @@
+<div id="todo" class="mat-typography">
+    <div class="pantallaError" *ngIf="pantalla==1">
+        <div class="cabeceraMensaje">{{ errorTitulo }}</div>
+        <div class="mensaje" [innerHTML]="errorMensaje"></div>
+    </div>
+    <div class="catalogos">
+        <div class="cabecera" @esquema_top *ngIf="verTop"
+            [style.backgroundColor]="(equipo.maquinafuncionando == 'F' ? colores.fondo_tarjeta : colores.fondo_boton_negativo)">
+            <button class="boton regreso" mat-button (mouseover)="hov10=true;" (mouseout)="hov10=false;"
+                [ngClass]="{ botHover: hov10 }" (click)="regresar()" *ngIf="enCambio">
+                <mat-icon class="iconPB_2" svgIcon="i_regresar"></mat-icon>
+                <div class="texto">{{ this.servicio.rTraduccion()[140] }}</div>
+            </button>
+            <button class="boton regreso" mat-button (mouseover)="hov08=true;" (mouseout)="hov08=false;"
+                [ngClass]="{botHover: hov08}" (click)="cambiarParametros(3)" [disabled]="!boton08" *ngIf="enCambio && modelo==2">
+                <mat-icon class="iconPB_2" svgIcon="in_seleccionado"></mat-icon>
+                <div class="texto">{{ this.servicio.rTraduccion()[2389] }}</div>
+            </button>
+            <button class="boton regreso" mat-button (mouseover)="hov09=true;" (mouseout)="hov09=false;"
+                [ngClass]="{botHover: hov09}" (click)="cancelar()" [disabled]="!boton09" *ngIf="enCambio && modelo==2">
+                <mat-icon class="iconPB_2" svgIcon="i_cancelar"></mat-icon>
+                <div class="texto">{{ this.servicio.rTraduccion()[77] }}</div>
+            </button>
+            <button class="boton regreso" mat-button (mouseover)="hov08=true;" (mouseout)="hov08=false;"
+            [ngClass]="{botHover: hov08}" (click)="replanear()" *ngIf="enCambio && modelo==3">
+            <mat-icon class="iconPB_2" svgIcon="in_seleccionado"></mat-icon>
+            <div class="texto">{{ this.servicio.rTraduccion()[3645] }}</div>
+            </button>
+            <button class="boton regreso" mat-button (mouseover)="hov09=true;" (mouseout)="hov09=false;"
+                [ngClass]="{botHover: hov09}" (click)="editar(1, 0)" *ngIf="enCambio && (modelo==3 || modelo == 4)">
+                <mat-icon class="iconPB_2" svgIcon="i_agregar"></mat-icon>
+                <div class="texto">{{ this.servicio.rTraduccion()[3646] }}</div>
+            </button>
+
+            <!-- <button class="boton regreso" mat-button (mouseover)="hov01=true;" (mouseout)="hov01=false;"
+                [ngClass]="{botTomado: enCarrusel, botHover: hov01}" [disabled]="!boton01" *ngIf="!enCambio"
+                (click)="estadoCarrusel(1)">
+                <mat-icon class="iconPB_2" svgIcon="i_carrusel"></mat-icon>
+                <div *ngIf="enCarrusel && carruselMaquinas.length>0" class="bag">
+                    <mat-icon class="iconPB_3" svgIcon="i_reloj"></mat-icon>
+                    <div class="bagLetras">{{ segFaltan }}</div>
+                </div>
+                <div class="texto">{{ cadCarrusel }}</div>
+            </button>
+            <button class="boton regreso" mat-button (mouseover)="hov02=true;" (mouseout)="hov02=false;"
+                [ngClass]="{botTomado: !enCarrusel, botHover: hov02}" [disabled]="!boton02" *ngIf="!enCambio"
+                (click)="estadoCarrusel(2)">
+                <mat-icon class="iconPB_2" svgIcon="i_maquina"></mat-icon>
+                <div class="texto">{{ this.servicio.rTraduccion()[288] }}</div>
+            </button>
+            <button class="boton regreso" mat-button (mouseover)="hov04=true;" (mouseout)="hov04=false;"
+                [ngClass]="{botHover: hov04}" [disabled]="!boton04" (click)="reiniciarConteo(1)" *ngIf="!enCambio">
+                <mat-icon class="iconPB_2" svgIcon="i_inicializar"></mat-icon>
+                <div class="texto">{{ this.servicio.rTraduccion()[3344] }}</div>
+            </button>
+            <button class="boton regreso" mat-button (mouseover)="hov06=true;" (mouseout)="hov06=false;"
+                [ngClass]="{botHover: hov06}" [disabled]="!boton06" *ngIf="equipo.paro_actual == 0 && !enCambio"
+                (click)="detener(1)">
+                <mat-icon class="iconPB_2" svgIcon="i_paro"></mat-icon>
+                <div class="texto">{{ this.servicio.rTraduccion()[3332] }}</div>
+            </button>
+            <button class="botPositivo regreso" mat-button (mouseover)="hov07=true;" (mouseout)="hov07=false;"
+                [ngClass]="{botHover: hov07}" [disabled]="!boton07" *ngIf="equipo.paro_actual > 0 && !enCambio"
+                (click)="reanudar(1)">
+                <mat-icon class="iconPB_2" svgIcon="i_proseguir"></mat-icon>
+                <div class="texto">{{ this.servicio.rTraduccion()[3343] }}</div>
+            </button>
+            <button class="boton regreso" mat-button (mouseover)="hov11=true;" (mouseout)="hov11=false;"
+                [ngClass]="{botHover: hov11}" *ngIf="equipo.activar_buffer == 'S' && !enCambio !viendoResumen"
+                (click)="sincronizar(1)">
+                <mat-icon class="iconPB_2" svgIcon="i_refrescar"></mat-icon>
+                <div class="texto">{{ this.servicio.rTraduccion()[3279] }}</div>
+            </button>
+            <button class="boton regreso" mat-button (mouseover)="hov12=true;" (mouseout)="hov12=false;"
+                [ngClass]="{botHover: hov12}" *ngIf="equipo.activar_buffer == 'S' && !enCambio && !viendoResumen"
+                (click)="sincronizar(3)">
+                <mat-icon class="iconPB_2" svgIcon="in_seleccionado"></mat-icon>
+                <div class="texto">{{ this.servicio.rTraduccion()[3273] }}</div>
+            </button> -->
+            <button class="boton regreso" mat-button (mouseover)="hov05=true;" (mouseout)="hov05=false;"
+                [ngClass]="{botHover: hov05}" [disabled]="!boton05" (click)="cambiarParametros(1)"
+                *ngIf="!enCambio">
+                <mat-icon class="iconPB_2" svgIcon="i_documento"></mat-icon>
+                <div class="texto">{{ this.servicio.rTraduccion()[3330] }}</div>
+            </button>
+            <!-- <button class="boton regreso" mat-button (mouseover)="hov13=true;" (mouseout)="hov13=false;"
+                [ngClass]="{botHover: hov13}" [disabled]="!boton05" (click)="verHxH(1, 0)"
+                *ngIf="!enCambio && !viendoResumen && servicio.rVersion().modulos[10]==1 && !enCarrusel && configuracion.verhoraxhoraenoee=='S'">
+                <mat-icon class="iconPB_2" svgIcon="i_reloj"></mat-icon>
+                <div class="texto">{{ this.servicio.rTraduccion()[3695] }}</div>
+            </button>
+
+            <button class="boton regreso" mat-button (mouseover)="hov14=true;" (mouseout)="hov14=false;"
+                [ngClass]="{botHover: hov14, botTomado: verTocadas==1 }" (click)="verHxH(1, 0)"
+                *ngIf="enCambio && modelo==4">
+                <mat-icon class="iconPB_2" svgIcon="i_reloj"></mat-icon>
+                <div class="texto">{{ this.servicio.rTraduccion()[3696] }}</div>
+            </button>
+
+            <button class="boton regreso" mat-button (mouseover)="hov15=true;" (mouseout)="hov15=false;"
+                [ngClass]="{botHover: hov15, botTomado: verTocadas==0}" (click)="verHxH(0, 0)"
+                *ngIf="enCambio && modelo==4">
+                <mat-icon class="iconPB_2" svgIcon="i_reloj"></mat-icon>
+                <div class="texto">{{ this.servicio.rTraduccion()[3697] }}</div>
+            </button> -->
+
+        </div>
+        <div class="contenedorScroll" cdkScrollable>
+
+            <div class="tabla" @esquema (@esquema.done)="salidaEfecto($event)" *ngIf="modelo==4">
+                <div class="registroGeneral">
+                    <div class="grupoTitulo">{{ verTocadas == 0 ? this.servicio.rTraduccion()[3640] : this.servicio.rTraduccion()[3701] }}</div>
+                    <div class="grupoCampos">
+                        <div class="tabla">
+                            <div class="ayudaCampo" *ngIf="planes.length==0">{{ this.servicio.rTraduccion()[3641] }}</div>
+                            <div class="cabecera_2" *ngIf="planes.length>0">
+                                <div class="tablaCab_2">
+                                    <div class="col00"></div>
+                                    <div class="col02">{{ this.servicio.rTraduccion()[584] }}</div>
+                                    <div class="col01_c">{{ this.servicio.rTraduccion()[3718] }}</div>
+                                    <div class="col01_c">{{ this.servicio.rTraduccion()[572] }}</div>
+                                    <div class="col03">{{ this.servicio.rTraduccion()[3702] }}</div>
+                                    <div class="col04">{{ this.servicio.rTraduccion()[3642] }}</div>
+                                    <div class="col04">{{ this.servicio.rTraduccion()[3643] }}</div>
+                                    <div class="col05">{{ this.servicio.rTraduccion()[3644] }}</div>
+                                    <div class="col05" *ngIf="verTocadas==1">{{ this.servicio.rTraduccion()[3698] }}</div>                                    
+                                    <div class="col02_izq" *ngIf="verTocadas==1">{{ this.servicio.rTraduccion()[3704] }}</div>
+                                    <div class="col06" *ngIf="verTocadas==1">{{ this.servicio.rTraduccion()[3699] }}</div>
+                                    <div class="col06" *ngIf="verTocadas==1">{{ this.servicio.rTraduccion()[536] }}</div>
+                                </div>
+                            </div>
+                            <div class="tablaItems_b">
+                                <button class="boton_2 regreso" *ngFor="let registro of planes; let i = index" (mouseover)="arreHover[i]=true;" (mouseout)="arreHover[i]=false;" [ngClass]="{ botHover: arreHover[i], tarS: sondeo==registro.id }" (click)="editar(2, i)">
+                                    <div class="tablaDet_2">
+                                        <div class="col00">
+                                            <mat-icon class="iconPB_8" svgIcon="i_reloj"></mat-icon>
+                                        </div>
+                                        <div class="col02">{{ (registro.dia | date:this.servicio.rIdioma().fecha_08) }}</div>
+                                        <div class="col01_c">{{ registro.thora }}</div>
+                                        <div class="col01_c">{{ registro.tsecuencia }}</div>
+                                        <div class="col03">{{ registro.desde + '-' + registro.hasta }}</div>
+                                        <div class="col04">{{ registro.tdisponible }}</div>
+                                        <div class="col04">{{ registro.tmantto }}</div>
+                                        <div class="col05">{{ registro.plan * 1 + '/' + registro.plan_van * 1 }}</div>
+                                        <div class="col05" *ngIf="verTocadas==1">{{ (registro.buenas * 1 + registro.malas * 1) + '/' + (registro.buenas_vienen * 1 + registro.buenas * 1 + registro.malas_vienen * 1 + registro.malas * 1) }}</div>
+                                        <div class="col02_izq" *ngIf="verTocadas==1" [ngClass]="{ botNegativo: registro.arrastre < 0 }">{{ registro.arrastre * 1 }}</div>
+                                        <div class="col06" *ngIf="verTocadas==1">{{ (registro.cumplimiento) }}</div>
+                                        <div class="col06" *ngIf="verTocadas==1">{{ (registro.oee) }}</div>
+                                    </div> 
+                                </button>   
+                            </div>                
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="tabla" @esquema (@esquema.done)="salidaEfecto($event)" *ngIf="modelo==3">
+                <div class="registroGeneral">
+                    <div class="grupoCampos">
+                        <div class="registroCampo">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[568] }}</div>
+                            
+                            <div class="registroValorDetalleST">
+                                {{ this.servicio.rTraduccion()[559] + ': ' + equipo.nequipo }}</div>
+                            <div class="registroValorDetalleST">
+                                {{ this.servicio.rTraduccion()[3314] + ': ' + equipo.norden }}</div>
+                        </div>
+                        
+                        <!-- <div class="registroCampo">
+                            <div class="registroTitulo">1. {{ this.servicio.rTraduccion()[2102] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <mat-select [(ngModel)]="detalle.tripulacionActual" name="tripulacionActual"
+                                    (selectionChange)="cambiando()" disabled>
+                                    <mat-option *ngFor="let tripulacion of tripulaciones; let i = index"
+                                        [value]="tripulacion.id">{{ tripulacion.nombre }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3337] }}</span>
+                        </div> -->
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">2. {{ this.servicio.rTraduccion()[3347] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT9 [(ngModel)]="detalle.loteDes" maxlength="25" name="loteActual" disabled>
+                                <mat-hint [ngClass]="{ pista: detalle.loteActual!=-1, pistaError: detalle.loteActual==-1 }" align="end">{{ detalle.loteActual==-1 ? this.servicio.rTraduccion()[3547] : this.servicio.rTraduccion()[3546] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3334] }}</span>
+                        </div>
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">3. {{ this.servicio.rTraduccion()[728] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT10 [(ngModel)]="detalle.parteDes" maxlength="25" name="parteActual" disabled >
+                                <mat-hint [ngClass]="{ pista: rateEquipo!=this.servicio.rTraduccion()[449], pistaError: rateEquipo==this.servicio.rTraduccion()[449] }"
+                                    align="start">{{ this.servicio.rTraduccion()[569] + ': ' + rateEquipo }}</mat-hint>
+                                <mat-hint [ngClass]="{ pista: detalle.parteActual!=-1, pistaError: detalle.parteActual==-1 }" align="end">{{ detalle.parteActual==-1 ? this.servicio.rTraduccion()[3547] : this.servicio.rTraduccion()[3546] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3335] }}</span>
+                        </div>
+                    </div>
+                    <div class="grupoTitulo">{{ this.servicio.rTraduccion()[3640] }}</div>
+                        
+                    <div class="grupoCampos">
+                        <div class="tabla">
+                            <div class="ayudaCampo" *ngIf="planes.length==0">{{ this.servicio.rTraduccion()[3641] }}</div>
+                            <div class="cabecera_2" *ngIf="planes.length>0">
+                                <div class="tablaCab_2">
+
+                                    <div class="col00"></div>
+                                    <div class="col02">{{ this.servicio.rTraduccion()[584] }}</div>
+                                    <div class="col01_c">{{ this.servicio.rTraduccion()[3718] }}</div>
+                                    <div class="col01_c">{{ this.servicio.rTraduccion()[572] }}</div>
+                                    <div class="col03">{{ this.servicio.rTraduccion()[3702] }}</div>
+                                    <div class="col04">{{ this.servicio.rTraduccion()[3642] }}</div>
+                                    <div class="col04">{{ this.servicio.rTraduccion()[3643] }}</div>
+                                    <div class="col05">{{ this.servicio.rTraduccion()[3644] }}</div>
+                                </div>
+                            </div>
+                            <div class="tablaItems_b">
+                                <button class="boton_2 regreso" *ngFor="let registro of planes; let i = index" (mouseover)="arreHover[i]=true;" (mouseout)="arreHover[i]=false;" [ngClass]="{ botHover: arreHover[i], tarS: sondeo==registro.id }" (click)="editar(2, i)">
+                                    <div class="tablaDet_2">
+
+                                        <div class="col00">
+                                            <mat-icon class="iconPB_8" svgIcon="i_reloj"></mat-icon>
+                                        </div>
+                                        <div class="col02">{{ (registro.dia | date:this.servicio.rIdioma().fecha_08) }}</div>
+                                        <div class="col01_c">{{ registro.thora }}</div>
+                                        <div class="col01_c">{{ registro.tsecuencia }}</div>
+                                        <div class="col03">{{ registro.desde + '-' + registro.hasta }}</div>
+                                        <div class="col04">{{ registro.tdisponible }}</div>
+                                        <div class="col04">{{ registro.tmantto }}</div>
+                                        <div class="col05">{{ registro.plan * 1 + '/' + registro.plan_van * 1 }}</div>
+                                    </div> 
+                                </button>   
+                            </div>                
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tabla" @esquema (@esquema.done)="salidaEfecto($event)" *ngIf="modelo==2">
+                <div class="registroCaja">
+                    <div class="alertaCaja" *ngIf="faltaMensaje">
+                        <mat-icon class="iconPB_4" svgIcon="i_alerta"></mat-icon>
+                        <span class="alertaMensaje" [innerHTML]="faltaMensaje"></span>
+                    </div>
+                    <div class="registroGeneral">
+                        <div class="registroCampo" [style.backgroundColor]="'var(--fondo_seleccion)'">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[525] }}</div>
+                            
+                            <div class="registroValorDetalleST">
+                                {{ this.servicio.rTraduccion()[568] + ': ' + equipo.nequipo }}</div>
+                            <div class="registroValorDetalleST">
+                                {{ this.servicio.rTraduccion()[3314] + ': ' + equipo.norden }}</div>
+                            <div class="registroValorDetalleST">
+                                {{ this.servicio.rTraduccion()[3748] + ': ' + equipo.objetivo }}</div>
+                        </div>
+                        
+                        <!-- <div class="registroCampo">
+                            <div class="registroTitulo">1. {{ this.servicio.rTraduccion()[2102] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <mat-select [(ngModel)]="detalle.tripulacionActual" name="tripulacionActual"
+                                    (selectionChange)="cambiando()">
+                                    <mat-option *ngFor="let tripulacion of tripulaciones; let i = index"
+                                        [value]="tripulacion.id">{{ tripulacion.nombre }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3337] }}</span>
+                        </div> -->
+
+                        <div class="registroCampo">
+                            <div class="registroTitulo">1. {{ this.servicio.rTraduccion()[3347] }}</div>
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtT9 [(ngModel)]="detalle.loteDes" maxlength="25" autocomplete="off" name="loteActual" (input)="cambiando($event);filtrando(2, $event)" [matAutocomplete]="auto0">
+                                <mat-hint [ngClass]="{ pista: detalle.loteActual!=-1, pistaError: detalle.loteActual==-1 }" align="end">{{ detalle.loteActual==-1 ? this.servicio.rTraduccion()[3547] : this.servicio.rTraduccion()[3546] }}</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[3334] }}</span>
+
+                            <mat-autocomplete #auto0="matAutocomplete" (optionSelected)="buscarDatos(2, $event);cambiando($event);">
+                                <ng-container>
+                                  <mat-option *ngFor="let lote of lotesF;" [value]="lote.id">{{ lote.numero }}</mat-option>
+                                </ng-container>
+                            </mat-autocomplete>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="pantalla" #contenedor @esquema_top2 (@esquema_top2.done)="salidaEfecto($event)"
+                *ngIf="mostrarDatos && modelo==1">
+               <!--  <div class="equipoIndicadores">
+                    <div class="equipoEFI" *ngIf="!viendoResumen && verIndicadores">
+                        <div class="equipoEstado"
+                            [ngClass]="{ detenido: equipo.maquinafuncionando == 'D', funcionando: equipo.maquinafuncionando == 'F' }">
+                            <div class="ordenValTitulo">
+                                {{ equipo.maquinafuncionando == 'F' ? this.servicio.rTraduccion()[2193] : this.servicio.rTraduccion()[2194] }}
+                            </div>
+                            <div class="ordenValBottom">{{ equipo.estadoDesde }}</div>
+                        </div>
+                        <div class="equipoEstadoDetenido" *ngIf="equipo.fuera_programa=='S'">
+                            <div class="ordenValTitulo">{{ this.servicio.rTraduccion()[3348] }}</div>
+                        </div>
+                    </div>
+                    <div class="equipoArriba" *ngIf="!viendoResumen && (!verIndicadores || (+equipo.esperadoefi + +equipo.esperadoftq + +equipo.esperadodis + +equipo.esperadooee)==0)">
+                        <div class="equipoEstado"
+                            [ngClass]="{ detenido: equipo.maquinafuncionando == 'D', funcionando: equipo.maquinafuncionando == 'F' }">
+                            <div class="ordenValTitulo">
+                                {{ equipo.maquinafuncionando == 'F' ? this.servicio.rTraduccion()[2193] : this.servicio.rTraduccion()[2194] }}
+                            </div>
+                            <div class="ordenValBottom">{{ equipo.estadoDesde }}</div>
+                        </div>
+                        <div class="equipoEstadoDetenido" *ngIf="equipo.fuera_programa=='S'">
+                            <div class="ordenValTitulo">{{ this.servicio.rTraduccion()[3348] }}</div>
+                        </div>
+                    </div>
+                    <div class="equipoEFI" *ngIf="viendoResumen">
+                        <div class="equipoEstado"
+                            [ngClass]="{ detenido: +equipo.funcionando < +equipo.detenidas, funcionando: +equipo.funcionando >= +equipo.detenidas }">
+                            <div class="ordenValTitulo">{{ equipo.nombre }}</div>
+                            <div class="pctLinea">{{ +equipo.pctFuncionando + '%' }}</div>
+                            <div class="ordenValBottom">
+                                {{ +equipo.funcionando + this.servicio.rTraduccion()[436] + (+equipo.funcionando + +equipo.detenidas) + ' ' + this.servicio.rTraduccion()[3349] }}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="equipoEFI" *ngIf="equipo.esperadoefi>0 && verIndicadores"
+                        [ngClass]="{ indicadorBorderRojo: +equipo.efi < +equipo.esperadoefi, indicadorBorderVerde: +equipo.efi >= +equipo.esperadoefi }">
+                        <div class="esperadoefi"
+                            [ngClass]="{ indicadorRojo: +equipo.efi < +equipo.esperadoefi, indicadorVerde: +equipo.efi >= +equipo.esperadoefi }">
+                            {{ (equipo.esperadoefi | number:parIndicador) + '%'}}</div>
+                        <mat-icon class="iconPB_4" *ngIf="equipo.efi_imagen!=0"
+                            [style.color]="equipo.efi_imagen == 2 ? configuracion.bajo_color : configuracion.alto_color"
+                            [ngClass]="{ oeeSubir: equipo.efi_imagen == 1, oeeBajar: equipo.efi_imagen == 2 }"
+                            [svgIcon]="equipo.imagenEFI"></mat-icon>
+                        <div class="valorEFI" [style.color]="colorEFI">{{ (equipo.efi | number:parIndicador) + '%' }}
+                        </div>
+                        <dx-circular-gauge id="gauge" [value]="equipo.efi" [subvalues]="equipo.efi">
+                            <dxo-animation [enabled]="animadoEFI"></dxo-animation>
+                            <dxo-subvalue-indicator type="triangleMarker" [color]="colorEFI" offset="3">
+                            </dxo-subvalue-indicator>
+                            <dxo-scale [startValue]="0" [endValue]="100" [tickInterval]="20">
+                                <dxo-tick [color]="colorEFI"></dxo-tick>
+                                <dxo-label [useRangeColors]="true" indentFromTick="1">
+                                    <dxo-font [size]="20" weight="600"></dxo-font>
+                                </dxo-label>
+
+                            </dxo-scale>
+                            <dxo-value-indicator type="triangleNeedle" [color]="colorEFI" width="15" offset="5">
+
+                            </dxo-value-indicator>
+                            <dxo-range-container width="10">
+                                <dxi-range [startValue]="0" [endValue]="configuracion.bajo_hasta"
+                                    [color]="configuracion.bajo_color"></dxi-range>
+                                <dxi-range [startValue]="configuracion.bajo_hasta"
+                                    [endValue]="configuracion.medio_hasta" [color]="configuracion.medio_color">
+                                </dxi-range>
+                                <dxi-range [startValue]="configuracion.medio_hasta" [endValue]="100"
+                                    [color]="configuracion.alto_color"></dxi-range>
+                            </dxo-range-container>
+                            <dxo-title [text]="lit_EFI" horizontalAlignment="center" verticalAlignment="bottom">
+                                <dxo-font [size]="24" [color]="colorEFI" [weight]="800">
+                                </dxo-font>
+                            </dxo-title>
+                        </dx-circular-gauge>
+                    </div>
+
+                    <div class="equipoEFI" *ngIf="equipo.esperadoftq>0  && verIndicadores"
+                        [ngClass]="{ indicadorBorderRojo: +equipo.ftq < +equipo.esperadoftq, indicadorBorderVerde: +equipo.ftq >= +equipo.esperadoftq }">
+                        <div class="esperadoefi"
+                            [ngClass]="{ indicadorRojo: +equipo.ftq < +equipo.esperadoftq, indicadorVerde: +equipo.ftq >= +equipo.esperadoftq }">
+                            {{ (equipo.esperadoftq | number:parIndicador) + '%'}}</div>
+                        <mat-icon class="iconPB_4" *ngIf="equipo.ftq_imagen!=0"
+                            [style.color]="equipo.ftq_imagen == 2 ? configuracion.bajo_color : configuracion.alto_color"
+                            [ngClass]="{ oeeSubir: equipo.ftq_imagen == 1, oeeBajar: equipo.ftq_imagen == 2 }"
+                            [svgIcon]="equipo.imagenFTQ"></mat-icon>
+                        <div class="valorEFI" [style.color]="colorEFI">{{ (equipo.ftq | number:parIndicador) + '%' }}
+                        </div>
+                        <dx-circular-gauge id="gauge" [value]="equipo.ftq" [subvalues]="equipo.ftq">
+                            <dxo-animation [enabled]="animadoFTQ"></dxo-animation>
+                            <dxo-subvalue-indicator type="triangleMarker" [color]="colorEFI" [offset]="3">
+                            </dxo-subvalue-indicator>
+                            <dxo-scale [startValue]="0" [endValue]="100" [tickInterval]="20">
+                                <dxo-tick [color]="colorEFI"></dxo-tick>
+                                <dxo-label [useRangeColors]="true" indentFromTick="1">
+                                    <dxo-font [size]="20" weight="600"></dxo-font>
+                                </dxo-label>
+
+                            </dxo-scale>
+                            <dxo-value-indicator type="triangleNeedle" [color]="colorEFI" width="15" [offset]="5">
+
+                            </dxo-value-indicator>
+                            <dxo-range-container width="10">
+                                <dxi-range [startValue]="0" [endValue]="configuracion.bajo_hasta"
+                                    [color]="configuracion.bajo_color"></dxi-range>
+                                <dxi-range [startValue]="configuracion.bajo_hasta"
+                                    [endValue]="configuracion.medio_hasta" [color]="configuracion.medio_color">
+                                </dxi-range>
+                                <dxi-range [startValue]="configuracion.medio_hasta" [endValue]="100"
+                                    [color]="configuracion.alto_color"></dxi-range>
+                            </dxo-range-container>
+                            <dxo-title [text]="lit_FTQ" horizontalAlignment="center" verticalAlignment="bottom">
+                                <dxo-font size="24" [color]="colorEFI" [weight]="800">
+                                </dxo-font>
+                            </dxo-title>
+                        </dx-circular-gauge>
+                    </div>
+                </div>
+            </div>
+
+                    <div class="equipoEFI" *ngIf="equipo.esperadodis>0  && verIndicadores"
+                        [ngClass]="{ indicadorBorderRojo: +equipo.dis < +equipo.esperadodis, indicadorBorderVerde: +equipo.dis >= +equipo.esperadodis }">
+                        <div class="esperadoefi"
+                            [ngClass]="{ indicadorRojo: +equipo.dis < +equipo.esperadodis, indicadorVerde: +equipo.dis >= +equipo.esperadodis }">
+                            {{ (equipo.esperadodis | number:parIndicador) + '%'}}</div>
+                        <mat-icon class="iconPB_4" *ngIf="equipo.dis_imagen!=0"
+                            [style.color]="equipo.dis_imagen == 2 ? configuracion.bajo_color : configuracion.alto_color"
+                            [ngClass]="{ oeeSubir: equipo.dis_imagen == 1, oeeBajar: equipo.dis_imagen == 2 }"
+                            [svgIcon]="equipo.imagenDIS"></mat-icon>
+                        <div class="valorEFI" [style.color]="colorEFI">{{ (equipo.dis | number:parIndicador) + '%' }}
+                        </div>
+                        <dx-circular-gauge id="gauge" [value]="equipo.dis" [subvalues]="equipo.dis">
+                            <dxo-animation [enabled]="animadoDIS"></dxo-animation>
+                            <dxo-subvalue-indicator type="triangleMarker" [color]="colorEFI" [offset]="3">
+                            </dxo-subvalue-indicator>
+                            <dxo-scale [startValue]="0" [endValue]="100" [tickInterval]="20">
+                                <dxo-tick [color]="colorEFI"></dxo-tick>
+                                <dxo-label [useRangeColors]="true" indentFromTick="1">
+                                    <dxo-font [size]="20" weight="600"></dxo-font>
+                                </dxo-label>
+
+                            </dxo-scale>
+                            <dxo-value-indicator type="triangleNeedle" [color]="colorEFI" width="15" [offset]="5">
+                            </dxo-value-indicator>
+                            <dxo-range-container width="10">
+                                <dxi-range [startValue]="0" [endValue]="configuracion.bajo_hasta"
+                                    [color]="configuracion.bajo_color"></dxi-range>
+                                <dxi-range [startValue]="configuracion.bajo_hasta"
+                                    [endValue]="configuracion.medio_hasta" [color]="configuracion.medio_color">
+                                </dxi-range>
+                                <dxi-range [startValue]="configuracion.medio_hasta" [endValue]="100"
+                                    [color]="configuracion.alto_color"></dxi-range>
+                            </dxo-range-container>
+                            <dxo-title [text]="lit_DIS" horizontalAlignment="center" verticalAlignment="bottom">
+                                <dxo-font [size]="24" [color]="colorEFI" [weight]="800">
+                                </dxo-font>
+                            </dxo-title>
+                        </dx-circular-gauge>
+                    </div>
+
+                    <div class="equipoOEE" *ngIf="equipo.esperadooee>0 && verIndicadores"
+                        [ngClass]="{ indicadorBorderRojo: +equipo.oee < +equipo.esperadooee, indicadorBorderVerde: +equipo.oee >= +equipo.esperadooee }">
+                        <div class="esperadoefi"
+                            [ngClass]="{ indicadorRojo: +equipo.oee < +equipo.esperadooee, indicadorVerde: +equipo.oee >= +equipo.esperadooee }">
+                            {{ (equipo.esperadooee | number:parIndicador) + '%'}}</div>
+                        <mat-icon class="iconPB_4" *ngIf="equipo.oee_imagen!=0"
+                            [style.color]="equipo.oee_imagen == 2 ? configuracion.bajo_color : configuracion.alto_color"
+                            [ngClass]="{ oeeSubir: equipo.oee_imagen == 1, oeeBajar: equipo.oee_imagen == 2 }"
+                            [svgIcon]="equipo.imagenOEE"></mat-icon>
+                        <div class="valorEFI" [style.color]="colorEFI">{{ (equipo.oee | number:parIndicador) + '%' }}
+                        </div>
+                        <dx-circular-gauge id="gaugeOEE" [value]="equipo.oee" [subvalues]="equipo.oee">
+                            (equipo.oee | number:parIndicador) + '%'
+                            <dxo-animation [enabled]="animadoOEE"></dxo-animation>
+                            <dxo-subvalue-indicator type="triangleMarker" [color]="colorEFI" [offset]="3">
+                            </dxo-subvalue-indicator>
+                            <dxo-scale [startValue]="0" [endValue]="100" [tickInterval]="20">
+                                <dxo-tick [color]="colorEFI"></dxo-tick>
+                                <dxo-label [useRangeColors]="true" indentFromTick="1">
+                                    <dxo-font [size]="20" weight="600"></dxo-font>
+                                </dxo-label>
+                            </dxo-scale>
+                            <dxo-value-indicator type="triangleNeedle" [color]="colorEFI" width="15" [offset]="5">
+
+                            </dxo-value-indicator>
+                            <dxo-range-container width="10">
+                                <dxi-range [startValue]="0" [endValue]="configuracion.bajo_hasta"
+                                    [color]="configuracion.bajo_color"></dxi-range>
+                                <dxi-range [startValue]="configuracion.bajo_hasta"
+                                    [endValue]="configuracion.medio_hasta" [color]="configuracion.medio_color">
+                                </dxi-range>
+                                <dxi-range [startValue]="configuracion.medio_hasta" [endValue]="100"
+                                    [color]="configuracion.alto_color"></dxi-range>
+                            </dxo-range-container>
+                            <dxo-title [text]="lit_OEE" horizontalAlignment="center" verticalAlignment="bottom">
+                                <dxo-font [size]="24" [color]="colorEFI" [weight]="800">
+                                </dxo-font>
+                            </dxo-title>
+
+                        </dx-circular-gauge>
+                    </div>
+                </div> -->
+
+                <div class="horaxhora">
+                    
+                    <div class="equipoEFI_2 indicadorRojo" *ngIf="equipo.paro_emergencia=='S'">
+                        <div class="equipoEstado">
+                            <div class="ordenValTitulo" [style.alignItems]="'center'" [style.color]="'var(--texto_tarjeta_resalte)'">
+                                {{ this.servicio.rTraduccion()[3348] }}
+                            </div>
+                            <div class="ordenValBottom">{{ equipo.estadoDesde }}</div>
+                        </div>
+                    </div>
+
+                    <div class="equipoEFI_2" [ngStyle]="{'background-color': equipo.maquinafuncionando == 'F' ? 'var(--fondo_boton_positivo)' : 'var(--fondo_boton_negativo)', 'color': equipo.maquinafuncionando == 'F' ? 'var(--fondo_texto_positivo)' : 'var(--fondo_texto_negativo)' }" *ngIf="equipo.paro_emergencia!='S'">
+                        <div class="equipoEstado">
+                            <div class="ordenValTitulo" [style.color]="'var(--texto_tarjeta_resalte)'">
+                                {{ equipo.maquinafuncionando == 'F' ? this.servicio.rTraduccion()[2193] : this.servicio.rTraduccion()[2194] }}
+                            </div>
+                            <div class="ordenValBottom">{{ equipo.estadoDesde }}</div>
+                        </div>
+                        <div class="equipoEstadoDetenido" *ngIf="equipo.fuera_programa=='S'">
+                            <div class="ordenValTitulo" [style.color]="'var(--texto_tarjeta_resalte)'">{{ this.servicio.rTraduccion()[3759] }}</div>
+                        </div>
+                    </div>
+                    <div class="actualDataOP" [style.marginLeft.px]="4" [ngClass]="{ indicadorRojo: +equipo.van > +equipo.objetivo, indicadorNormal: +equipo.van <= +equipo.objetivo }">
+                        <div class="ordenVal" [style.justifyContent]="'center'" [style.flex]="5" [style.fontSize.px]="90" [style.marginTop.px]="20">{{ equipo.van * 1 | number }}</div>
+                        <div class="ordenValTitulo" [style.justifyContent]="'center'" [style.alignItems]="'flex-end'">{{ this.servicio.rTraduccion()[3748] }}</div>
+                    </div>
+
+                    <div class="actualDataOP" [style.marginLeft.px]="4" [style.backgroundColor]="'var(--fondo_boton)'">
+                        <div class="ordenVal" [style.justifyContent]="'center'" [style.flex]="5" [style.fontSize.px]="90" [style.marginTop.px]="20">{{ equipo.van_sacos * 1 | number }}</div>
+                        <div class="ordenValTitulo" [style.justifyContent]="'center'" [style.alignItems]="'flex-end'">{{ this.servicio.rTraduccion()[3749] }}</div>
+                        <div class="arriba">{{ (equipo.kg_saco * 1 | number) + ' ' + this.servicio.rTraduccion()[3756] }}</div>
+                    </div>
+
+                    <div class="actualDataOP" [style.marginLeft.px]="4" [style.backgroundColor]="'var(--fondo_boton)'">
+                        <div class="ordenVal" [style.justifyContent]="'center'" [style.flex]="5" [style.fontSize.px]="90" [style.marginTop.px]="20">{{ equipo.van_tarimas * 1 | number }}</div> 
+                        <div class="ordenValTitulo" [style.justifyContent]="'center'" [style.alignItems]="'flex-end'">{{ this.servicio.rTraduccion()[3750] }}</div>
+                        <div class="arriba">{{ (equipo.sacos_tarima * 1 | number) + ' ' + this.servicio.rTraduccion()[3757] }}</div>
+                    </div>
+
+                </div>
+
+                <!-- <div class="masDatos" *ngIf="viendoResumen">
+                    <button class="tarjeta registro" *ngFor="let maquina of maquinas; let i = index" mat-button
+                        (mouseover)="maquina.seleccion=true;" (mouseout)="maquina.seleccion=false;"
+                        [ngClass]="{tarAlarmada: maquina.estatus == 'D' }" (click)="seleccion(i)">
+                        <div class="contenidoBoton">
+                            <div class="columnas4">
+                                <div [ngClass]="{ actualDataOPError3: +maquina.efi < +maquina.esperadoefi, doble3: +maquina.efi >= +maquina.esperadoefi }">
+                                    <div class="valor_c">
+                                        {{ ((!maquina.efi ? 0 : maquina.efi) | number:this.servicio.rIdioma().enteros) + '%' }}
+                                    </div>
+                                    <div class="titulo_c"> {{this.servicio.rTraduccion()[2885] }} </div>
+                                </div>
+                                <div [ngClass]="{ actualDataOPError3: +maquina.ftq < +maquina.esperadoftq, doble3: +maquina.ftq >= +maquina.esperadoftq }"
+                                    [style.marginLeft.px]="4">
+                                    <div class="valor_c">
+                                        {{ ((!maquina.ftq ? 0 : maquina.ftq) | number:this.servicio.rIdioma().enteros) + '%' }}
+                                    </div>
+                                    <div class="titulo_c">{{ this.servicio.rTraduccion()[576] }}</div>
+                                </div>
+                                <div [ngClass]="{ actualDataOPError3: +maquina.dis < +maquina.esperadodis, doble3: +maquina.dis >= +maquina.esperadodis }"
+                                    [style.marginLeft.px]="4">
+                                    <div class="valor_c">
+                                        {{ ((!maquina.dis ? 0 : maquina.dis) | number:this.servicio.rIdioma().enteros) + '%' }}
+                                    </div>
+                                    <div class="titulo_c">{{ this.servicio.rTraduccion()[2886] }}</div>
+                                </div>
+                                <div [ngClass]="{ actualDataOPError3: +maquina.oee < +maquina.esperadooee, doble3: +maquina.oee >= +maquina.esperadooee }"
+                                    [style.marginLeft.px]="4">
+                                    <div class="valor_c">
+                                        {{ ((!maquina.oee ? 0 : maquina.oee) | number:this.servicio.rIdioma().enteros) + '%' }}
+                                    </div>
+                                    <div class="titulo_c">{{ this.servicio.rTraduccion()[536] }}</div>
+                                </div>
+                            </div>
+                            <div class="columnas">
+                                <div class="doble">
+                                    <div class="valor">
+                                        {{ maquina.nlinea + '/' + (!maquina.nequipo ? '' : maquina.nequipo) }}</div>
+                                    <div class="titulo">{{ this.servicio.rTraduccion()[568] }}</div>
+                                </div>
+                            </div>
+
+                            <div class="columnas">
+                                <div class="doble" *ngIf="maquina.rate==-100">
+                                    <div class="valor">
+                                        {{ maquina.oee_estado_cambio | date:this.servicio.rIdioma().fecha_04 }}
+                                    </div>
+                                    <div class="titulo">{{ maquina.rate_cad }}</div>
+                                </div>
+
+                                <div [ngClass]="{ actualDataOPError2: maquina.oee_estado == 'N', actualDataBien: maquina.oee_estado != 'N' }"
+                                    [style.marginLeft.px]="4" [style.flex]="0" *ngIf="maquina.rate==-100">
+                                    <div class="valor_ct">{{ arreTiempoEstado[i] }}</div>
+                                    <div class="titulo_c">{{ this.servicio.rTraduccion()[570] }}</div>
+
+                                </div>
+
+                                <div class="doble" *ngIf="maquina.rate!=-100">
+                                    <div class="valor">
+                                        {{ ((!maquina.rate ? 0 : maquina.rate) | number:parRate) + ' ' + (!maquina.ratemed ? '' : maquina.ratemed) }}
+                                    </div>
+                                    <mat-icon class="iconPB_5" *ngIf="maquina.rate_efecto!='N'"
+                                    [style.color]="maquina.rate_efecto == 'B' ? configuracion.bajo_color : configuracion.alto_color"
+                                    [ngClass]="{ oeeSubir_2: maquina.rate_efecto == 'A', oeeBajar_2: maquina.rate_efecto == 'B' }"
+                                    [svgIcon]="maquina.imagenRATE"></mat-icon>
+                                    <div class="titulo">{{ this.servicio.rTraduccion()[3318] }}</div>
+                                </div>
+                                <div [ngClass]="{ actualDataOPError2: maquina.rate_efecto != 'N', doble: maquina.rate_efecto == 'N' }"
+                                    [style.marginLeft.px]="4" [style.flex]="0" *ngIf="maquina.rate!=-100">
+                                    <div class="valor_c">
+                                        {{ (maquina.rate_teorico > 0 ? ((1 + ((maquina.rate - maquina.rate_teorico) / maquina.rate_teorico)) * 100  | number:this.servicio.rIdioma().enteros) : 0) + '%' }}
+                                    </div>
+                                    <div class="titulo_c">{{ this.servicio.rTraduccion()[3350] }}</div>
+
+                                </div>
+                            </div>
+                            <div class="columnas">
+                                <div class="doble">
+                                    <div class="valor">
+                                        {{ (!maquina.nparte ? this.servicio.rTraduccion()[8] : maquina.nparte) }}
+                                    </div>
+                                    <div class="titulo">{{ this.servicio.rTraduccion()[324] }}</div>
+                                </div>
+
+                            </div>
+                            <div class="columnas">
+                                <div class="doble">
+                                    <div class="valor">{{ maquina.nfalla ? maquina.nfalla : '.'  }}</div>
+                                    <div class="titulo">
+                                        {{ maquina.nfalla ? (maquina.narea + ' (' + maquina.reporteest + ')') : this.servicio.rTraduccion()[3329] }}
+                                    </div>
+                                </div>
+                                <div class="actualDataOPErrorSE" *ngIf="maquina.nfalla"
+                                    [style.marginLeft.px]="4" [style.flex]="0">
+                                    <div class="valor_ct">{{ arreTiempos[i] }}</div>
+                                    <div class="titulo_c">{{ this.servicio.rTraduccion()[570] }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+ -->
+
+                <div class="masDatos" *ngIf="!viendoResumen">
+                    <div class="actualCab">
+                        <div class="columnasError">
+                            <div class="actualDataOP">
+                                <div class="ordenVal">{{ equipo.nequipo }}</div>
+                                <div class="ordenTit">{{ this.servicio.rTraduccion()[3338] }}</div>
+                            </div>
+                            <div class="actualDataOPDer" [style.marginLeft.px]="4">
+                                <div class="ordenVal">
+                                    {{ equipo.nturno ? equipo.nturno : this.servicio.rTraduccion()[8] }}</div>
+                                <div class="ordenTit">{{ lit_turno }}</div>
+                            </div>
+                            
+                        </div>
+                        <!-- <div class="columnasError">
+                            <div class="actualDataOP">
+                                <div class="ordenVal" *ngIf="equipo.rate_teorico==-100">{{ this.servicio.rTraduccion()[3351] }}</div>
+                                <div class="ordenVal" *ngIf="equipo.rate_teorico!=-100">
+                                    {{ (equipo.rate_teorico | number:parRate) + ' ' + equipo.ratemed }}</div>
+                                <div class="ordenTit">{{ lit_rateTeorico }}</div>
+                            </div>
+                            <div class="actualDataOPError" @arriba [style.marginLeft.px]="4"
+                                *ngIf="equipo.sinProduccion">
+                                <div class="ordenValError">{{ equipo.sinProduccion }}</div>
+                                <div class="ordenTitError">{{ this.servicio.rTraduccion()[3345] }}</div>
+                            </div>
+                        </div> 
+                        <div class="columnasError" *ngIf="rateActual==-100">
+                            <div class="actualDataOP">
+                                <div class="ordenVal" [ngStyle]="{'color': colorEquipo, 'font-weight': '550' }">
+                                    {{ equipo.oee_estado_cambio | date:this.servicio.rIdioma().fecha_02  }}</div>
+                                <div class="ordenTit">{{ lit_rateActual }}</div>
+                            </div>
+                            <div class="actualDataOPDer" @arriba [style.marginLeft.px]="4">
+                                <div class="ordenVal">{{ equipo.tiempoestado }}</div>
+                                <div class="ordenTit">{{ trabajandoDesde }}</div>
+                            </div>
+                        </div> 
+
+                        <div class="columnasError" *ngIf="rateActual!=-100">
+                            <div class="actualDataOP">
+                                <div class="ordenVal" [ngStyle]="{'color': colorRate, 'font-weight': '550' }">
+                                    {{ (rateActual | number:parRate) + ' ' + equipo.ratemed  }}</div>
+                                <div class="ordenTit">{{ lit_rateActual }}</div>
+                            </div>
+                            <div class="actualDataOPError" @arriba [style.marginLeft.px]="4"
+                                *ngIf="equipo.rate_efecto == 'B' || equipo.rate_efecto == 'A'">
+                                <div class="ordenValError">
+                                    {{ equipo.rate_efecto == 'B' ? this.servicio.rTraduccion()[2254] : this.servicio.rTraduccion()[2256] }}
+                                </div>
+                                <div class="ordenTitError">{{ tiempoRate }}</div>
+                            </div>
+                        </div> -->
+                        <div class="columnasError">
+                            <div
+                                [ngClass]="{ actualDataOP: equipo.referencia, actualDataOPError4: !equipo.referencia } ">
+                                <div [ngClass]="{ ordenVal: equipo.referencia, ordenValError2: !equipo.referencia }">
+                                    {{ equipo.parte == 0 ? this.servicio.rTraduccion()[3328] : equipo.nparte }}
+                                </div>
+                                <div [ngClass]="{ ordenTit: equipo.referencia, ordenTitError2: !equipo.referencia }">
+                                    {{ lit_SKU }}</div>
+                            </div>
+
+                            <div class="actualDataOPDer"  [style.marginLeft.px]="4">
+                                <div class="ordenVal">
+                                    {{ equipo.referencia }}
+                                </div>
+                                <div class="ordenTit">
+                                    {{ this.servicio.rTraduccion()[698] }}</div>
+                            </div>
+                            
+                        </div>
+
+                        <div class="columnasError">
+                            <div class="actualDataOP" [style.flex]="2">
+                                <div class="ordenVal">{{ equipo.norden }}</div>
+                                <div class="ordenTit">{{ this.servicio.rTraduccion()[735] }}</div>
+                            </div>
+                            <div class="actualDataOPDer" [style.flex]="1" [style.marginLeft.px]="4">
+                                <div class="ordenVal">
+                                    {{ equipo.objetivo * 1 | number }}</div>
+                                <div class="ordenTit">{{ this.servicio.rTraduccion()[3748] }}</div>
+                            </div>
+                            <div class="actualDataOPDer" [style.flex]="1" [style.marginLeft.px]="4">
+                                <div class="ordenVal">
+                                    {{ equipo.sacos * 1 | number }}</div>
+                                <div class="ordenTit">{{ this.servicio.rTraduccion()[3749] }}</div>
+                            </div>
+                            <div class="actualDataOPDer" [style.flex]="1" [style.marginLeft.px]="4">
+                                <div class="ordenVal">
+                                    {{ equipo.tarimas * 1 | number }}</div>
+                                <div class="ordenTit">{{ this.servicio.rTraduccion()[3750] }}</div>
+                            </div>
+                        </div>
+
+                        <div class="columnasError">
+                            <div class="actualDataOP" [style.backgroundColor]="'var(--texto_tarjeta)'">
+                                <div class="ordenVal"  [style.color]="'var(--fondo_tarjeta)'">{{ equipo.notas }}</div>
+                                <div class="ordenTit"  [style.color]="'var(--fondo_tarjeta)'">{{ this.servicio.rTraduccion()[1498] }}</div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="columnasError">
+                            <div class="actualDataOP">
+                                <div class="ordenVal">
+                                    {{ equipo.ntripulacion ? equipo.ntripulacion : this.servicio.rTraduccion()[8] }}
+                                </div>
+                                <div class="ordenTit">{{ lit_tripulacion }}</div>
+                            </div>
+                            <div class="actualDataOPDer" [style.marginLeft.px]="4">
+                                <div class="ordenVal">
+                                    {{ equipo.nturno ? equipo.nturno : this.servicio.rTraduccion()[8] }}</div>
+                                <div class="ordenTit">{{ lit_turno }}</div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="equipoOP" *ngIf="equipo.objetivo>0" [ngClass]="{ bordeRojo: equipo.van > equipo.objetivo } ">
+                        <div class="onTop">
+                            <div class="ordenVal" *ngIf="equipo.orden">{{ equipo.norden ? equipo.norden : this.servicio.rTraduccion()[8] }}</div>
+                            <div class="ordenTit">{{ lit_VAN }}</div>
+                        </div>
+                        <div class="graficoOP">
+                            <dx-bar-gauge id="gaugeOP" [startValue]="0" [endValue]="100" [values]="equipo.avance"
+                                [relativeInnerRadius]="0.8" [backgroundColor]="[colores.fondo_boton]"
+                                [palette]="[miColor]" [redrawOnResize]="true">
+
+                                <dxo-animation [enabled]="animadoOEE"></dxo-animation>
+                                <dxo-geometry endAngle="270" startAngle="270"></dxo-geometry>
+                                <dxo-label [visible]="false"></dxo-label>
+                            </dx-bar-gauge> 
+                            <div class="valorOP" [style.color]="colorEFI">{{ equipo.avanceCad }}</div>
+                        </div>
+                        <div class="esperadoOP" [style.color]="colorEFI">
+                            {{ equipo.faltan == 0 ? this.servicio.rTraduccion()[2299] : equipo.faltan < 0 ? this.servicio.rTraduccion()[3773] + ' ' + (equipo.faltan * -1 | number) + ' ' + this.servicio.rTraduccion()[3762] : this.servicio.rTraduccion()[2831] + ' ' + (equipo.faltan * 1 | number) + ' ' + this.servicio.rTraduccion()[3762] }}
+                        </div>
+                    </div>
+                   <!--  <div class="actualCabVerde" @arriba *ngIf="+equipo.proximo_paro > 0 && +equipo.paro_actual == 0">
+                        <div class="actualDataOP">
+                            <div class="ordenVal">{{ equipo.nombre }}</div>
+                            <div class="ordenTit">{{ this.servicio.rTraduccion()[3342] }}</div>
+                        </div>
+                        <div class="actualDataOP">
+                            <div class="ordenVal">{{ equipo.nparo ? equipo.nparo : this.servicio.rTraduccion()[8] }}
+                            </div>
+                            <div class="ordenTit">{{ this.servicio.rTraduccion()[1360] }}</div>
+                        </div>
+                        <div class="columnasError">
+                            <div class="actualDataOP">
+                                <div class="ordenVal">{{ equipo.desde | date:this.servicio.rIdioma().fecha_05 }}</div>
+                                <div class="ordenTit">{{ this.servicio.rTraduccion()[3333] }}</div>
+                            </div>
+                            <div class="actualDataOP" [style.marginLeft.px]="4">
+                                <div class="ordenValError">{{ equipo.parofalta }}</div>
+                                <div class="ordenTitError" *ngIf="equipo.parofalta!='VIGENTE'">
+                                    {{ this.servicio.rTraduccion()[2831] }}</div>
+                            </div>
+                        </div>
+
+                        <div class="actualDataOP">
+                            <div class="ordenVal">{{ equipo.hasta | date:this.servicio.rIdioma().fecha_05 }}</div>
+                            <div class="ordenTit">{{ this.servicio.rTraduccion()[3325] }}</div>
+                        </div>
+                        <div class="actualDataOP">
+                            <div class="ordenVal">{{ equipo.tiempoparo }}</div>
+                            <div class="ordenTit">{{ this.servicio.rTraduccion()[3327] }}</div>
+                        </div>
+                    </div>
+ -->
+
+                  <!--   <div class="actualCab" @arriba *ngIf="+equipo.paro_actual > 0"
+                        [ngClass]="{ indicadorBorderRojo: equipo.maquinafuncionando == 'D' }">
+                        <div class="columnasError" *ngIf="equipo.tipo_actual == 3">
+                            <div class="actualDataOP">
+                                <div class="ordenVal">
+                                    {{ equipo.reporte }}
+                                </div>
+                                <div class="ordenTit">{{ this.servicio.rTraduccion()[3340] }}</div>
+                            </div>
+                            <div class="actualDataOP" [style.marginLeft.px]="4">
+                                <div class="ordenVal">
+                                    {{ !equipo.clasificacion ? 'Sin clasificar' : equipo.clasificacion }}</div>
+                                <div class="ordenTit">{{ this.servicio.rTraduccion()[3331] }}</div>
+                            </div>
+                        </div>
+                        <div class="actualDataOP" *ngIf="equipo.tipo_actual != 3">
+                            <div class="ordenVal">
+                                {{ equipo.nombre_actual }}
+                            </div>
+                            <div class="ordenTit">{{ this.servicio.rTraduccion()[3341] }}</div>
+                        </div>
+                        <div class="actualDataOP">
+                            <div class="ordenVal">
+                                {{ (+equipo.tipo_actual == 0 || equipo.tipo_actual == 2 || +equipo.tipo_actual_original == 2 ? equipo.nparo_actual : +equipo.tipo_actual == 1 ? this.servicio.rTraduccion()[3528] : equipo.fallanombre) }}
+                            </div>
+                            <div class="ordenTit">{{ equipo.tipo_actual == 3 ? this.servicio.rTraduccion()[2068] : this.servicio.rTraduccion()[3331] }}</div>
+                        </div>
+                        <div class="columnasError">
+                            <div class="actualDataOP">
+                                <div class="ordenVal">{{ equipo.desde_actual | date:this.servicio.rIdioma().fecha_03 }}
+                                </div>
+                                <div class="ordenTit">{{ this.servicio.rTraduccion()[3333] }}</div>
+                            </div>
+                            <div class="actualDataOP" [style.marginLeft.px]="4">
+                                <div class="ordenValError">
+                                    {{ +equipo.tipo_actual == 0 || (+equipo.tipo_actual == 2 && equipo.vencido == 0) ? equipo.parofalta_actual : equipo.parovan_actual }}
+                                </div>
+                                
+                                <div class="ordenTitError">
+                                    {{ +equipo.tipo_actual == 0 || (+equipo.tipo_actual == 2 && equipo.vencido == 0) ? this.servicio.rTraduccion()[2831] : this.servicio.rTraduccion()[153] }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="actualDataOP">
+                            <div class="ordenVal">
+                                {{ +equipo.tipo_actual == 0 || (+equipo.tipo_actual == 2 && equipo.vencido == 0) ? (equipo.hasta_actual | date:this.servicio.rIdioma().fecha_03) : +equipo.tipo_actual == 3 ? equipo.reporteest : this.servicio.rTraduccion()[8] }}
+                            </div>
+                            <div class="ordenTit">
+                                {{ +equipo.tipo_actual == 3 ? this.servicio.rTraduccion()[562] : this.servicio.rTraduccion()[3325] }}
+                            </div>
+                        </div>
+                        <div class="columnasError">
+                            <div class="actualDataOP">
+                                <div class="ordenVal">
+                                    {{ +equipo.tipo_actual == 0 || (+equipo.tipo_actual == 2 && equipo.vencido == 0) ? equipo.tiempoparo_actual : +equipo.tipo_actual == 3 ? equipo.nsolicitante : equipo.vencido == 1 ? this.servicio.rTraduccion()[3326] : equipo.parovan_actual }}
+                                </div>
+                                <div class="ordenTit">
+                                    {{ +equipo.tipo_actual == 3 ? this.servicio.rTraduccion()[154] : this.servicio.rTraduccion()[3327] }}
+                                </div>
+                            </div>
+                            <div class="actualDataOP" [style.maxWidth.%]="33" [style.marginLeft.px]="4"
+                                *ngIf="equipo.wip_piezas - +equipo.wip_van > 0">
+                                <div class="ordenVal">{{ +equipo.wip_piezas * 1 - +equipo.wip_van * 1 }}</div>
+                                <div class="ordenTit">{{ this.servicio.rTraduccion()[2106] }}</div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                </div>
+                <div [ngClass]="{ ultimos24: !pasado, ultimos24_n: pasado }" *ngIf="!viendoResumen && verGraficoBottom">
+                    <dx-linear-gauge id="gauge24">
+                        <dxo-size [width]="anchoGrafica"></dxo-size>
+                        <dxo-margin [left]="15" [right]="15"></dxo-margin>
+                        <dxo-subvalue-indicator [offset]="-15"></dxo-subvalue-indicator>
+                        <dxo-value-indicator [offset]="20"></dxo-value-indicator>
+                        <dxo-range-container [offset]="10" [width]="10">
+                            <dxi-range *ngFor="let hora of horas; let i = index" [startValue]="hora.valord"
+                                [endValue]="hora.valorh" [color]="hora.color"></dxi-range>
+                        </dxo-range-container>
+                        <dxo-scale [startValue]="0" [endValue]="23" [tickInterval]="1" [minorTickInterval]="0.25">
+                            <dxo-tick [color]="colorEFI" [width]="2"></dxo-tick>
+                            <dxo-minor-tick [color]="colorEFI" [visible]="true" [width]="1"></dxo-minor-tick>
+                            <dxo-label [indentFromTick]="-5" [customizeText]="customizeText">
+                                <dxo-font [size]="16" weight="600" [color]="colorEFI"></dxo-font>
+                            </dxo-label>
+                        </dxo-scale>
+                    </dx-linear-gauge>
+                </div>
+                
+            </div>
+        </div>
+        <div class="subir" *ngIf="verIrArriba" @arriba>
+            <button class="subirBoton" mat-flat-button (click)="irArriba()" [matTooltip]="irArribaTT"
+                matTooltipClass="toolTip">
+                <mat-icon class="subirIcono">keyboard_arrow_up</mat-icon>
+            </button>
+        </div>
+    </div>
+    
+</div>

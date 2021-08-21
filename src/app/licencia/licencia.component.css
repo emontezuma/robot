@@ -1,0 +1,320 @@
+
+.cdk-global-scrollblock 
+{
+    overflow-y: hidden !important;
+}
+
+.cdk-global-scrollblock 
+{
+    overflow-y: hidden !important;
+}
+
+
+.iconoBarras
+{
+    color: var(--texto_boton_barras) !important;
+}
+
+.boton, .botHover, .positivo
+{
+    color: var(--texto_boton);
+    background-color: var(--fondo_boton);
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 3px;    
+    border-color: var(--borde_boton);
+    box-shadow: 0px 0px 1px 2px none;
+}
+
+
+
+.botHover
+{
+    box-shadow: 0px 0px 1px 2px var(--texto_tarjeta_resalte);    
+    border-color: var(--borde_boton);
+    color: var(--texto_tarjeta_resalte);
+}
+
+.positivo
+{
+    background-color: var(--fondo_boton_positivo) !important;
+    color: var(--texto_boton_positivo) !important;
+}
+
+
+.politicas
+{
+    padding: 10px;
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 3px;    
+    border-color: var(--borde_boton);
+}
+
+.contenido 
+{
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+}
+
+.cabecera 
+{
+    margin-top: -10px !important;
+    height: 28px !important; 
+    padding: 4px;
+    font-size: 24px !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--fondo_barra_superior) !important;
+    color: var(--texto_barra_superior) !important;
+    border-width: 1px;
+    border-color: var(--texto_barra_superior);
+    border-radius: 3px;
+    border-style: solid;
+}
+
+.positivo:disabled
+{
+    border-color: var(--borde_boton_inactivo) !important;
+    background-color: var(--fondo_boton_inactivo) !important;
+    color: var(--texto_boton_inactivo) !important;
+    cursor: url("../../assets/icons/cur_cancelar.png"), not-allowed;
+}
+
+
+.titulo
+{
+    font-size: 18px !important;
+    margin-left: 3px;
+}
+
+
+.lista 
+{
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+    padding: 10px;
+    text-align: left;
+    font-size: 17px;
+    margin-right: 0px;
+    border-radius: 0px !important;
+    margin-left: 0px !important;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: rgba(0, 0, 0, 0.15) !important;
+    max-height: 300px;
+    word-break: break-all !important;
+
+ }
+ 
+.pie
+{
+    margin-top: 5px !important;
+    margin-right: 3px !important;
+    display: flex;
+    align-items: center;
+    height: 46px !important;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.indice
+{
+    max-height: 43px !important;
+    height: 43px !important;
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+    
+.iconPB
+{
+    width: 26px;
+    height: 26px;
+    margin-top: -5px;
+}
+
+.iconPB_2
+{
+    width: 24px;
+    height: 24px;
+}
+
+.iconPB_3
+{
+    width: 24px;
+    height: 24px;
+    background-color: var(--fondo_boton_positivo);
+    color: var(--texto_boton_positivo);
+}
+
+.iconPB_3_disabled
+{
+    width: 24px;
+    height: 24px;
+    background-color: var(--fondo_boton_inactivo);
+    color: var(--texto_boton_inactivo);
+}
+ 
+ .pista, .pistaError 
+  {
+    font-size: 14px  !important;
+    margin-top: 3px;
+    color: var(--texto_tarjeta)
+}
+
+
+.pistaError 
+{
+    padding: 3px;
+    color: var(--texto_boton_negativo);
+    background-color: var(--fondo_boton_negativo);
+    border-width: 0px;
+    border-radius: 3px;
+    border-style: solid;
+}
+
+
+::ng-deep .mat-input-element 
+  { 
+    caret-color: var(--texto_tarjeta_resalte) !important;
+};
+
+.indiceTexto
+{
+    font-size: 14px !important;
+    margin-top: -4px !important;
+    margin-left: 2px;
+}
+
+.registroTitulo, .registroTituloSegundo
+{
+    font-size: 15px;
+    text-align: left;
+    padding: 2px;
+    font-weight: 550;
+}
+
+.registroTituloSegundo
+{
+    margin-top: 10px;
+}
+
+.registroCampo 
+{
+    text-align: left;
+    padding: 2px;
+    padding-left: 5px;
+    line-height: 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 320px !important;
+    border-width: 1.5px;
+    border-radius: 3px;
+    border-style: solid;
+    border-color: var(--borde_tarjeta);
+}
+
+
+
+.texto
+{
+    min-height: 80px;
+    width: 98%;
+    margin-top: -10px;
+    font-size: 16px !important;
+}
+
+.registroValor, .registroValorPrimero
+{
+    width: 100%;
+    font-weight: 550;
+    font-size: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-left: 2px;
+}
+
+.registroValorPrimero
+{
+    margin-top: 10px;
+}
+
+.cajaEstatus
+  {
+    text-align: left;
+    padding: 2px;
+    padding-left: 5px;
+    line-height: 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 320px !important;
+    margin: 5px !important;
+  }
+
+  .mensajeError
+  {
+      color: red !important;
+      font-size: 14px  !important;
+    margin-top: 3px;
+  }
+  
+::ng-deep snack-bar-container.custom-class {
+    margin-top: -100px !important;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: rgb(41, 41, 41);
+  }
+  
+  ::ng-deep .custom-class .mat-simple-snackbar {
+    font-size: 22px;
+    text-align: center;
+    justify-content: center;
+    white-space: normal;
+    line-height: 22px !important;
+    color: rgb(41, 41, 41);
+  }
+
+  ::ng-deep .custom-class .mat-simple-snackbar.container {
+    max-width: 600px;
+    width: 30%;
+    margin-top: -100px !important;
+
+  }
+
+  ::ng-deep snack-bar-container.custom-class-red {
+    margin-top: -100px !important;
+    background-color: rgba(255, 0, 0, 0.95);
+    color: rgb(240, 240, 240);
+  }
+  
+  ::ng-deep .custom-class-red .mat-simple-snackbar {
+    font-size: 22px;
+    text-align: center;
+    justify-content: center;
+    white-space: normal;
+    line-height: 22px !important;
+    color: rgb(240, 240, 240);
+  }
+
+  ::ng-deep .custom-class-red .mat-simple-snackbar.container {
+    max-width: 600px;
+    width: 30%;
+    margin-top: -100px !important;
+
+  }
+
+  .iconPB
+  {
+      width: 20px;
+      height: 20px;
+  }

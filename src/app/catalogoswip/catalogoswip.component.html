@@ -1,0 +1,624 @@
+<div id="todo" class="mat-typography">
+    <div class="pantallaError" [style.color]="colorLetrasBox" [ngStyle]="{'border': '1px solid' + colorFondoTarjeta}" *ngIf="pantalla==1">
+        <div class="cabeceraMensaje" >{{ errorTitulo }}</div>
+        <div class="mensaje" [innerHTML]="errorMensaje"></div>
+    </div>
+    
+    <div class="catalogos" *ngIf="pantalla==2">
+        <div class="cabecera">
+            <div class="cabeceraMensaje" *ngIf="botonera1==9">{{ nCatalogo }}</div>
+            <div class="botonera1" *ngIf="botonera1==1">
+                <div class="izquierda">
+                    <button class="boton regreso9" *ngFor="let indice of indices; let i = index" mat-button (mouseover)="arreHover4[i]=true;" (mouseout)="arreHover4[i]=false;" [ngClass]="{ botHover: arreHover4[i] }" (click)="procesarPantalla(i+1)" [disabled]="!bot1">
+                        <mat-icon class="iconPB_2" [svgIcon]="indice.icono"></mat-icon>
+                        <div class="texto">{{ indice.nombre }}</div> 
+                    </button>
+                </div>
+                <div class="derecha">
+                    <button class="boton regreso5" mat-button (mouseover)="lineaSel=true;" (mouseout)="lineaSel=false;" [ngClass]="{botHover: lineaSel}" (click)="nuevoRegistroGral()">
+                        <mat-icon class="iconPB_2" svgIcon="i_agregar"></mat-icon>
+                    <div class="texto">{{ this.servicio.rTraduccion()[551] }}</div> 
+                    </button>
+                    <button class="boton regreso" mat-button (mouseover)="maquinaSel=true;" (mouseout)="maquinaSel=false;" [ngClass]="{botHover: maquinaSel}" (click)="descargar()">
+                        <mat-icon class="iconPB_2" svgIcon="i_descargar" ></mat-icon>
+                        <div class="texto">{{ this.servicio.rTraduccion()[2260] }}</div>
+                    </button>
+                    <button class="boton regreso" mat-button (mouseover)="responsableSel=true;" (mouseout)="responsableSel=false;" [ngClass]="{botHover: responsableSel}" (click)="refrescar()">
+                        <mat-icon class="iconPB_2" svgIcon="i_refrescar" ></mat-icon>
+                        <div class="texto">{{ this.servicio.rTraduccion()[272] }}</div>
+                    </button>
+                    <div class="buscadorCaja" *ngIf="verBuscar">
+                        <mat-form-field class="buscador" floatLabel="never">
+                            <input #txtBuscar matInput [placeholder]="etiBuscar" type="text" [(ngModel)]="textoBuscar" (keydown.enter)="filtrar()" (keydown.escape)="escapar()" >
+                            <button mat-button *ngIf="textoBuscar" matSuffix mat-iscon-button aria-label="Clear" (click)="textoBuscar = '';cambiando();">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </div>
+                    <button class="boton accion" mat-button (mouseover)="vistaSel=true;" (mouseout)="vistaSel=false;" [ngClass]="{botHover: vistaSel}" (click)="cambiarVista(1)" [matTooltip] = "ayuda11" matTooltipClass = "toolTip2" matTooltipShowDelay = "100" [disabled]="!boton04" *ngIf="verAhora">
+                        <mat-icon class="iconPB_2" [svgIcon]="iconoVista" ></mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="botonera1" *ngIf="botonera1==2">
+                <div class="izquierda">
+                    <button class="boton regreso9" *ngFor="let indice of indices; let i = index" mat-button (mouseover)="arreHover4[i]=true;" (mouseout)="arreHover4[i]=false;" [ngClass]="{ botHover: arreHover4[i] }" (click)="procesarPantalla(i+1)" [disabled]="!bot1">
+                        <mat-icon class="iconPB_2" [svgIcon]="indice.icono"></mat-icon>
+                        <div class="texto">{{ indice.nombre }}</div> 
+                    </button>
+                </div>
+                <div class="derecha">
+                    <button class="boton regreso3" mat-button (mouseover)="bot2Sel=true;" (mouseout)="bot2Sel=false;" [ngClass]="{ botHover: bot2Sel }" (click)="nuevo()" [disabled]="botonera[0]">
+                        <mat-icon class="iconPB_2" svgIcon="i_init"></mat-icon>
+                        <div class="texto">{{ this.servicio.rTraduccion()[553] }}</div>
+                    </button>
+                    <button class="boton regreso3" mat-button (mouseover)="bot3Sel=true;" (mouseout)="bot3Sel=false;" [ngClass]="{botHover: bot3Sel}" (click)="validarGuardar()" [disabled]="botonera[1]">
+                        <mat-icon class="iconPB_2" svgIcon="i_guardar" ></mat-icon>
+                        <div class="texto">{{ this.servicio.rTraduccion()[145] }}</div>
+                    </button>
+                    <button class="boton regreso3" mat-button (mouseover)="bot4Sel=true;" (mouseout)="bot4Sel=false;" [ngClass]="{botHover: bot4 && bot4Sel}" (click)="cancelar()" [disabled]="botonera[2]">
+                        <mat-icon class="iconPB_2" svgIcon="i_cancelar" ></mat-icon>
+                        <div class="texto">{{ this.servicio.rTraduccion()[77] }}</div>
+                    </button>
+                    <button class="boton regreso3" mat-button (mouseover)="bot5Sel=true;" (mouseout)="bot5Sel=false;" [ngClass]="{botHover: bot5Sel}" (click)="copiar()" [disabled]="botonera[3]">
+                        <mat-icon class="iconPB_2" svgIcon="i_copiar" ></mat-icon>
+                        <div class="texto">{{ this.servicio.rTraduccion()[554] }}</div>
+                    </button>
+                    <button class="boton regreso3" mat-button (mouseover)="bot6Sel=true;" (mouseout)="bot6Sel=false;" [ngClass]="{botHover: bot6Sel}" (click)="validarInactivar(0, 1)" *ngIf="maestroActual!=6" [disabled]="botonera[4]">
+                        <mat-icon class="iconPB_2" svgIcon="i_inactivar" ></mat-icon>
+                        <div class="texto">{{ this.servicio.rTraduccion()[555] }}</div>
+                    </button>
+                    <button class="boton regreso3" mat-button (mouseover)="bot7Sel=true;" (mouseout)="bot7Sel=false;" [ngClass]="{botHover: bot7Sel}" (click)="validarEliminar()" [disabled]="botonera[5]">
+                        <mat-icon class="iconPB_2" svgIcon="i_eliminar" ></mat-icon>
+                        <div class="texto">{{ this.servicio.rTraduccion()[388] }}</div>
+                    </button>                
+                </div>
+            </div>
+        </div>
+    
+        <div class="contenedorScroll" cdkDropListGroup  cdkScrollable [style.overflowY]="verBarra">
+            <div cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)"></div>
+            <div class="detalle" @esquema (@esquema.done)="salidaEfecto($event)" *ngIf="verRegistro==1">
+                <div [cdkDropListDisabled]="maestroActual != 1 || nivelActual != 1" cdkDropList *ngFor="let registro of registros; let i = index" 
+                [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)">
+                    <div cdkDrag class="tarjeta registro" (cdkDragMoved)="dragMoved($event)" (mouseover)="arreHover[i]=true;" (mouseout)="arreHover[i]=false;" [ngClass]="{tarAlarmada: (registro.estatus == this.servicio.rTraduccion()[1155]), tarHover: arreHover[i], tarS: sondeo==registro.id }">
+                        <button class="botonMaestro" mat-button (click)="editar(registro.id)">
+                            <button class="boton arribaDer" mat-button (mouseover)="arreHover5[i]=true;" (mouseout)="arreHover5[i]=false;" [ngClass]="{botHover: arreHover5[i]}" (click)="explorar(registro.id, registro.nombre)" *ngIf="nivelActual == 0 && maestroActual < 2">
+                                <div class="textoAbajo">{{registro.tmaquinas}}</div>
+                            </button>
+                            <div class="secuencia" *ngIf="maestroActual == 1 && nivelActual == 1"><div class="numeroSecuencia">{{ registro.secuencia }}</div></div>
+                            <div class="imagen" *ngIf="registro.mostrarImagen == 'S' && verImagen"><img class="imaReg" [src]="registro.imagen" (error)="imagenError(i)"></div>
+                            <mat-icon *ngIf="!verImagen || !registro.mostrarImagen || registro.mostrarImagen == 'N'" class="iconGrande" [svgIcon]="iconoGeneral"></mat-icon>
+
+                            <div class="textoMediano">{{ registro.nombre }}</div>
+                            <div class="divisorP2"></div>
+                            <div class="dobleCaja" *ngIf="registro.capacidad_proceso">
+                                <div class="doble_s">                        
+                                    <div class="valor">{{ registro.capacidad_proceso }}</div>
+                                    <div class="titulo">{{ this.servicio.rTraduccion()[1715] }}</div>
+                                </div>
+                                <div class="doble_s" [style.marginLeft.px]="10" *ngIf="registro.capacidad_stock">                        
+                                    <div class="valor">{{ registro.capacidad_stock }}</div>
+                                    <div class="titulo">{{ this.servicio.rTraduccion()[1716] }}</div>
+                                </div>
+                            </div>
+                            <div class="dobleCaja" *ngIf="registro.tiempo_stock">
+                                <div class="doble_s">
+                                    <div class="valor">{{ registro.tiempo_stock }}</div>    
+                                    <div class="titulo">{{ this.servicio.rTraduccion()[1722] }}</div>
+                                </div>
+                                <div class="doble_s" [style.marginLeft.px]="10" >
+                                    <div class="valor">{{ registro.tiempo_proceso }}</div>    
+                                    <div class="titulo">{{ this.servicio.rTraduccion()[1720] }}</div>
+                                </div>
+                                <div class="doble_s" [style.marginLeft.px]="10" >
+                                    <div class="valor">{{ registro.tiempo_setup + ' / ' + registro.tiempo_setup_idem }}</div>    
+                                    <div class="titulo">{{ this.servicio.rTraduccion()[1721] }}</div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="maestroActual == 6">
+                                <!--<div class="doble_s">
+                                    <div class="valor">{{ registro.pnombre }}</div>    
+                                    <div class="titulo">{{ this.servicio.rTraduccion()[1719] }}</div>
+                                </div>-->
+                                <div class="dobleCaja" >
+                                    <div class="doble_s">
+                                        <div class="valor">{{ (registro.tipo == 'S' ? this.servicio.rTraduccion()[352] : this.servicio.rTraduccion()[353]) }}</div>    
+                                        <div class="titulo">{{ this.servicio.rTraduccion()[1718] }}</div>
+                                    </div>
+                                    <div class="doble_s" [style.marginLeft.px]="10">
+                                        <div class="valor">{{ registro.desde + ' - ' + registro.hasta }}</div>    
+                                        <div class="titulo">{{ this.servicio.rTraduccion()[1717] }}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="doble_s" *ngIf="registro.fcambio">                        
+                                <div class="valor">{{ registro.fcambio | date:this.servicio.rIdioma().fecha_05 }}</div>
+                                <div class="titulo">{{ this.servicio.rTraduccion()[604] }}</div>
+                            </div>
+                            <div class="doble_s" *ngIf="registro.ucambio">                        
+                                <div class="valor">{{ registro.ucambio }}</div>
+                                <div class="titulo">{{ this.servicio.rTraduccion()[605] }}</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="tabla" @esquema (@esquema.done)="salidaEfecto($event)"  *ngIf="verRegistro==2">
+                <div class="registroCaja">
+                    <div class="alertaCaja" *ngIf="editando">
+                        <mat-icon class="alertaIcono">warning</mat-icon>
+                        <span class="alertaMensaje" [innerHTML]="faltaMensaje"></span>
+                    </div>
+                    <div class="registroGeneral">
+                        <div class="registroCampoB"  *ngIf="nivelActual == 1">
+
+                            <div class="registroTitulo"  *ngIf="(maestroActual!=0)">{{ this.servicio.rTraduccion()[1723] }}</div>    
+                            <div class="registroTitulo"  *ngIf="(maestroActual==0)">{{ this.servicio.rTraduccion()[1724] }}</div>    
+
+                            
+                            <button class="boton_ext regreso6" (click)="editarCabecera(detalleRegistro.asociadoID)" (mouseover)="arreHoverB01=true;" (mouseout)="arreHoverB01=false;" [ngClass]="{ botHover: arreHoverB01 }">
+                                {{ detalleRegistro.asociado }}
+                            </button>
+                        </div>
+                        <!--<div class="registroCampo" *ngIf="(maestroActual==1 || maestroActual==0) && nivelActual == 1 || maestroActual==6 || maestroActual==4">
+                            <div class="registroTitulo">{{ titulos[0] }}</div>    
+                            <mat-form-field class="texto">
+                                <mat-select #lstProceso [(value)]="detalleRegistro.proceso" name="proceso" (selectionChange)=recuperarProceso($event) (selectionChange)=cambiando($event)>
+                                    <mat-option *ngIf="maestroActual==6 || maestroActual==4" [value]="0">{{ this.servicio.rTraduccion()[1725] }}</mat-option>
+                                    <mat-option *ngFor="let proceso of procesos; let i = index" [value]="proceso.id">{{ proceso.nombre }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2" *ngIf="maestroActual!=6 && maestroActual!=4">{{ this.servicio.rTraduccion()[1726] }}</span>
+                            <span class="ayudaCampo_2" *ngIf="maestroActual==6">{{ this.servicio.rTraduccion()[1727] }}</span>
+                            
+                        </div>-->
+
+                        <div class="registroCampo" *ngIf="maestroActual==6">
+                            <div class="registroTitulo">{{ titulos[3] }}</div>    
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalleRegistro.dia" name="dia" (selectionChange)=cambiando($event)>
+                                    <mat-option value="0">{{ this.servicio.rTraduccion()[1757] }}</mat-option>
+                                    <mat-option value="1">{{ this.servicio.rTraduccion()[1759] }}</mat-option>
+                                    <mat-option value="2">{{ this.servicio.rTraduccion()[1760] }}</mat-option>
+                                    <mat-option value="3">{{ this.servicio.rTraduccion()[1761] }}</mat-option>
+                                    <mat-option value="4">{{ this.servicio.rTraduccion()[1758] }}</mat-option>
+                                    <mat-option value="5">{{ this.servicio.rTraduccion()[1763] }}</mat-option>
+                                    <mat-option value="6">{{ this.servicio.rTraduccion()[1762] }}</mat-option>
+                                    <mat-option value="9">{{ this.servicio.rTraduccion()[1752] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1740] }}</span>
+                            
+                        </div>
+    
+                        
+                        <div class="registroCampo" *ngIf="maestroActual==6">
+                            <div class="registroTitulo">{{ titulos[4] }}</div>    
+                            <mat-form-field class="cajaTexto_2">
+                                <input #txtFechaDesde matInput [(ngModel)]="detalleRegistro.fecha" [matDatepicker]="picker1" name="fecha" autocomplete="off" #fecha="ngModel" (input)="cambiando($event)" disabled>
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle> 
+                                <mat-datepicker #picker1 [disabled]="detalleRegistro.dia != '9'" (selectedChange)="cambiando($event)"></mat-datepicker>   
+                            </mat-form-field>
+                        </div>
+
+                        <div class="registroCampo" *ngIf="maestroActual==6">
+                            <div class="registroTitulo">{{ titulos[5] }}</div>    
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalleRegistro.tipo" name="tipo" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[1718] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[1753] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1743] }}</span>
+                            
+                        </div>
+    
+                        <div class="registroCampo" *ngIf="maestroActual==6">
+                            <div class="registroTitulo">{{ titulos[1] }}</div>    
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="time" #txtDesde pattern="^([0-1][0-9]|2[0-3]):([0-5][0-9])$" [(ngModel)]="detalleRegistro.desde" maxlength="9" autocomplete="off" name="desde" required #desde="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start"><strong>{{ this.servicio.rTraduccion()[1770] }}</strong></mat-hint>                       
+                            </mat-form-field>     
+                        </div>
+                        <div class="registroCampo" *ngIf="maestroActual==6">
+                            <div class="registroTitulo">{{ titulos[2] }}</div>    
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtHasta type="time"  pattern="^([0-1][0-9]|2[0-3]):([0-5][0-9])$" [(ngModel)]="detalleRegistro.hasta" maxlength="9" autocomplete="off" name="hasta" required #hasta="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start"><strong>{{ this.servicio.rTraduccion()[1770] }}</strong></mat-hint>                                      
+                            </mat-form-field>             
+                        </div>
+
+                        <div class="registroCampo" *ngIf="maestroActual!=6">
+                            <div class="registroTitulo">{{ titulos[1] }}</div>    
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtNombre [(ngModel)]="detalleRegistro.nombre" maxlength="100" autocomplete="off" name="nombre" required #nombre="ngModel" (input)="cambiando($event)">
+                                <button mat-button *ngIf="detalleRegistro.nombre" matSuffix mat-icon-button aria-label="Clear" (click)="detalleRegistro.nombre = '';cambiando($event)">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-hint class="pista" align="end">{{ nombre.value?.length || 0 }} / 100</mat-hint>
+                                <mat-hint class="pista" align="start"><strong>{{ this.servicio.rTraduccion()[180] }}</strong></mat-hint>
+                            </mat-form-field>                            
+                        </div>
+
+                        <div class="registroCampo" *ngIf="maestroActual==5">
+                            <div class="registroTitulo">{{ titulos[0] }}</div>    
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalleRegistro.tipo" name="tipo" (selectionChange)=cambiando($event)>
+                                    <mat-option value="0">{{ this.servicio.rTraduccion()[1751] }}</mat-option>
+                                    <mat-option value="50">{{ this.servicio.rTraduccion()[1756] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1747] }}</span>
+                            
+                        </div>
+
+                        <div class="registroCampo" *ngIf="maestroActual==3">
+                            <div class="registroTitulo">{{ titulos[20] }}</div>    
+                            <mat-form-field class="cajaTexto_2">
+                                <textarea cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" #txtCorreos matInput #txtNombre [(ngModel)]="detalleRegistro.correos" maxlength="2000" autocomplete="off" name="correos" required #correos="ngModel" (input)="cambiando($event)"></textarea>
+                                <button mat-button *ngIf="detalleRegistro.correos" matSuffix mat-icon-button aria-label="Clear" (click)="detalleRegistro.correos = '';cambiando($event)">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-hint class="pista" align="end">{{ correos.value?.length || 0 }} / 2000</mat-hint>
+                            </mat-form-field>    
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1748] }}</span>
+                        </div>
+
+                        <div class="registroCampo" *ngIf="maestroActual==3">
+                            <div class="registroTitulo">{{ titulos[21] }}</div> 
+                                <mat-form-field class="cajaTexto_2">
+                                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3"  [(ngModel)]="detalleRegistro.telefonos" maxlength="2000" autocomplete="off" name="telefonos" required #telefonos="ngModel" (input)="cambiando($event)"></textarea>
+                                <button mat-button *ngIf="detalleRegistro.telefonos" matSuffix mat-icon-button aria-label="Clear" (click)="detalleRegistro.telefonos = '';cambiando($event)">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-hint class="pista" align="end">{{ telefonos.value?.length || 0 }} / 2000</mat-hint>
+                            </mat-form-field>  
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1750] }}</span>
+                        </div>
+
+                        <div class="registroCampo" *ngIf="maestroActual==3">
+                            <div class="registroTitulo">{{ titulos[22] }}</div>    
+                            <mat-form-field class="cajaTexto_2">
+                                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3"  [(ngModel)]="detalleRegistro.mmcall" maxlength="2000" autocomplete="off" name="mmcall" required #mmcall="ngModel" (input)="cambiando($event)"></textarea>
+                                <button mat-button *ngIf="detalleRegistro.mmcall" matSuffix mat-icon-button aria-label="Clear" (click)="detalleRegistro.mmcall = '';cambiando($event)">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-hint class="pista" align="end">{{ mmcall.value?.length || 0 }} / 2000</mat-hint>
+                            </mat-form-field>      
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1749] }}</span>
+                        </div>
+
+                         
+                        <div class="registroCampo" *ngIf="maestroActual==1 && nivelActual == 1">
+                            <div class="registroTitulo">{{ titulos[2] }}</div>    
+                            <mat-form-field class="texto">
+                                <mat-select [(ngModel)]="detalleRegistro.secuencia" name="secuencia" (selectionChange)=cambiando($event)>
+                                    <mat-option *ngFor="let secuencia of secuencias; let i = index" [value]="secuencia.id">{{ secuencia.nombre }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1739] }}</span>
+                            
+                        </div>
+
+                        <div class="registroCampo" *ngIf="maestroActual==2">
+                            <div class="registroTitulo">{{ titulos[19] }}</div>    
+                            <mat-form-field class="texto">
+                                <mat-select #lstProceso2 [(ngModel)]="detalleRegistro.ruta" name="ruta" (selectionChange)=cambiando($event)>
+                                    <mat-option *ngFor="let ruta of rutas; let i = index" [value]="ruta.id">{{ ruta.nombre }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1741] }}</span>
+                            
+                        </div>
+
+                        <div class="registroCampo" *ngIf="maestroActual==2">
+                            <div class="registroTitulo">{{ titulos[20] }}</div>    
+                            <mat-form-field class="texto">
+                                <mat-select [(ngModel)]="detalleRegistro.tipo" name="tipo" (selectionChange)=cambiando($event)>
+                                    <mat-option value="0">{{ this.servicio.rTraduccion()[324] }}</mat-option>
+                                    <mat-option value="1">{{ this.servicio.rTraduccion()[1023] }}</mat-option>
+                                    <mat-option value="2">{{ this.servicio.rTraduccion()[988] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[809] }}</span>
+                            
+                        </div>
+
+                        <div class="registroCampo" *ngIf="maestroActual==0">
+                            <div class="registroTitulo">{{ titulos[3] }}</div>    
+                            <div class="valorVarios">
+                                <mat-form-field class="cajaTexto_2" *ngIf="nivelActual == 0">
+                                    <input matInput #txtCapacidad_stock type="number" [(ngModel)]="detalleRegistro.capacidad_stock" maxlength="6" autocomplete="off" name="capacidad_stock" #capacidad_stockN="ngModel" (input)="cambiando($event)">
+                                    <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+                                </mat-form-field>                            
+                                <mat-form-field class="cajaTexto_2" *ngIf="nivelActual == 1">
+                                    <input matInput #txtCapacidad_proceso type="number" [(ngModel)]="detalleRegistro.capacidad" maxlength="6" autocomplete="off" name="capacidad" #capacidadN="ngModel" (input)="cambiando($event)">
+                                    <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+                                </mat-form-field>                            
+                            </div>    
+                            <span class="ayudaCampo_2" *ngIf="nivelActual == 0">{{ this.servicio.rTraduccion()[1732] }}</span>
+                            <span class="ayudaCampo_2" *ngIf="nivelActual == 1">{{ this.servicio.rTraduccion()[1731] }}</span>
+                            
+                        </div>
+
+                        <!--<div class="registroCampo" *ngIf="maestroActual==0 && nivelActual==0">
+                            <div class="registroTitulo">3. Aplica reducción de tiempo de setup</div>    
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalleRegistro.reduccion_setup" name="reduccion_setup" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[352] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[353] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>     
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1730] }}</span>
+                        </div>-->
+
+                        <div class="registroCampo" *ngIf="maestroActual==1 && nivelActual == 1">
+                            <div class="registroTitulo">{{ titulos[4] }}</div>    
+                            <mat-form-field class="cajaTexto_2">
+                            <input matInput #txtTiempo_stock type="number" [(ngModel)]="detalleRegistro.tiempo_stock" maxlength="12" autocomplete="off" name="tiempo_stock" #tiempo_stockN="ngModel" (input)="cambiando($event)" (input)="calculoSeg(1)">
+                                <span class="gris" matSuffix>{{ segStock }}</span>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                                <mat-hint class="pista" align="end">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+                            </mat-form-field>                            
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1737] }}</span>
+                                                
+                        </div>    
+
+                        <div class="registroCampo" *ngIf="maestroActual==1 && nivelActual == 1">
+                            <div class="registroTitulo">{{ titulos[19] }}</div>    
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput #txtTiempo_proceso type="number" [(ngModel)]="detalleRegistro.tiempo_proceso" maxlength="12" autocomplete="off" name="tiempo_proceso" #tiempo_procesoN="ngModel" (input)="cambiando($event)" (input)="calculoSeg(2)">
+                                <span class="gris" matSuffix>{{ segProceso }}</span>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                                <mat-hint class="pista" align="end">{{ this.servicio.rTraduccion()[180] }}</mat-hint>
+                            </mat-form-field> 
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1734] }}</span>
+                        </div>
+
+                        <div class="registroCampo" *ngIf="maestroActual==1 && nivelActual == 1">
+                            <div class="registroTitulo">{{ titulos[20] }}</div>    
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalleRegistro.tiempo_setup" maxlength="12" autocomplete="off" name="tiempo_setup" #tiempo_setupN="ngModel" (input)="cambiando($event)" (input)="calculoSeg(3)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                                <span class="gris" matSuffix>{{ segSetup }}</span>
+                            </mat-form-field> 
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1735] }}</span>
+                        </div>
+
+                        <div class="registroCampo" *ngIf="maestroActual==1 && nivelActual == 1">
+                            <div class="registroTitulo">{{ titulos[21] }}</div>    
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalleRegistro.tiempo_setup_idem" maxlength="12" autocomplete="off" name="tiempo_setup_idem" #tiempo_setup_idemN="ngModel" (input)="cambiando($event)" (input)="calculoSeg(4)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[350] }}</mat-hint>
+                                <span class="gris" matSuffix>{{ segSetupI }}</span>
+                            </mat-form-field> 
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1736] }}</span>
+                        </div>
+
+                        <div class="registroCampo" *ngIf="maestroActual==1 && nivelActual == 1">
+                            <div class="registroTitulo">{{ titulos[22] }}</div>    
+                            <mat-form-field class="cajaTexto_2">
+                                <input matInput type="number" [(ngModel)]="detalleRegistro.piezas_finalizar_paro" maxlength="20" autocomplete="off" name="piezas_finalizar_paro" #piezas_finalizar_paro="ngModel" (input)="cambiando($event)">
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[3250] }} </mat-hint>
+                                
+                            </mat-form-field> 
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1733] }}</span>
+                        </div>
+
+                        <div class="registroCampo" *ngIf="maestroActual!=6">
+                            <div class="registroTitulo">{{ titulos[5] }}</div>    
+                            <mat-form-field class="cajaTexto_2">
+
+                                <input matInput #txtReferencia [(ngModel)]="detalleRegistro.referencia" maxlength="30" autocomplete="off" name="referencia" #referenciaN="ngModel" (input)="cambiando($event)" [disabled]="detalleRegistro.admin=='S'">
+                                <button mat-button *ngIf="detalleRegistro.referencia" matSuffix mat-icon-button aria-label="Clear" (click)="detalleRegistro.referencia = '';cambiando($event)">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-hint class="pista" align="end">{{referenciaN.value?.length || 0}} /  30</mat-hint>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[358] }}</mat-hint>
+                            </mat-form-field>                            
+                        </div>    
+
+                        <div class="registroCampo" *ngIf="maestroActual==0 && nivelActual==0 || maestroActual==2">
+                            <div class="registroTitulo">{{ titulos[6] }}</div>    
+                            <div class="registroconImagen">
+                                <div class="valorconImagen">
+                                    <mat-form-field class="cajaTexto_2">
+                                        <input matInput #txtImagen [(ngModel)]="detalleRegistro.imagen" maxlength="255" autocomplete="off" name="imagen" #imagenN="ngModel" (input)="cambiando($event)">
+                                        <button mat-button *ngIf="detalleRegistro.imagen" matSuffix mat-icon-button aria-label="Clear" (click)="detalleRegistro.imagen = '';cambiando($event)">
+                                            <mat-icon>close</mat-icon>
+                                        </button>
+                                        <mat-hint class="pista" align="end">{{ imagenN.value?.length || 0 }} / 255</mat-hint>
+                                        <mat-hint class="pista" align="start">{{ mensajeImagen }}</mat-hint>
+                                    </mat-form-field>  
+                                    <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1742] }}</span>
+                                </div>
+                                <input type="file" style="display: none" (change)="onFileSelected($event)" accept=".png;.jpg;.svg;.bmp" #fileInput> 
+                                <button class="boton regreso4" mat-button (mouseover)="imagenSel=true;" (mouseout)="imagenSel=false;" [matTooltip] = "ayuda01" matTooltipClass = "toolTip2" matTooltipShowDelay = "100" [ngClass]="{botHover: imagenSel}" (click)="fileInput.click()">
+                                    <mat-icon class="iconMediano" [svgIcon]="iconoGeneral"></mat-icon>
+                                </button>                                    
+                            </div>
+                        </div>
+
+
+                        <div class="registroCampo" *ngIf="maestroActual!=6">
+                            <div class="registroTitulo">{{ titulos[7] }}</div>    
+                            <mat-form-field class="cajaTexto_2">
+                                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="3" #txtNotas [(ngModel)]="detalleRegistro.notas" maxlength="300" autocomplete="off" name="notas" #notasN="ngModel" (input)="cambiando($event)"></textarea>
+                                <button mat-button *ngIf="detalleRegistro.notas" matSuffix mat-icon-button aria-label="Clear" (click)="detalleRegistro.notas = '';cambiando($event)">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                                <mat-hint class="pista" align="end">{{ notasN.value?.length || 0 }} / 300</mat-hint>
+                                <mat-hint class="pista" align="start">{{ this.servicio.rTraduccion()[358] }}</mat-hint>
+                            </mat-form-field>                            
+                        </div> 
+
+                        <div class="registroCampo" *ngIf="maestroActual==0 && nivelActual==1">
+                            <div class="registroTitulo">{{ titulos[18] }}</div>    
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalleRegistro.programar" name="programar" (selectionChange)=cambiando($event)>
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[1755] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[1754] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1729] }}</span>
+                            
+                        </div>   
+
+                        <div class="registroCampo" *ngIf="maestroActual!=6">
+                            <div class="registroTitulo">{{ titulos[8] }}</div>    
+                            <mat-form-field class="texto">
+                                <mat-select [(value)]="detalleRegistro.estatus" name="estatus" (selectionChange)=cambiando($event) [disabled]="detalleRegistro.admin=='S'">
+                                    <mat-option value="A">{{ this.servicio.rTraduccion()[386] }}</mat-option>
+                                    <mat-option value="I">{{ this.servicio.rTraduccion()[387] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1728] }}</span>
+                            
+                        </div>               
+                        
+                        <div class="registroCampo" *ngIf="maestroActual==2">
+                            <div class="registroTitulo">{{ this.servicio.rTraduccion()[1769] }}</div>    
+                            <mat-form-field class="texto">
+                                <mat-select [(ngModel)]="detalleRegistro.maquinas" (selectionChange)="seleccion(1, $event);cambiando($event)">
+                                    <mat-option value="S">{{ this.servicio.rTraduccion()[1083] }}</mat-option>
+                                    <mat-option value="N">{{ this.servicio.rTraduccion()[1027] }}</mat-option>
+                                    <div class="divisorP"></div>
+                                    <mat-option value="1">{{ this.servicio.rTraduccion()[1066] }}</mat-option>
+                                    <mat-option value="0">{{ this.servicio.rTraduccion()[1001] }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div class="cajaLista" [ngStyle]="{'border-color': detalleRegistroaquinas!='S' ? 'var(--borde_boton)' : 'var(--texto_boton_inactivo)'}">
+                                <mat-selection-list class="lista2" #lista2 [(ngModel)]="detalleRegistro.listado2" name="detalleRegistro.listado2" (click)="cambiando($event)" [disabled]="detalleRegistro.maquinas=='S'">
+                                    <mat-list-option *ngFor="let linea of maquinasSel; let i = index" [value]="linea.id" [selected]="linea.seleccionado==1" checkboxPosition="before">
+                                        <div class="columnaLista">
+                                            <div class="lineaLista">{{ linea.nombre + ' (' + linea.nlinea + ')' }}</div>
+                                        </div>
+                                    </mat-list-option>
+                                </mat-selection-list>
+                                
+                            </div>
+                            <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[1738] }}</span>
+                        </div>
+
+                        <div class="registroCampoST" *ngIf="detalleRegistro.id > 0 && maestroActual == 1 && nivelActual == 0">
+                            <div class="registroTitulo">{{ titulos[9] }}</div>    
+                            <div class="cabeceraTabla" *ngIf="operaciones.length>0">
+                                <div class="col11">Sec.</div>
+                                <div class="col12">Operación</div>
+                                <div class="col13">{{ this.servicio.rTraduccion()[562] }}</div>
+                            </div>
+
+                            <div class="tablaItems" *ngIf="operaciones.length>0">    
+                                <button class="boton_2 regreso6" *ngFor="let operacion of operaciones; let i = index" (click)="editarDetalleRuta(operacion.id)" (mouseover)="arreHover5[i]=true;" (mouseout)="arreHover5[i]=false;" [ngClass]="{ botHover: arreHover5[i] }">
+                                    <div class="tablaDet_2">
+                                        <div class="col01">{{operacion.secuencia }}</div>
+                                        <div class="col03">{{ operacion.nombre }}</div>
+                                        <div class="col04">{{ (operacion.estatus == 'A' ? this.servicio.rTraduccion()[1768] : this.servicio.rTraduccion()[387]) }}</div>
+                                    </div> 
+                                </button>
+                                <span class="ayudaCampo_2" *ngIf="operaciones.length==0">{{ this.servicio.rTraduccion()[1745] }}</span>
+                                
+                            </div>
+
+                            
+                        </div>
+                        <div class="registroCampoST" *ngIf="detalleRegistro.id > 0 && maestroActual == 0 && nivelActual == 0">
+                            <div class="registroTitulo">{{ titulos[10] }}</div>    
+                            <div class="cabeceraTabla" *ngIf="operaciones.length>0">
+                                <div class="col21">Ruta</div>
+                                <div class="col22">{{ this.servicio.rTraduccion()[562] }}</div>
+                            </div>
+                            <div class="tablaItems" *ngIf="operaciones.length>0">    
+
+                                <button class="boton_2 regreso6" *ngFor="let operacion of operaciones; let i = index" (click)="editarRuta(operacion.id)" (mouseover)="arreHover[i]=true;" (mouseout)="arreHover[i]=false;" [ngClass]="{ botHover: arreHover[i] }">
+                                    <div class="tablaDet_2">
+                                        <div class="col21">{{ operacion.nombre }}</div>
+                                        <div class="col22">{{ (operacion.estatus == 'A' ? this.servicio.rTraduccion()[1768] : this.servicio.rTraduccion()[387]) }}</div>
+                                    </div> 
+                                </button>  
+
+                            </div>
+                            <span class="ayudaCampo_2" *ngIf="operaciones.length==0">{{ this.servicio.rTraduccion()[1746] }}</span>
+                            
+                        </div>
+                        <div class="registroCampoST" *ngIf="detalleRegistro.id > 0 && (maestroActual == 0 && nivelActual == 0 || maestroActual == 1 && nivelActual == 0)">
+                            <div class="registroTitulo">{{ titulos[11] }} </div>    
+                            <div class="cabeceraTabla" *ngIf="partes.length>0">
+                                <div class="col01">Item</div>
+                                <div class="col02">{{ this.servicio.rTraduccion()[150] }}</div>
+                                <div class="col03">{{ this.servicio.rTraduccion()[1766] }}</div>
+                                <div class="col04">{{ this.servicio.rTraduccion()[562] }}</div>
+                            </div>
+                            <div class="tablaItems" *ngIf="partes.length>0">   
+                                <button class="boton_2 regreso6" *ngFor="let parte of partes; let i = index" (click)="editarItem(parte.id)" (mouseover)="arreHover2[i]=true;" (mouseout)="arreHover2[i]=false;" [ngClass]="{ botHover: arreHover2[i] }">
+                                    <div class="tablaDet_2">
+                                        <div class="col01">{{ i + 1 }}</div>
+                                        <div class="col02">{{ parte.referencia }}</div>
+                                        <div class="col03">{{ parte.nombre }}</div>
+                                        <div class="col04">{{ (parte.estatus == 'A' ? this.servicio.rTraduccion()[1768] : this.servicio.rTraduccion()[387]) }}</div>
+                                    </div> 
+                                </button> 
+                            </div>
+                            <span class="ayudaCampo_2" *ngIf="partes.length==0">{{ this.servicio.rTraduccion()[1764] + ' ' + (maestroActual == 0 ? this.servicio.rTraduccion()[1765] : this.servicio.rTraduccion()[664]) }}</span>
+                            
+                        </div>
+                        <div class="registroCampoST" *ngIf="detalleRegistro.id > 0 && maestroActual == 0 && nivelActual == 0">
+                            <div class="registroTitulo">{{ titulos[12] }}</div>    
+                            <div class="cabeceraTabla" *ngIf="equipos.length>0">
+                                <div class="col41">{{ this.servicio.rTraduccion()[1766] }}</div>
+                                <div class="col42">{{ this.servicio.rTraduccion()[1767] }}</div>
+                                <div class="col43">{{ this.servicio.rTraduccion()[562] }}</div>
+                            </div>
+
+                            <div class="tablaItems" *ngIf="equipos.length>0">    
+
+                                <button class="boton_2 regreso6" *ngFor="let equipo of equipos; let i = index" (click)="editarEquipo(equipo.id)" (mouseover)="arreHover3[i]=true;" (mouseout)="arreHover3[i]=false;" [ngClass]="{ botHover: arreHover3[i] }">
+                                    <div class="tablaDet_2">
+                                        <div class="col41">{{ equipo.nombre }}</div>
+                                        <div class="col42">{{ equipo.capacidad }}</div>
+                                        <div class="col43">{{ (equipo.estatus == 'A' ? this.servicio.rTraduccion()[1768] : this.servicio.rTraduccion()[387]) }}</div>
+                                    </div> 
+                                </button>  
+
+                            </div>
+
+                            <span class="ayudaCampo_2" *ngIf="equipos.length==0">{{ this.servicio.rTraduccion()[1744] }}</span>
+                            
+                        </div>
+                        <div class="registroCampoST" *ngIf="maestroActual!=6 && detalleRegistro.id > 0">
+                            <div class="registroTitulo">{{ titulos[13] }}</div>    
+                            <div class="registroValorDetalleST">{{ detalleRegistro.fcambio | date:this.servicio.rIdioma().fecha_05 }}</div>    
+                        </div>
+                        <div class="registroCampoST" *ngIf="maestroActual!=6 && detalleRegistro.id > 0">
+                            <div class="registroTitulo">{{ titulos[14] }}</div>    
+                            <div class="registroValorDetalleST">{{ detalleRegistro.ucambio }}</div>    
+                        </div>
+                        <div class="registroCampoST" *ngIf="maestroActual!=6 && detalleRegistro.id > 0">
+                            <div class="registroTitulo">{{ titulos[15] }}</div>    
+                            <div class="registroValorDetalleST">{{ detalleRegistro.fcreacion | date:this.servicio.rIdioma().fecha_05 }}</div>    
+                        </div>
+                        <div class="registroCampoST" *ngIf="maestroActual!=6 && detalleRegistro.id > 0">
+                            <div class="registroTitulo">{{ titulos[16] }}</div>    
+                            <div class="registroValorDetalleST">{{ detalleRegistro.ucreacion }}</div>    
+                        </div>
+                            
+                        <div class="registroCampoST" *ngIf="detalleRegistro.id > 0">
+                            <div class="registroTitulo">{{ titulos[17] }}</div>    
+                            <div class="registroValorDetalleST">{{ detalleRegistro.id }}</div>    
+                        </div> 
+                         
+                    </div>
+                </div>
+            </div>
+            <div class="subir" *ngIf="verIrArriba" @arriba>
+                <button class="subirBoton" mat-flat-button (click)="irArriba()" [matTooltip]="irArribaTT" matTooltipClass = "toolTip2">
+                    <mat-icon class="subirIcono">keyboard_arrow_up</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>

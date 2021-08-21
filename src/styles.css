@@ -1,0 +1,462 @@
+
+/* You can add global styles to this file, and also import other style files */
+
+:root 
+{
+    --fondo_total : none;
+    --fondo_barra_superior : none;
+    --fondo_barra_inferior : none;
+    --fondo_aplicacion : none;
+    --fondo_seleccion : none;
+    --fondo_boton : none;
+    --fondo_slider : none;
+    --fondo_tarjeta : none;
+    --fondo_boton_inactivo : none;
+    --fondo_boton_positivo : none;
+    --fondo_boton_negativo : none;
+    --fondo_logo : none;
+    --borde_total : none;
+    --borde_seleccion : none;
+    --borde_hover : none;
+    --borde_boton : none;
+    --borde_boton_inactivo : none;
+    --borde_tarjeta : none;
+    --color_impar : none;
+    --color_par : none;
+    --texto_tarjeta : none;
+    --texto_tarjeta_resalte : none;
+    --texto_barra_superior : none;
+    --texto_barra_inferior : none;
+    --texto_boton : none;
+    --texto_boton_inactivo : none;
+    --texto_boton_positivo : none;
+    --texto_boton_negativo : none;
+    --texto_seleccion : none;    
+    --texto_tiptool : none;    
+    --borde_tiptool : none;    
+    --fondo_tiptool : none;    
+    --texto_boton_barra: none;
+    --fondo_boton_barra: none;
+    --fondo_snack_normal: none;
+    --fondo_snack_error: none;
+    --texto_snack_normal: none;
+    --texto_snack_error: none;
+    --texto_solo_texto: none;
+    --fondo_mapa: none;
+  }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+::-webkit-scrollbar 
+{
+    width: 20px;
+    height: 16px;
+}
+
+::-webkit-scrollbar-button 
+{
+    background: var(--fondo_aplicacion) !important;
+    border-style: solid !important;
+    border-width: 1.5px !important;
+    border-color: var(--borde_total) !important;
+    border-radius: 3px; 
+    height: 20px !important;
+    width: 26px !important;
+}
+
+::-webkit-scrollbar-track-piece 
+{
+    background: rgba( 0 , 0, 0, 0.1) !important;
+}
+
+::-webkit-scrollbar-thumb 
+{
+    background: rgba( 0 , 0, 0, 0.2) !important;
+    border-style: solid !important;
+    border-width: 1.5px !important;
+    border-color: var(--borde_total) !important;
+    border-radius: 3px; 
+    margin: 3px;
+}
+
+::-webkit-scrollbar-track 
+{
+    background: var(--fondo_aplicacion) !important;
+    margin: 3px;
+    border-style: solid !important;
+    border-width: 1.5px !important;
+    border-color: var(--borde_total) !important;
+    border-radius: 3px; 
+}
+
+.dialogo .mat-dialog-container {
+    overflow: hidden !important;
+    border-radius: 3px !important;
+    padding: 8px !important;
+    background-color: var(--fondo_tarjeta);
+    color: var(--texto_tarjeta);
+    border-style: solid;
+    border-width: 3px;
+    border-color: var(--borde_tarjeta);
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    box-shadow: 0px 0px 1px 2px var(--texto_tarjeta_resalte);
+
+}
+
+
+.dialogo_atencion .mat-dialog-container {
+    overflow: hidden !important;
+    border-radius: 3px !important;
+    padding: 8px !important;
+    background-color: var(--fondo_tarjeta);
+    color: var(--texto_tarjeta);
+    border-style: solid;
+    border-width: 3px;
+    border-color: var(--borde_tarjeta);
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    box-shadow: 0px 0px 1px 2px var(--fondo_boton_negativo);
+
+}
+
+.dialogo_atencion .mat-datepicker-container {
+    overflow: hidden !important;
+    border-radius: 3px !important;
+    padding: 8px !important;
+        background-color: var(--fondo_tarjeta);
+    color: var(--texto_tarjeta);
+    border-style: solid;
+    border-width: 3px;
+    border-color: var(--borde_tarjeta);
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    box-shadow: 0px 0px 1px 2px var(--fondo_boton_negativo);
+
+}
+
+
+.proceso {
+    margin: 0 auto;
+  }
+
+  .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: var(--texto_tarjeta) !important;
+    }
+
+
+.toolTip
+{
+  padding: 5px;
+  font-size: 16px !important;
+  background-color: var(--fondo_tiptool) !important;
+  color: var(--texto_tiptool) !important;
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--borde_tiptool) !important;
+  white-space: pre-line;
+}
+
+
+
+.mat-menu-panel 
+{
+  background-color: var(--fondo_tarjeta);
+  color: var(--texto_boton);
+  border-color: var(--borde_tarjeta);
+  border-width: 2px;
+  border-radius: 3px;
+  border-style: solid;
+  padding: 0px;
+  padding-left: 5px; 
+  padding-right: 5px; 
+  
+}
+
+
+.mat-form-field .mat-select.mat-select-disabled .mat-select-arrow
+{
+    color: var(--texto_boton_inactivo);
+}
+
+.mat-select-arrow
+{
+    color: var(--texto_boton);
+}
+
+.mat-select-value
+{
+    color: var(--texto_boton);
+}
+
+.mat-select-value
+{
+    color: var(--texto_boton) ;
+}
+
+.mat-select-disabled .mat-select-value
+{
+    color: var(--texto_boton_inactivo);   
+}
+
+.mat-select-panel
+{
+    background: var(--fondo_boton);   
+}
+
+.mat-option
+{
+    border-bottom-style: solid;
+    border-bottom-width: 0.5px;
+    display: flex !important;
+}
+
+.mat-option.mat-active
+{
+    color: var(--texto_seleccion);
+    background: var(--fondo_seleccion);
+    
+}
+
+.mat-select-panel .mat-optgroup-label, .mat-select-panel .mat-option 
+{
+    color: var(--texto_boton);
+}
+
+
+.mat-option.mat-selected
+{
+    color: var(--texto_tarjeta_resalte);
+}
+
+.mat-option.mat-selected:not(.mat-option-disabled)
+{
+    color: var(--texto_tarjeta_resalte) !important;
+}
+
+.mat-input-element 
+{
+    caret-color:var(--texto_tarjeta_resalte);
+}
+
+.mat-form-field-required-marker
+{
+    color: var(--texto_boton_negativo);
+}
+
+.mat-input-element:disabled
+{
+    color: var(--texto_boton_inactivo);
+}
+
+.mat-pseudo-checkbox
+{
+    color: var(--texto_boton);
+    vertical-align: top !important;
+    
+}
+
+.mat-pseudo-checkbox-checked, .mat-pseudo-checkbox-indeterminat
+{
+    background: var(--texto_boton) !important;
+}
+
+.mat-pseudo-checkbox::after
+{
+    color: var(--fondo_boton);
+}
+
+
+.mat-checkbox-inner-container
+{
+    background: var(--fondo_tarjeta) !important;
+}
+
+.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element, .mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element
+{
+    background-color: var(--texto_tarjeta) !important;
+    color: var(--texto_tarjeta) !important;
+}
+
+.mat-checkbox-frame {
+    border-color: var(--texto_tarjeta) !important;
+}
+
+.mat-checkbox-checkmark-path
+{
+    stroke: var(--fondo_tarjeta) !important;
+
+}
+
+.mat-checkbox-checked.mat-primary 
+{
+    background: var(--texto_tarjeta) !important;
+}
+
+.mat-checkbox-checked .mat-checkbox-checkmark
+{
+    background: var(--texto_tarjeta) !important;
+}
+
+.mat-icon-button
+{
+    color: var(--texto_boton) !important;
+}
+
+.mat-icon-button:disabled
+{
+    color: var(--texto_boton_inactivo) !important;
+}
+
+.mat-button, .mat-raised-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button, .mat-fab, .mat-mini-fab 
+{
+    font-weight: 400;
+}
+
+.mat-calendar
+{
+    border-width: 1.5px;
+    border-radius: 3px;
+    border-style: solid;
+    border-color: var(--borde_tarjeta) !important;
+    background-color: var(--fondo_tarjeta) !important;
+    color: var(--texto_tarjeta) !important;
+}
+
+.mat-calendar-body
+{
+    font-size: 17px;
+}
+
+.mat-calendar-body-selected
+{
+    box-shadow: inset 0 0 0 1px var(--texto_seleccion) !important;
+    color: var(--texto_seleccion) !important;
+    background-color: var(--fondo_seleccion) !important;
+    font-weight: 600;
+}
+
+.mat-calendar-body-cell-content {
+    color: var(--texto_tarjeta_resalte);
+    border-color: transparent;
+}
+
+.mat-list-item
+{
+    color: var(--texto_boton) !important;
+}
+
+.mat-list-item-disabled
+{
+    color: var(--texto_boton_inactivo) !important;
+    background-color: var(--fondo_boton_inactivo) !important;
+}
+
+.mat-pseudo-checkbox-disabled
+{
+    color: var(--texto_boton_inactivo) !important;
+}
+.mat-pseudo-checkbox-checked.mat-pseudo-checkbox-disabled
+{
+    color: var(--fondo_boton_inactivo) !important;
+    background-color: var(--texto_boton_inactivo) !important;
+}
+.mat-calendar-arrow 
+{
+    border-top-color: var(--texto_tarjeta) !important;
+}
+
+.mat-calendar-period-button
+{
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.mat-calendar-body-label, .mat-calendar-table-header {
+    color: var(--texto_tarjeta_resalte);
+    font-size: 17px;
+}
+
+.mat-calendar-table-header th
+{
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow
+{
+    color: var(--texto_boton);
+}
+
+textarea.mat-input-element.cdk-textarea-autosize
+{
+    overflow: hidden;
+}
+
+.mat-form-field-underline
+{
+    background-color: var(--texto_tarjeta) !important;
+}
+
+.mat-focused .mat-form-field-underline .mat-form-field-ripple
+{ 
+    background: var(--texto_tarjeta) !important;; 
+}
+
+.mat-form-field-appearance-legacy.mat-form-field-disabled .mat-form-field-underline
+{
+    background-color: var(--texto_solo_texto) !important;; 
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    margin-bottom: 10px;
+}
+
+.mat-form-field-underline, .mat-form-field-ripple 
+{
+    background-color: var(--texto_tarjeta) !important;
+    color: var(--texto_tarjeta) !important
+  }
+  
+  .mat-form-field-empty.mat-form-field-label 
+  {
+      color: var(--texto_tarjeta) !important;
+  }
+
+
+  .dx-colorbox-input-container .dx-colorbox-input.dx-texteditor-input
+  {
+    border-color: var(--borde_tarjeta) !important;
+    background-color: var(--fondo_tarjeta) !important;
+    color: var(--texto_tarjeta) !important;   
+  }
+
+  .dx-dropdowneditor-input-wrapper
+  {
+      border-radius: 3px;
+      border-color: var(--borde_boton) !important;
+  }
+
+  .dx-popup-wrapper > .dx-overlay-conten
+  {
+    overflow: hidden !important;
+    border-radius: 3px !important;
+    padding: 8px !important;
+    background-color: var(--fondo_tarjeta);
+    color: var(--texto_tarjeta);
+    border-style: solid;
+    border-width: 3px;
+    border-color: var(--borde_tarjeta);
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+  }
+
+  .dx-dropdowneditor-icon
+  {
+    background-color: var(--fondo_boton) !important;
+    color: var(--texto_boton) !important;
+    border-color: var(--borde_total) !important;
+  }
+
+  

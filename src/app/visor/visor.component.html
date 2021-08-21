@@ -1,0 +1,221 @@
+<div id="todo" class="mat-typography">
+    <div class="pantallaError"   *ngIf="pantalla==1">
+        <div class="cabeceraMensaje" >{{ errorTitulo }}</div>
+        <div class="mensaje" [innerHTML]="errorMensaje"></div>
+    </div>
+    <div class="catalogos">
+        <div class="cabecera" @esquema_top *ngIf="verTop">
+            <button class="boton regreso" mat-button (mouseover)="lineaSel=true;" (mouseout)="lineaSel=false;" [ngClass]="{botTomado: verMapa, botHover: lineaSel}" (click)="verMapa = (verMapa && (verReporte || verExcel) ? false : true);cambiarVistas(1)" [disabled]="!boton01">
+                <mat-icon class="iconoBarras iconPB_2" svgIcon="i_mapa"></mat-icon>
+                <div class="texto">{{ this.servicio.rTraduccion()[3352] }}</div>
+            </button>
+            <button class="boton regreso2" mat-button (mouseover)="maquinaSel=true;" (mouseout)="maquinaSel=false;" [ngClass]="{botTomado: verExcel, botHover: maquinaSel}" (click)="verExcel = (verExcel && (verReporte || verMapa) ? false : true);cambiarVistas(2)" [disabled]="!boton02" *ngIf="servicio.rVersion().modulos[1] == 1">
+                <mat-icon class="iconoBarras iconPB_2" svgIcon="i_oee" ></mat-icon>
+                <div class="texto">{{ this.servicio.rTraduccion()[3353] }}</div>
+            </button>
+            <button class="boton regreso" mat-button (mouseover)="responsableSel=true;" (mouseout)="responsableSel=false;" [ngClass]="{botTomado: verReporte, botHover: responsableSel}" (click)="verReporte = (verReporte && (verExcel || verMapa) ? false : true);cambiarVistas(3)" [disabled]="!boton03">
+                <mat-icon class="iconoBarras iconPB_2" svgIcon="i_falla" ></mat-icon>
+                <div class="texto">{{ this.servicio.rTraduccion()[3354] }}</div>
+            </button>
+        </div>
+        <div class="contenedorScroll" cdkScrollable>
+            <div class="dobleColumna" @esquema [ngClass]="{ todoInvisible: !verMapa && !verExcel }">
+                <div class="mapa" @esquema [ngClass]="{ mapaInvisible: !verMapa }" [ngStyle]="{ 'max-width': (verExcel ? '60%' : '100%') }">
+                    <div @esquema_top class="nombreMapa" *ngIf="configuracion.ver_nombre_planta && verNombre && mapa.nombre">{{ nombreMapa }}</div>
+                    <svg id="canvas" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    </svg>
+                    
+                </div>
+                <div class="excel" [ngStyle]="{ 'margin-left': (verMapa ? '5px' : '0px'), 'max-width': (verMapa ? '40%' : '100%') }" @esquema *ngIf="verExcel">
+
+                    <div class="columnas">
+                        <div class="nombreMaquina" [style.fontWeight]="500" [style.flex]="1">{{ cadCarrusel }}</div>
+                        <div @esquema_top class="nombreMaquina" [style.flex]="2">{{ equipo.nlinea + ' / ' + equipo.nequipo }}</div>
+                    </div>
+                    
+                    <div class="equipoIndicadores" @esquema *ngIf="cambio">
+
+                        
+                        <div class="equipoOEE" [ngClass]="{ indicadorBorderRojo: +equipo.oee < +equipo.esperadooee, indicadorBorderVerde: +equipo.oee >= +equipo.esperadooee }">
+                            <div class="esperadoefi" [ngClass]="{ indicadorRojo: +equipo.oee < +equipo.esperadooee, indicadorVerde: +equipo.oee >= +equipo.esperadooee }">{{ (equipo.esperadooee | number:parIndicador) + '%'}}</div>
+                            <mat-icon class="iconPB_4" *ngIf="equipo.oee_imagen!=0" [style.color]="equipo.oee_imagen == 2 ? configuracion.bajo_color : configuracion.alto_color" [ngClass]="{ oeeSubir: equipo.oee_imagen == 1, oeeBajar: equipo.oee_imagen == 2 }" [svgIcon]="equipo.imagenOEE" ></mat-icon>
+                            <div class="valorEFI" [style.color]="colorEFI">{{ (equipo.oee | number:parIndicador) + '%' }}</div>
+                            <dx-circular-gauge id="gaugeOEE" [value]="equipo.oee" [subvalues]="equipo.oee">
+                                (equipo.oee | number:parIndicador) + '%'
+                                <dxo-animation [enabled]="animadoOEE"></dxo-animation>
+                                <dxo-subvalue-indicator
+                                    type="triangleMarker"
+                                    [color]="colorEFI"
+                                    [offset]="3">
+                                </dxo-subvalue-indicator>
+                                <dxo-scale
+                                    [startValue]="0"
+                                    [endValue]="100"
+                                    [tickInterval]="20">
+                                    <dxo-tick [color]="colorEFI"></dxo-tick>
+                                    <dxo-label [useRangeColors]="true" indentFromTick="1">
+                                        <dxo-font [size]="20" weight="600"></dxo-font>
+                                    </dxo-label>
+                                </dxo-scale>
+                                <dxo-value-indicator
+                                    type="triangleNeedle"
+                                    [color]="colorEFI"
+                                    width="15"
+                                    [offset]="5">
+                                
+                                </dxo-value-indicator>
+                                <dxo-range-container width="10">
+                                    <dxi-range [startValue]="0" [endValue]="configuracion.bajo_hasta" [color]="configuracion.bajo_color"></dxi-range>
+                                    <dxi-range [startValue]="configuracion.bajo_hasta" [endValue]="configuracion.medio_hasta" [color]="configuracion.medio_color"></dxi-range>
+                                    <dxi-range [startValue]="configuracion.medio_hasta" [endValue]="100" [color]="configuracion.alto_color"></dxi-range>
+                                </dxo-range-container>
+                                <dxo-title
+                                    [text]="lit_OEE"
+                                    horizontalAlignment="center"
+                                    verticalAlignment="bottom">
+                                    <dxo-font
+                                        [size]="24"
+                                        [color]="colorEFI"
+                                        [weight]="800">
+                                    </dxo-font>
+                                </dxo-title>
+                                
+                            </dx-circular-gauge>
+                        </div>
+
+                        <div class="equipoEFI" [ngClass]="{ indicadorBorderRojo: +equipo.dis < +equipo.esperadodis, indicadorBorderVerde: +equipo.dis >= +equipo.esperadodis }">
+                            <div class="esperadoefi" [ngClass]="{ indicadorRojo: +equipo.dis < +equipo.esperadodis, indicadorVerde: +equipo.dis >= +equipo.esperadodis }">{{ (equipo.esperadodis | number:parIndicador) + '%'}}</div>
+                            <mat-icon class="iconPB_4" *ngIf="equipo.dis_imagen!=0" [style.color]="equipo.dis_imagen == 2 ? configuracion.bajo_color : configuracion.alto_color" [ngClass]="{ oeeSubir: equipo.dis_imagen == 1, oeeBajar: equipo.dis_imagen == 2 }" [svgIcon]="equipo.imagenDIS" ></mat-icon>
+                            <div class="valorEFI" [style.color]="colorEFI">{{ (equipo.dis | number:parIndicador) + '%' }}</div>
+                            <dx-circular-gauge id="gauge" [value]="equipo.dis" [subvalues]="equipo.dis">
+                                <dxo-animation [enabled]="animadoDIS"></dxo-animation>
+                                <dxo-subvalue-indicator
+                                type="triangleMarker"
+                                [color]="colorEFI"
+                                [offset]="3">
+                                </dxo-subvalue-indicator>
+                                <dxo-scale
+                                    [startValue]="0"
+                                    [endValue]="100"
+                                    [tickInterval]="20">
+                                    <dxo-tick [color]="colorEFI"></dxo-tick>
+                                    <dxo-label [useRangeColors]="true" indentFromTick="1">
+                                        <dxo-font [size]="20" weight="600"></dxo-font>
+                                    </dxo-label>
+                                    
+                                </dxo-scale>
+                                <dxo-value-indicator
+                                    type="triangleNeedle"
+                                    [color]="colorEFI"
+                                    width="15"
+                                    [offset]="5">
+                                </dxo-value-indicator>
+                                <dxo-range-container width="10">
+                                    <dxi-range [startValue]="0" [endValue]="configuracion.bajo_hasta" [color]="configuracion.bajo_color"></dxi-range>
+                                    <dxi-range [startValue]="configuracion.bajo_hasta" [endValue]="configuracion.medio_hasta" [color]="configuracion.medio_color"></dxi-range>
+                                    <dxi-range [startValue]="configuracion.medio_hasta" [endValue]="100" [color]="configuracion.alto_color"></dxi-range>
+                                </dxo-range-container>
+                                <dxo-title
+                                    [text]="lit_DIS"
+                                    horizontalAlignment="center"
+                                    verticalAlignment="bottom">
+                                    <dxo-font
+                                    [size]="24"
+                                    [color]="colorEFI"
+                                    [weight]="800">
+                                    </dxo-font>
+                                </dxo-title>
+                            </dx-circular-gauge>
+                        </div>
+                
+
+                        <div class="equipoEFI" [style.minWidth.%]="33" [style.flex]="1" [ngClass]="{ detenido: equipo.estatus == 'D', funcionando: equipo.estatus == 'F' }">
+                            <div class="ordenValTitulo_a">{{ equipo.estatus == 'F' ? this.servicio.rTraduccion()[2193] : this.servicio.rTraduccion()[2194] }}</div>
+                            <div class="ordenValBottom_a">{{ equipo.estadoDesde }}</div>
+                        </div>
+                        
+                        <div class="equipoEFI" [style.flex]="2" *ngIf="verMetas">
+                            <div class="actualDataOP">                        
+                                <div class="ordenVal">{{ equipo.produccion * 1  }}</div>
+                                <div class="ordenTit">{{ this.servicio.rTraduccion()[2195] }}</div>
+                            </div>
+                            <div class="actualDataOP">                        
+                                <div class="ordenVal">{{ equipo.objetivo * 1  }}</div>
+                                <div class="ordenTit">{{ this.servicio.rTraduccion()[2196] }}</div>
+                            </div>
+                        </div>
+
+                        <div class="equipoEFI" [style.display]="block" [style.padding.px]="10" [style.flex]="2" *ngIf="verRates && rateActual==-100">
+                            <div class="actualDataOP">                        
+                                <div class="ordenVal">{{ equipo.oee_estado_cambio | date:this.servicio.rIdioma().fecha_02  }}</div>
+                                <div class="ordenTit">{{ lit_rateActual }}</div>
+                            </div>
+                            <div class="actualDataOP">                        
+                                <div class="ordenVal">{{ equipo.tiempoestado }}</div>
+                                <div class="ordenTit">{{ trabajandoDesde }}</div>
+                            </div>
+                        </div>
+
+                        <div class="equipoEFI" [style.display]="block" [style.padding.px]="10" [style.flex]="2" *ngIf="verRates && rateActual!=-100">
+
+                            <div class="actualDataOP">                        
+                                <div class="ordenVal">{{ (rateActual | number:parRate) + ' ' + equipo.ratemed  }}</div>
+                                <div class="ordenTit">{{ lit_rateActual }}</div>
+                            </div>
+
+                            <div class="actualDataOPError" @arriba [style.marginLeft.px]="4" *ngIf="equipo.rate_efecto == 'B' || equipo.rate_efecto == 'A'">
+                                <div class="ordenValError">{{ equipo.rate_efecto == 'B' ? this.servicio.rTraduccion()[2253] : this.servicio.rTraduccion()[2256] }}</div>
+                                <div class="ordenTitError">{{ tiempoRate }}</div>
+                            </div>
+
+                            <div class="actualDataOP" @arriba [style.marginLeft.px]="4" *ngIf="equipo.rate_efecto != 'B' && equipo.rate_efecto != 'A'">                        
+                                <div class="ordenVal" *ngIf="equipo.rate_teorico==-100">DESEMPEÑO POR USO</div>
+                                <div class="ordenVal" *ngIf="equipo.rate_teorico!=-100">{{ (equipo.rate_teorico | number:parRate) + ' ' + equipo.ratemed }}</div>
+                                <div class="ordenTit">{{ lit_rateTeorico }}</div>
+                            </div>
+
+
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reporte" @esquema *ngIf="verReporte" [ngStyle]="{ 'margin-top': (verMapa || verExcel ? '5px' : '0px'), 'max-height': (verMapa || verExcel ? '255px' : '100%'), 'min-height': (verMapa || verExcel ? '255px' : '100%') }">
+                <div class="cabecera_2" @esquema>
+                    <div class="tablaCab">
+                        <div class="col00" ></div>
+                        <div class="col11" >{{ this.servicio.rTraduccion()[150] }}</div>
+                        <div class="col12" >{{ this.servicio.rTraduccion()[152] }}</div>
+                        <div class="col13_t">{{ this.servicio.rTraduccion()[570] }}</div>
+                        <div class="col04" >{{ this.servicio.rTraduccion()[562] }}</div>
+                        <div class="col03" >{{ this.servicio.rTraduccion()[5] }}</div>
+                        <div class="col03"  *ngIf="!movil">{{ this.servicio.rTraduccion()[2] }}</div>
+                        <div class="col03"  *ngIf="!movil">{{ this.servicio.rTraduccion()[4] }}</div>
+                        <div class="col03"  *ngIf="!movil">{{ this.servicio.rTraduccion()[3] }}</div>
+                    </div>
+                </div>
+
+                <div class="tabla" @esquema>
+                    <div class="ayudaCampo" *ngIf="registros.length==0 && listoMostrar">{{ this.servicio.rTraduccion()[2192] }}</div>
+                    <div class="tablaItems">    
+                        <div class="tablaDet" @esquema_del class="tablaDet" *ngFor="let registro of registros; let i = index" (mouseover)="arreHover[i]=true;" (mouseout)="arreHover[i]=false;" [ngClass]="{ tabHover: arreHover[i], tablaDetS: sondeo==registro.id }">
+                            <div class="col00">
+                                <mat-icon class="iconoBarras iconPB_2" [svgIcon]="(registro.estatus == 0 ? 'i_falla' : 'i_revisando')"></mat-icon>
+                            </div>
+                            <div class="col11_2">{{ registro.id }}</div>
+                            <div class="col12">{{ registro.fechac | date:this.servicio.rIdioma().fecha_03 }}</div>
+                            <div *ngIf="contarTiempo" [ngClass]="{ col13: (registro.alarmado_atender != 'S' && registro.estatus == 0) || (registro.alarmado_atendido != 'S' && registro.estatus == 10), col13_a: (registro.alarmado_atender == 'S' && registro.estatus == 0) || (registro.alarmado_atendido == 'S' && registro.estatus == 10) }">{{ arreTiempos[i] }}</div>
+                            <div class="col04">{{ (registro.estatus == 0 ? this.servicio.rTraduccion()[2190] : this.servicio.rTraduccion()[2191]) }}</div>
+                            <div class="col03">{{ registro.nfalla }}</div>
+                            <div class="col03"  *ngIf="!movil">{{ registro.nlinea }}</div>
+                            <div class="col03" *ngIf="!movil">{{ registro.narea }}</div>
+                            <div class="col03" *ngIf="!movil">{{ registro.nmaquina }}</div>
+                        </div>    
+                    </div>                
+                </div>
+            </div>
+        </div>
+    </div> 
+</div> 
+

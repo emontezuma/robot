@@ -1,0 +1,27 @@
+<div class="contenido" class="mat-typography">
+    <div class="cabecera" mat-dialog-title>
+        <mat-icon class="iconoBarras iconPB_2" svgIcon="i_user"></mat-icon>
+        <span class="titulo">{{ this.servicio.rTraduccion()[545] }}</span>
+    </div>
+    
+    
+    <div class="registroCampo">
+        <div class="registroTitulo">{{ this.servicio.rTraduccion()[546] }}</div>    
+        <mat-form-field class="cajaTexto_2">
+            <input matInput [(ngModel)]="clave" type="password" maxlength="16" autocomplete="off">
+        </mat-form-field>                            
+        <span class="ayudaCampo_2">{{ this.servicio.rTraduccion()[547] }}</span>       
+    </div>
+
+    <div class="pie" mat-dialog-actions>
+        <button class="positivo indice" mat-button (mouseover)="validar01=true;" (mouseout)="validar01=false;" [ngClass]="{ botHover: validar01 }" (click)="validar(1)">
+            <mat-icon class="iconPB_3" svgIcon="in_seleccionado"></mat-icon>
+            <span class="botTexto">{{ datos.boton1STR }}</span>
+        </button>
+        <button class="boton indice" mat-button (mouseover)="validar02=true;" (mouseout)="validar02=false;" [ngClass]="{ botHover: validar02 }" (click)="validar(2)">
+            <mat-icon class="iconPB" svgIcon="i_cancelar"></mat-icon>
+            <span class="botTexto">{{ this.servicio.rTraduccion()[77] }}</span>
+        </button>
+    </div>
+</div>
+    
